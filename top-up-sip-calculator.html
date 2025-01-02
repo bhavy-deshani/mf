@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Top Up SIP Calculator integrated</title>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-md-8">
+            <div class="container">
+                <h2 class="py-3 text-center fw-bold ">Top Up SIP </h2>
+                <div class="row border p-3 rounded-3 shadow justify-content-between">
+                    <div class="col-md-3">
+                        <div>
+                            <img src="assets/images/gallery/goal-based-top-up-sip.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-5 border rounded-3">
+                        <form id="goalBasedTopUpSIPForm" class="mt-4">
+                            <div class="form-group calculator mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <label for="goalAmount">Goal Amount:</label>
+                                    <input type="number" class="form-control" id="goalAmount" value="1000000"
+                                        style="width: 32%;" required>
+                                </div>
+                                <input type="range" class="" id="goalAmountRange" min="0" max="10000000" step="10000"
+                                    value="1000000">
+                            </div>
+                            <div class="form-group calculator mb-4 ">
+                                <div class="d-flex justify-content-between">
+                                    <label for="expectedReturn">Expected Rate of Return (%):</label>
+                                    <input type="number" step="1" min="1" max="25" class="form-control"
+                                        id="expectedReturn" value="8" style="width: 32%;" required>
+                                </div>
+                                <input type="range" id="expectedReturnRange" step="1" min="1" max="25" value="8">
+                            </div>
+                            <div class="form-group calculator mb-4 ">
+                                <div class="d-flex justify-content-between">
+                                    <label for="investmentPeriod">Investment Period (Years):</label>
+                                    <input type="number" class="form-control" min="1" max="100" step="1"
+                                        id="investmentPeriod" value="10" style="width: 32%;" required>
+                                </div>
+                                <input type="range" id="investmentPeriodRange" min="1" max="100" step="1" value="10">
+                            </div>
+                            <div class="form-group calculator mb-4 ">
+                                <div class="d-flex justify-content-between">
+                                    <label for="sipTopUpValue">SIP Top-up Value (%):</label>
+                                    <input type="number" step="1" min="1" max="100" class="form-control"
+                                        id="sipTopUpValue" value="5" style="width: 32%;" required>
+                                </div>
+                                <input type="range" id="sipTopUpValueRange" class="w-100" min="1" max="100" step="1"
+                                    value="5">
+                            </div>
+                        </form>
+                        <!-- <form id="goalBasedTopUpSIPForm" class="mt-4">
+                            <div class="form-group py-2">
+                                <label for="goalAmount">Goal Amount:</label>
+                                <input type="text" class="form-control" id="goalAmount" required>
+                            </div>
+                            <div class="form-group py-2">
+                                <label for="expectedReturn">Expected Rate of Return (%):</label>
+                                <input type="text" class="form-control" id="expectedReturn" required>
+                            </div>
+                            <div class="form-group py-2">
+                                <label for="investmentPeriod">Investment Period (Years):</label>
+                                <input type="number" class="form-control" id="investmentPeriod" required>
+                            </div>
+                            <div class="form-group py-2">
+                                <label for="sipTopUpValue">SIP Top-up Value (%):</label>
+                                <input type="text" class="form-control" id="sipTopUpValue" required>
+                            </div>
+                            <div class="d-flex gap-3 py-2">
+                                <div class="text-center">
+                                    <button type="submit" class="bg-b py-2 text-white  rounded-2 px-3 border-0">Calculate</button>
+                                </div>
+                                <div class="text-center">
+                                    <a href="https://www.integratedindia.in/caoportfolio/nv2/MEXV/MFExplore.aspx?OSID=4d4j0z1qk3d1o32k0ik0efyr&TranParam=X1tq5fK8UnjjQCa1JOIsrQ=="
+                                        target="_blank" alit="Invest Now in SIP" title="Invest Now in SIP"
+                                        id="MF_SIP_AI_IN_BN">
+                                        <button id="invest-now" class="bg-g py-2  rounded-2 px-3 border-0">Invest Now</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </form> -->
+                        <!-- <div id="result"></div> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-12">
+                            <div class="d-flex gap-3 justify-content-center py-3">
+                                <div class="d-flex gap-2 ">
+                                    <div class="bg-b1 dots "></div> <span class=" text-b">Wealth Gained</span>
+                                </div>
+                                <div class="d-flex gap-2 ">
+                                    <div class="bg-g dots"></div> <span class=" text-b">Invested Amount</span>
+                                </div>
+                            </div>
+                            <div class="col-6 py-4 m-auto overflow-hidden">
+                                <canvas id="resultChart"></canvas>
+                            </div>
+                            <div class="col-md-12 overflow-auto " id="result">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <a href="financial-calculators.html" class="fw-bold">
+                        Back
+                    </a>
+                </div>
+
+            </div>
+        </section>
+        
+    </main>
+  <script src="assets/js/jquery-3.5.1.js"></script>
+  <script src="vendors/@popperjs/popper.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.min.js"></script>    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/calculator-sip-top-up.js"></script>
+    
+</body>
+
+</html>

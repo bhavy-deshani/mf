@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <section>
+        <div class="container py-5">
+            <div class="border rounded-5">
+                <div class="text-center py-3 ">
+                    <h2 class="fw-bold ">SIP Calculator </h2>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4">
+                        <div>
+                            <img loading="lazy" class="img-fluid" src="./img/sip-01.webp" alt="Sip calculator">
+                        </div>
+                    </div>
+                    <div class=" col-lg-4 m-y">
+                        <div class="border rounded-5 p-4">
+                            <div>
+                                <div class="row py-2 justify-content-between align-items-center">
+                                    <div class=" col-8">Monthly SIP Amount</div>
+                                    <div class="col-4 bg-gr py-1">
+                                        <div class="d-flex justify-content-end gap-1">
+                                            <span>&#8377;</span>
+                                            <input type="tel" class=" text-end border-0 ps-2 bg-gr "
+                                                id="monthly-sip-value" style="max-width: 69px;"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="range" id="monthly-sip" step="500" min="1000" max="1000000"
+                                    value="15000" oninput="syncTextInput('monthly-sip')">
+                            </div>
+                            <div>
+                                <div class="row py-2 justify-content-between align-items-center">
+                                    <div class=" col-8">SIP Period</div>
+                                    <div class="col-4 bg-gr py-1">
+                                        <div class="d-flex justify-content-end gap-1">
+                                            <input type="text" class=" text-end border-0 bg-gr"
+                                                id="sip-period-value" value="10" style="max-width: 60px;"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                            <span class="">Yr</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="range" id="sip-period" min="1" max="30" value="10"
+                                    oninput="syncTextInput('sip-period')">
+                            </div>
+                            <div>
+                                <div class="row py-2 justify-content-between align-items-center">
+                                    <div class=" col-8">Expected Return Rate (p.a.)</div>
+                                    <div class="col-4 bg-gr py-1">
+                                        <div class="d-flex justify-content-end gap-1 ">
+                                            <input type="text" id="return-rate-value"
+                                                class=" text-end bg-gr border-0 " value="12"
+                                                style="max-width: 60px;"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                            <span>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="range" id="return-rate" min="5" max="30" value="12"
+                                    oninput="syncTextInput('return-rate')">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a href="https://www.integratedindia.in/caoportfolio/nv2/MEXV/MFExplore.aspx?OSID=4d4j0z1qk3d1o32k0ik0efyr&TranParam=X1tq5fK8UnjjQCa1JOIsrQ=="
+                                target="_blank" alit="Invest Now in SIP" title="Invest Now in SIP" id="MF_SIP_AI_IN_BN">
+                                <button id="invest-now">Invest Now</button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="chart-container m-auto">
+                            <div class="d-flex gap-2 justify-content-center py-3">
+                                <div class="d-flex gap-2 ">
+                                    <div class="bg-b1 dots "></div> <span class="fs--1">Wealth Gained</span>
+                                </div>
+                                <div class="d-flex gap-2 ">
+                                    <div class="bg-g dots"></div> <span class="fs--1">Invested Amount</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8  position-relative m-auto ">
+                                <img loading="lazy" class="position-absolute img-fluid rounded-5 img-op"
+                                    src="./img/new-logo-03.webp" alt="integrated" title="integrated">
+                                <canvas id="sip-chart"></canvas>
+                            </div>
+                            <div class="chart-info">
+                                <div id="invested-amount-display"></div>
+                                <div id="wealth-gained-display"></div>
+                                <div id="total-wealth-display"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    sc
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Goal Setting integrated</title>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section>
+            <div class="container">
+                <h1 class="text-center mt-5 py-3 fw-bold">Goal Savings </h1>
+                <div class="row justify-content-between border rounded-3 shadow  p-3">
+                    <div class="col-md-3">
+                        <div>
+                            <img src="assets/images/gallery/goal-setting.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-5 border rounded-3 shadow  p-3">
+                        <form id="goalCalculatorForm">
+                            <div class="form-group calculator mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <label for="years">Number of years:</label>
+                                    <input type="number" class="form-control" id="years" value="10" style="width: 30%;"
+                                        required min="1" max="50" step="1">
+                                </div>
+                                <input type="range" id="yearsRange" min="1" max="50" step="1" value="10">
+                            </div>
+                            <div class="form-group calculator mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <label for="dreamAmount">Dream amount:</label>
+                                    <input type="number" class="form-control" id="dreamAmount" value="1000000"
+                                        style="width: 30%;" required min="100000" max="100000000" step="1000">
+                                </div>
+                                <input type="range" id="dreamAmountRange" min="100000" max="100000000" step="1000"
+                                    value="1000000">
+                            </div>
+                            <div class="form-group calculator mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <label for="inflationRate">Inflation rate (%):</label>
+                                    <input type="number" step="0.1" class="form-control" id="inflationRate" value="5"
+                                        style="width: 30%;" required min="1" max="20">
+                                </div>
+                                <input type="range" id="inflationRateRange" min="1" max="20" step="1" value="5">
+                            </div>
+                            <div class="form-group calculator mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <label for="expectedReturn">Expected return (%):</label>
+                                    <input type="number" step="0.1" class="form-control" id="expectedReturn" value="10"
+                                        min="1" max="30" step="1" style="width: 30%;" required>
+                                </div>
+                                <input type="range" id="expectedReturnRange" min="1" max="30" step="1" value="10">
+                            </div>
+                            <div class="form-group calculator mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <label for="savingsAmount">Current savings amount:</label>
+                                    <input type="number" class="form-control" id="savingsAmount" value="50000"
+                                        max="10000000" step="1000" style="width: 30%;">
+                                </div>
+                                <input type="range" id="savingsAmountRange" min="0" max="10000000" step="1000"
+                                    value="50000">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="col-10 m-auto">
+                            <div class="d-flex gap-3 justify-content-center py-3">
+                                <div class="d-flex gap-2 ">
+                                    <div class="bg-b1 dots "></div> <span class="text-b">Invested Amount</span>
+                                </div>
+                                <div class="d-flex gap-2 ">
+                                    <div class="bg-g dots"></div> <span class="text-b">Total Earnings</span>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <canvas id="goalChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 overflow-auto">
+                    <div id="results">
+                        <div>
+                            <h4 class="my-4">Results</h4>
+                        </div>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>Your targeted Dream Amount:</td>
+                                    <td class="fw-bold" id="targetDreamAmount"></td>
+                                </tr>
+                                <tr>
+                                    <td>Growth of your Savings Amount:</td>
+                                    <td class="fw-bold" id="targetSavingsAmount"></td>
+                                </tr>
+                                <tr>
+                                    <td>Final Targeted Amount:</td>
+                                    <td class="fw-bold" id="targetAmount"></td>
+                                </tr>
+                                <tr>
+                                    <td>Monthly Savings Required:</td>
+                                    <td class="fw-bold" id="monthlySavings"></td>
+                                </tr>
+                                <tr>
+                                    <td>Invested Amount:</td>
+                                    <td class="fw-bold" id="investedAmount"></td>
+                                </tr>
+                                <tr>
+                                    <td>Total Earnings:</td>
+                                    <td class="fw-bold" id="totalEarnings"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div>
+                    <a href="financial-calculators.html" class="fw-bold">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+  <script src="assets/js/jquery-3.5.1.js"></script>
+  <script src="vendors/@popperjs/popper.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.min.js"></script>    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/calculator-goal-setting.js"></script>
+</body>
+
+</html>

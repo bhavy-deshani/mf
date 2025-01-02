@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Long Term Capital Gain Tax Calculator</title>
+    <style>
+        .result-box {
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .result-box h5 {
+            margin: 0.5rem 0;
+        }
+        .text-gr{
+            color: rgba(128, 128, 128, 0.705);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-md-7">
+            <div class="container">
+                <h2 class="text-center py-4 fw-bold">Long Term Capital Gain Tax </h2>
+                <div class="row border p-3 rounded-3 shadow justify-content-between ">
+                    <div class="col-md-3 m-y">
+                        <div>
+                            <img src="assets/images/gallery/long-term-capital-gain.webp" class="img-fluid" alt="">
+                        </div>
+
+                    </div>
+                    <div class="col-md-5 shadow border rounded-3 p-4">
+                        <div class="mb-3">
+                            <label for="boughtValue" class="form-label">Bought Value</label>
+                            <input type="text" id="boughtValue" class="form-control" placeholder="Enter Bought Value"
+                                value="10,000">
+                        </div>
+                        <div class="mb-3">
+                            <label for="soldValue" class="form-label">Sold Value</label>
+                            <input type="text" id="soldValue" class="form-control" placeholder="Enter Sold Value"
+                                value="1,50,000">
+                        </div>
+                        <div class="mb-3">
+                            <label for="longTermCapitalGain" class="form-label">Long Term Capital Gain</label>
+                            <input type="text" id="longTermCapitalGain" class="form-control" readonly>
+                        </div>
+                        <p class="info-text">
+                            <small class="text-gr">This calculator is applicable for stocks bought after 1st April, 2018 and sold on or after 23rd July, 2024.</small>
+                        </p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="result-box">
+                            <h5>Exemption</h5>
+                            <h2 id="exemption">₹ 0</h2>
+                            <h5>Taxable Capital Gain</h5>
+                            <h2 id="taxableGain">₹ 0</h2>
+                            <h5>Tax Amount (12.5%)</h5>
+                            <h2 id="taxAmount">₹ 0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="financial-calculators.html" class="fw-bold">
+                        Back
+                    </a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <!-- <script src="assets/js/jquery-3.5.1.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script>
+        // Format numbers as INR using the Indian number system
+ function formatINR(value, isDecimal = false) {
+     // Convert the number to a string and remove any non-numeric characters (e.g., ₹)
+     value = value.toString().replace(/[^\d.]/g, '');
+ 
+     // Handle edge cases for very small numbers or zero
+     if (value === "0" || value === "") return " 0";
+ 
+     // Separate the decimal part if any
+     let [whole, decimal] = value.split('.');
+     decimal = decimal ? (isDecimal ? '.' + decimal : '') : '';
+ 
+     // Separate the last three digits and the rest of the number
+     let lastThree = whole.slice(-3);
+     let otherNumbers = whole.slice(0, -3);
+ 
+     // Add commas to the other numbers in pairs of two (Indian Numbering System)
+     if (otherNumbers) {
+         otherNumbers = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+     }
+ 
+     // Combine the two parts
+     return  otherNumbers + (otherNumbers ? ',' : '') + lastThree + decimal;
+ }
+ 
+ // Remove non-numeric characters from input except for the ₹ symbol
+ function cleanInput(value) {
+     return value.replace(/[^\d]/g, '');
+ }
+ 
+ // Function to calculate long-term capital gain and tax amount
+ function calculateLongTermGain() {
+     const boughtValue = parseFloat(cleanInput(document.getElementById('boughtValue').value)) || 0;
+     const soldValue = parseFloat(cleanInput(document.getElementById('soldValue').value)) || 0;
+ 
+     // Restrict max value to ₹1,000,000,000
+     const maxLimit = 1000000000;
+     const boughtValueLimited = Math.min(boughtValue, maxLimit);
+     const soldValueLimited = Math.min(soldValue, maxLimit);
+ 
+     // Calculate Long Term Capital Gain
+     const longTermCapitalGain = Math.max(soldValueLimited - boughtValueLimited, 0);
+ 
+     // Exemption Amount (Capped at ₹1,25,000, minimum is 0)
+     const exemption = Math.max(Math.min(longTermCapitalGain, 125000), 0);
+ 
+     // Calculate Taxable Capital Gain
+     const taxableGain = Math.max(longTermCapitalGain - exemption, 0);
+ 
+     // Calculate Tax Amount (12.5% of taxable gain, rounded to .50)
+     let taxAmount = taxableGain * 0.125;
+     taxAmount = Math.round(taxAmount * 2) / 2; // Ensures .50 rounding
+ 
+     // Update the DOM with proper formatting
+     document.getElementById('longTermCapitalGain').value = formatINR(longTermCapitalGain);
+     document.getElementById('exemption').textContent = formatINR(exemption);
+     document.getElementById('taxableGain').textContent = formatINR(taxableGain);
+     document.getElementById('taxAmount').textContent = formatINR(taxAmount, taxAmount % 1 !== 0);
+ }
+ 
+ // Event Listeners for INR Formatting and Calculation
+ document.getElementById('boughtValue').addEventListener('input', function (e) {
+     const value = cleanInput(e.target.value);
+ 
+     // Check if value exceeds maxLimit
+     if (parseInt(value) > 1000000000) {
+         e.target.value = formatINR('1000000000'); // Limit the value
+     } else {
+         e.target.value = value ? formatINR(value) : '';
+     }
+ 
+     calculateLongTermGain();
+ });
+ 
+ document.getElementById('soldValue').addEventListener('input', function (e) {
+     const value = cleanInput(e.target.value);
+ 
+     // Check if value exceeds maxLimit
+     if (parseInt(value) > 1000000000) {
+         e.target.value = formatINR('1000000000'); // Limit the value
+     } else {
+         e.target.value = value ? formatINR(value) : '';
+     }
+ 
+     calculateLongTermGain();
+ });
+ 
+ // Initial Calculation
+ calculateLongTermGain();
+ 
+     </script>
+</body>
+
+</html>

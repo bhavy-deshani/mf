@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Referral Link</title>
+    <meta name="msvalidate.01" content="4D141547917CF9659F69B69759BF1127"   /><!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PT9GLCS');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PT9GLCS" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-8">
+            <div class="container">
+                <div>
+                    <h4 class="fw-bold py-2 bg-primary text-white text-center">
+                        Generate your referral link message, to open DigiTrade A/c* for your Friends and Relatives.
+                    </h4>
+                    <div class="d-flex flex-wrap justify-content-end">
+                        <p class="text-primary fw-bold">*Trading Cum Demat Account</p>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col-md-6">
+                        <div>
+                            <img src="assets/images/gallery/referral-link.png" class="img-fluid" alt="Referral Link Image">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="border shadow rounded-3 p-3 h-100">
+                            <form id="otpForm">
+                                <div class="mb-3 d-flex flex-wrap  justify-content-between">
+                                    <div class="col-md-4 col-12">
+                                        <label for="PANNoTxt" class="form-label">Enter PAN</label>
+                                    </div>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" name="PANNoTxt" id="PANNoTxt" class="w-100 rounded-2 p-1 border-1" placeholder="PAN" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 d-flex flex-wrap justify-content-between">
+                                    <div class="col-md-4 col-12">
+                                        <label for="MobileNoTxt" class="form-label">Enter Mobile No</label>
+                                    </div>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" name="MobileNoTxt" id="MobileNoTxt" class="w-100 rounded-2 p-1 border-1" placeholder="Mobile No" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 d-flex flex-wrap justify-content-between">
+                                    <div class="col-md-4 col-12">
+                                        <label for="CaptchaTxt" class="form-label">Security Code</label>
+                                    </div>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" name="CaptchaTxt" id="CaptchaTxt" class="rounded-2 p-1 border-1" required>
+                                        <img id="CaptchImg" src="" alt="Captcha Image" class="img-fluid" style="height: 30px;">
+                                    </div>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input type="checkbox" class="form-check-input" id="agreementCheck" checked >
+                                    <label class="form-check-label" for="agreementCheck">
+                                        I agree to receive updates and messages from Integrated through WhatsApp, SMS, and Email. I authorize Integrated to call me regarding any information pertaining to my account.
+                                    </label>
+                                </div>
+                                <div class="d-flex flex-wrap flex-wrap justify-content-center">
+                                    <button type="button" class="bg-g text-white py-1 border-0 rounded-2 me-2 col-3" onclick="getOtp()">Get OTP</button>
+                                    <button type="reset" class="bg-g text-white py-1 border-0 rounded-2 col-3">Reset</button>
+                                </div>
+                            </form>
+                            <form id="verifyOtpForm" class="mt-4 hidden">
+                                <div class="mb-3 d-flex flex-wrap justify-content-between">
+                                    <div class="col-md-4 col-12">
+                                        <label for="PANNoTxt2" class="form-label">PAN No</label>
+                                    </div>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" name="PANNoTxt2" id="PANNoTxt2" class="w-100 rounded-2 p-1 border-0" placeholder="PAN" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 d-flex flex-wrap justify-content-between">
+                                    <div class="col-md-4 col-12">
+                                        <label for="MobileNoTxt2" class="form-label">Mobile No</label>
+                                    </div>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" name="MobileNoTxt2" id="MobileNoTxt2" class="w-100 rounded-2 p-1 border-0" placeholder="Mobile No" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="OtpTxt" class="form-label">Enter OTP</label>
+                                    <input type="text" name="OtpTxt" id="OtpTxt" class="form-control" required>
+                                </div>
+                                <div class="d-flex flex-wrap justify-content-between">
+                                    <button type="button" class="btn btn-primary" onclick="verifyOtp()">Verify</button>
+                                    <button type="button" class="btn btn-secondary" onclick="resendOtp()">Resend OTP</button>
+                                </div>
+                                <div class="mt-2">
+                                    <p id="otpStatus" class="text-success"></p>
+                                </div>
+                            </form>
+                            <div class="mt-4 text-justify ">
+                                <h4 class="fw-bold">Please Note :-</h4>
+                                <div class="d-flex gap-3">
+                                    <div class="col-1">
+                                        <div>
+                                            <img src="assets/images/gallery/writing.png" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <p>You will get the referral link on your Registered mobile number.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <div class="col-1">
+                                        <div>
+                                            <img src="assets/images/gallery/writing.png" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <p>Share the referral link with your Friends and Relatives.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <div class="col-1">
+                                        <div>
+                                            <img src="assets/images/gallery/writing.png" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <p>Last date to generate link is 15th September  2024.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <div class="col-1">
+                                        <div>
+                                            <img src="assets/images/gallery/writing.png" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <p>Link valid till 30th September  2024.</p>
+                                    </div>
+                                </div>
+                                <h4 class="fw-bold bg-b py-1 px-2 rounded-2 text-white ">Rewards</h4>
+                                <div class="d-flex gap-3">
+                                    <div class="col-1">
+                                        <div>
+                                            <img src="assets/images/gallery/gift-box.png" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <p> <b>Earn 10% of brokerage</b> generated till 31st December 2024.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <div class="col-1">
+                                        <div>
+                                            <img src="assets/images/gallery/gift-box.png" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <p> Reward will be credited during Second week of Jan 2025</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center py-3 "> Terms & Conditions Apply.  For Disclaimer,<a href="https://www.integratedindia.in/disclaimer.html"> click here</a></p>
+            </div>
+        </section>
+        
+    </main>
+  <script src="assets/js/jquery-3.5.1.js"></script>
+  <script src="vendors/@popperjs/popper.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.min.js"></script>    <script src="assets/js/theme.js"></script>
+
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/chartbot.js"></script>
+
+    <script>
+        function validatePAN(pan) {
+            const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            return panRegex.test(pan);
+        }
+
+        function validateMobile(mobile) {
+            const mobileRegex = /^[6-9]\d{9}$/;
+            return mobileRegex.test(mobile);
+        }
+
+        function validateOtp(otp) {
+            const otpRegex = /^\d{6}$/;
+            return otpRegex.test(otp);
+        }
+
+        function toUpperCasePAN() {
+            const panInput = document.getElementById('PANNoTxt');
+            panInput.value = panInput.value.toUpperCase();
+        }
+
+        async function getOtp() {
+            const pan = document.getElementById('PANNoTxt').value;
+            const mobile = document.getElementById('MobileNoTxt').value;
+
+            if (!validatePAN(pan)) {
+                alert('Please enter a valid PAN number.');
+                return;
+            }
+
+            if (!validateMobile(mobile)) {
+                alert('Please enter a valid mobile number.');
+                return;
+            }
+
+            // Replace with your API call
+            const response = await fetch('https://your-api-url.com/get-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pan, mobile })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                document.getElementById('otpForm').classList.add('hidden');
+                document.getElementById('verifyOtpForm').classList.remove('hidden');
+                document.getElementById('PANNoTxt2').value = pan;
+                document.getElementById('MobileNoTxt2').value = mobile;
+                document.getElementById('otpStatus').textContent = `OTP sent successfully to your email and mobile.`;
+            } else {
+                alert('Error sending OTP: ' + data.message);
+            }
+        }
+
+        async function verifyOtp() {
+            const otp = document.getElementById('OtpTxt').value;
+
+            if (!validateOtp(otp)) {
+                alert('Please enter a valid 6-digit OTP.');
+                return;
+            }
+
+            // Replace with your API call
+            const response = await fetch('https://your-api-url.com/verify-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ otp })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert('OTP verified successfully.');
+            } else {
+                alert('Error verifying OTP: ' + data.message);
+            }
+        }
+
+        async function resendOtp() {
+            // You can use the same getOtp function or create a new one if the API endpoint differs
+            await getOtp();
+        }
+
+        document.getElementById('PANNoTxt').addEventListener('input', toUpperCasePAN);
+    </script>
+</body>
+
+</html>

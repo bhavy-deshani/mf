@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <style>
+        .contact-form {
+            box-shadow: 0 16px 24px 0 rgba(0, 0, 0, .06), 0 2px 6px 0 rgba(0, 0, 0, .04), 0 0 1px 0 rgba(0, 0, 0, .04);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            max-width: 600px
+        }
+
+        .contact-form input[type=email],
+        .contact-form input[type=text],
+        .contact-form select,
+        .contact-form textarea {
+            border: 1px solid rgba(46, 51, 55, .6);
+            border-radius: 8px;
+            padding: 10px 16px
+        }
+
+        /* Applying animations to gears */
+
+
+        @-webkit-keyframes bounce-2 {
+            0% {
+                transform: translate(-600px, 0)
+            }
+
+            100% {
+                transform: translate(-600px, -30px)
+            }
+        }
+
+        @keyframes bounce-2 {
+            0% {
+                transform: translate(-600px, 0)
+            }
+
+            100% {
+                transform: translate(-600px, -30px)
+            }
+        }
+
+        .section-shape-1 {
+            overflow-x: hidden
+        }
+
+        .section-shape-1::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #f2fbfa;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            width: 50vmax;
+            height: 100%;
+            display: block;
+            transform: translate(540px, 0);
+            z-index: -1;
+        }
+
+        .section-shape-1::after {
+            content: "";
+            position: absolute;
+            top: 75px;
+            right: -27vmax;
+            background-image: url("assets/images/gallery/section-shape-4-dots.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 101px;
+            height: 75px;
+            display: block;
+            transform: translate(-600px, 0);
+            z-index: -1;
+            -webkit-animation-name: bounce-2;
+            animation-name: bounce-2;
+            -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-play-state: running;
+            animation-play-state: running;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s
+        }
+
+
+
+        label {
+            margin-bottom: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="about-area section-shape-1 position-relative mt-8">
+            <div class="bg-holder"
+                style="background-image:url(assets/images/illustrations/hero-bg.webp);background-position:bottom;background-size:cover;">
+            </div>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 offset-lg-1 order-1 order-lg-2 wow animate__animated animate__fadeRight"
+                        data-wow-delay="0.2s">
+                        <div class="about-left-image"><img data-aos="fade-right"
+                                src="assets/images/gallery/select-your-risk-profile.webp" class="img-fluid" alt="title">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 wow animate__animated animate__fadeIn" data-wow-delay="0.2s">
+                        <div class="section-title ms-lg-3">
+                            <h3 class="fw-bold mb-4">Select Your Risk Profile</h3>
+                            <div class="row row-cols-1 row-cols-lg-2 g-4 align-items-center">
+                                <!-- Conservative Option -->
+                                <div class="col">
+                                    <label class="custom-radio">
+                                        <input type="radio" name="riskProfile" id="conservative" value="Conservative"
+                                            onchange="showCalculatorOptions()" />
+                                        <span class="custom-label">Conservative</span>
+                                    </label>
+                                </div>
+                                <!-- Moderate Option -->
+                                <div class="col">
+                                    <label class="custom-radio">
+                                        <input type="radio" name="riskProfile" id="moderate" value="Moderate"
+                                            onchange="showCalculatorOptions()" />
+                                        <span class="custom-label">Moderate</span>
+                                    </label>
+                                </div>
+                                <!-- Aggressive Option -->
+                                <div class="col">
+                                    <label class="custom-radio">
+                                        <input type="radio" name="riskProfile" id="aggressive" value="Aggressive"
+                                            onchange="showCalculatorOptions()" />
+                                        <span class="custom-label">Aggressive</span>
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <label class="custom-radio simple-question-option">
+                                        <input type="radio" name="riskProfile" id="simple-questions"
+                                            value="simple-questions" onchange="showInvestmentSection()" />
+                                        <span class="custom-label">Answer Simple Questions</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="border my-3"></div>
+                            <!-- <hr> -->
+                            <!-- Simple Questions Option -->
+                            <p class="fw-bold">If you are not able to select your risk profile, please answer the
+                                following 3 simple questions</p>
+                            <!-- <div class="col">
+                                <label class="custom-radio simple-question-option">
+                                    <input type="radio" name="riskProfile" id="simple-questions"
+                                        value="simple-questions" onchange="showInvestmentSection()" />
+                                    <span class="custom-label">Answer Simple Questions</span>
+                                </label>
+                            </div> -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="showriskprofile" class="m-0 p-0">
+            <div class="container">
+                <div id="calculator-section" style="display: none;">
+                    <section class="pb-0">
+                        <div class="container">
+                            <h3 class="fw-bold text-center mb-5 ">Calculators</h3>
+                            <div class="row justify-content-center ">
+
+                                <div class="col-lg-3 col-md-4 col-sm-6 bo">
+                                    <a href="wealth-plus.html">
+                                        <div class="calculator-card text-center border-b shadow-sm">
+                                            <div class="card-body">
+                                                <img src="assets/images/gallery/wealth-plus.webp" class="img-fluid mb-3"
+                                                    alt="Goal Savings">
+                                                <h5 class="calculator-card-title">Wealth Plus</h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6 bo">
+                                    <a href="wealth-plus.html">
+                                        <div class="calculator-card text-center border-b shadow-sm">
+                                            <div class="card-body">
+                                                <img src="assets/images/gallery/goal-plus.webp" class="img-fluid mb-3"
+                                                    alt="Retirement Planning">
+                                                <h5 class="calculator-card-title">Goal Plus </h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6 bo">
+                                    <a href="wealth-plus.html">
+                                        <div class="calculator-card text-center border-b shadow-sm">
+                                            <div class="card-body">
+                                                <img src="assets/images/gallery/protect-plus.webp"
+                                                    class="img-fluid mb-3" alt="Goal Savings">
+                                                <h5 class="calculator-card-title">Protect Plus</h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Investment Section (appears when the link is clicked) -->
+                <div id="investmentSection" class="my-5" style="display: none;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="question-card">
+                                    <h4 class="fw-bold">How do you react to potential investment losses?</h4>
+                                    <form id="investmentForm">
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="reaction"
+                                                        id="sellImmediately" value="2">
+                                                    <label class="form-check-label" for="sellImmediately">Sell
+                                                        investments immediately</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="reaction"
+                                                        id="sellSome" value="4">
+                                                    <label class="form-check-label" for="sellSome">Sell some
+                                                        high-loss investments</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="reaction"
+                                                        id="doNothing" value="6">
+                                                    <label class="form-check-label" for="doNothing">Do nothing and
+                                                        wait for recovery</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input ms-0" type="radio" name="reaction"
+                                                        id="investMore" value="8">
+                                                    <label class="form-check-label m-y lh-base" for="investMore">
+                                                        Take advantage of the drop and invest more
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <h4 class="fw-bold">What is your attitude towards achieving returns higher than
+                                            fixed
+                                            deposits?</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="attitude"
+                                                        id="stronglyDisagree" value="1">
+                                                    <label class="form-check-label" for="stronglyDisagree">Strongly
+                                                        disagree</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="attitude"
+                                                        id="disagree" value="2">
+                                                    <label class="form-check-label" for="disagree">Disagree</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="attitude"
+                                                        id="agree" value="3">
+                                                    <label class="form-check-label" for="agree">Agree</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="attitude"
+                                                        id="stronglyAgree" value="4">
+                                                    <label class="form-check-label" for="stronglyAgree">Strongly
+                                                        agree</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <h4 class="fw-bold">How much of your investment portfolio might you need to
+                                            withdraw in the
+                                            next five years?</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="withdrawal"
+                                                        id="moreThan30" value="1.5">
+                                                    <label class="form-check-label" for="moreThan30">More than
+                                                        30%</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="withdrawal"
+                                                        id="20To30" value="3">
+                                                    <label class="form-check-label" for="20To30">20–30%</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="withdrawal"
+                                                        id="10To20" value="4.5">
+                                                    <label class="form-check-label" for="10To20">10–20%</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check d-flex gap-2">
+                                                    <input class="form-check-input m-y" type="radio" name="withdrawal"
+                                                        id="lessThan10" value="6">
+                                                    <label class="form-check-label" for="lessThan10">Less than
+                                                        10%</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="calculateScore()">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Graph column -->
+                            <div class="col-lg-4 graph-column mt-5">
+                                <div>
+                                    <h4 class="text-center fw-bold">Your Risk Profile</h4>
+                                    <div class="speedometer-container">
+                                        <img src="assets/images/gallery/graph.svg" alt=""
+                                            class="speedometer-img w-100 img-fluid">
+
+                                        <img id="needle" src="assets/images/gallery/niddle.svg" alt="Needle" />
+                                    </div>
+                                </div>
+                                <div class="riskLabel label-top" id="conservativeLabel">Conservative</div>
+                                <div class="riskLabel label-top" id="moderateLabel">Moderate</div>
+                                <div class="riskLabel label-top" id="aggressiveLabel">Aggressive</div>
+                                <div id="scoreResult">
+                                    <h4 id="resultMessage"></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <section class="pb-0" id="risk-calculators" style="display: none;">
+                            <div class="container">
+                                <h3 class="fw-bold text-center mb-5 ">Calculators</h3>
+                                <div class="row justify-content-center ">
+                                    <div class="col-lg-3 col-md-4 col-sm-6 bo">
+                                        <a href="wealth-plus.html">
+                                            <div class="calculator-card text-center border-b shadow-sm">
+                                                <div class="card-body">
+                                                    <img src="assets/images/gallery/wealth-plus.webp"
+                                                        class="img-fluid mb-3" alt="Goal Savings">
+                                                    <h5 class="calculator-card-title">Wealth Plus</h5>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-6 bo">
+                                        <a href="wealth-plus.html">
+                                            <div class="calculator-card text-center border-b shadow-sm">
+                                                <div class="card-body">
+                                                    <img src="assets/images/gallery/goal-plus.webp"
+                                                        class="img-fluid mb-3" alt="Retirement Planning">
+                                                    <h5 class="calculator-card-title">Goal Plus </h5>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-4 col-sm-6 bo">
+                                        <a href="wealth-plus.html">
+                                            <div class="calculator-card text-center border-b shadow-sm">
+                                                <div class="card-body">
+                                                    <img src="assets/images/gallery/protect-plus.webp"
+                                                        class="img-fluid mb-3" alt="Goal Savings">
+                                                    <h5 class="calculator-card-title">Protect Plus</h5>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="assets/js/jquery-3.5.1.js"></script>
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script>
+        window.onload = function () {
+            setTimeout(function () {
+                new WOW().init();
+            }, 100);
+        };
+    </script>
+
+    <script>
+        function showCalculatorOptions() {
+            const riskProfile = document.querySelector('input[name="riskProfile"]:checked');
+            if (riskProfile) {
+                document.getElementById('calculator-section').style.display = 'block';
+                document.getElementById('investmentSection').style.display = 'none';
+                scrollToSection('showriskprofile'); // Scroll to the desired section
+            }
+        }
+
+        function showInvestmentSection() {
+            const investmentSection = document.getElementById('investmentSection');
+
+            if (investmentSection) {
+                investmentSection.classList.remove('hidden');
+                investmentSection.style.display = 'block';
+                document.getElementById('calculator-section').style.display = 'none';
+                scrollToSection('showriskprofile'); // Scroll to the desired section
+            } else {
+                console.error('Investment section element not found.');
+            }
+
+            const riskProfile = document.querySelector('input[name="riskProfile"]:checked');
+            if (riskProfile) {
+                riskProfile.checked = true;
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+
+        function calculateScore() {
+            let totalScore = 0;
+
+            // Get selected values from radio buttons
+            const reaction = document.querySelector('input[name="reaction"]:checked');
+            const attitude = document.querySelector('input[name="attitude"]:checked');
+            const withdrawal = document.querySelector('input[name="withdrawal"]:checked');
+            // Ensure all questions are answered
+            if (!reaction || !attitude || !withdrawal) {
+                showResultMessage("Please answer all the questions.");
+                resetNeedle(); // Reset needle to flat position if answers are incomplete
+                return;
+            }
+            // Add up scores
+            totalScore += parseFloat(reaction.value);
+            totalScore += parseFloat(attitude.value);
+            totalScore += parseFloat(withdrawal.value);
+
+            // Ensure the score is between 4.5 and 18
+            totalScore = Math.max(4.5, Math.min(totalScore, 18));
+
+            // Calculate the needle angle based on the total score
+            let needleAngle = mapScoreToAngle(totalScore);
+            let riskCategory = '';
+            let riskDescription = '';
+
+            // Adjust the ranges for risk categories according to the new min-max score range
+            if (totalScore <= 8) {
+                riskCategory = 'Conservative';
+                riskDescription = 'Conservative : Low tolerance for risk; prioritizes stability over returns.';
+            } else if (totalScore > 8 && totalScore <= 14) {
+                riskCategory = 'Moderate';
+                riskDescription = 'Moderate : Willing to take some risk for moderate growth, balancing safety and returns.';
+            } else {
+                riskCategory = 'Aggressive';
+                riskDescription = 'Aggressive : Comfortable with high risks for higher returns, focused on long-term growth.';
+            }
+
+            // Display the result below the gauge
+            showResultMessage(`
+            <h4>Your total score: ${totalScore}</h4>
+            <p><strong>Risk Category:</strong> ${riskCategory}</p>
+            <p>${riskDescription}</p>
+        `, needleAngle, riskCategory);
+
+        }
+
+        function mapScoreToAngle(score) {
+            // Adjust the score range from 4.5–18 to an angle range of -90 to 45 degrees
+            const minScore = 4.5;
+            const maxScore = 18;
+            const minAngle = -85;
+            const maxAngle = 85;
+
+            return minAngle + ((score - minScore) / (maxScore - minScore)) * (maxAngle - minAngle);
+        }
+
+        function showResultMessage(message, needleAngle, riskCategory) {
+            const resultBox = document.getElementById('scoreResult');
+            resultBox.innerHTML = message;
+            resultBox.style.opacity = 1;
+
+            // Rotate the needle to the calculated angle (using the image element)
+            const needle = document.getElementById('needle');
+            needle.style.transform = `rotate(${needleAngle}deg)`; // Rotate the image based on score
+
+            // Show risk labels based on the risk category
+            document.getElementById('conservativeLabel').style.display = (riskCategory === 'Conservative') ? 'block' : 'none';
+            document.getElementById('moderateLabel').style.display = (riskCategory === 'Moderate') ? 'block' : 'none';
+            document.getElementById('aggressiveLabel').style.display = (riskCategory === 'Aggressive') ? 'block' : 'none';
+            document.getElementById('risk-calculators').style.display = 'block';
+        }
+
+        function resetNeedle() {
+            const needle = document.getElementById('needle');
+            needle.style.transform = `rotate(-90deg)`; // Reset needle to initial position
+        }
+    </script>
+</body>
+
+</html>

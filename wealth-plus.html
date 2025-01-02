@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico" />
+    <meta name="theme-color" content="#ffffff" />
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Wealth Plus Calculator Integrated</title>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-md-9">
+            <div class="container">
+                <h1 class="fw-bold text-center pb-3">Calculator</h1>
+                <div class="row border p-3 rounded-3 shadow">
+                    <div class="col-md-8 ">
+                        <form id="retirement-form">
+                            <div class="row justify-content-between align-content-center align-items-center">
+                                <div class="col-md-6">
+                                    <div class="form-group pb-3 calculator">
+                                        <div class="">
+                                            <label class="text-b" for="current_age">Current Age</label>
+                                            <input type="number" class="form-control" id="current_age" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group pb-3 calculator">
+                                        <div class="">
+                                            <label class="text-b" for="retirement_age">Retirement Age</label>
+                                            <input type="number" class="form-control" id="retirement_age" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group pb-3 calculator">
+                                        <label class="text-b" for="wealth_amount">Desired Wealth at Retirement</label>
+                                        <input type="text" class="form-control" id="wealth_amount" required
+                                            oninput="formatInputAsINR(this)" data-raw-value="" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group pb-3 calculator">
+                                        <div class="">
+                                            <label class="text-b" for="inflation_rate">Inflation Rate (%)</label>
+                                            <input type="number" class="form-control" id="inflation_rate" step="0.01"
+                                                required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group pb-3 calculator">
+                                        <div class="">
+                                            <label class="text-b" for="expected_return">Expected Return Rate (%)</label>
+                                            <input type="number" class="form-control" id="expected_return" step="0.01"
+                                                required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group pb-3 calculator">
+                                        <label class="text-b" for="savings_amount">Current Savings</label>
+                                        <input type="text" class="form-control" id="savings_amount" required
+                                            oninput="formatInputAsINR(this)" data-raw-value="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="float-start">
+                                <button type="button" id="calculate"
+                                    class="bg-b text-white px-3 py-1 rounded-3">Calculate</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <img src="assets/images/gallery/retierment.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+
+                    
+                </div>
+                <div class="col-12" id="results-container" style="display: none">
+                    <div>
+                        <div class="d-flex gap-3 justify-content-center py-3">
+                            <div class="d-flex gap-2">
+                                <div class="bg-b1 dots"></div>
+                                <span class="text-b">Invested Amount</span>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <div class="bg-g dots"></div>
+                                <span class="text-b">Total Earnings</span>
+                            </div>
+                        </div>
+                        <!-- Chart Section -->
+                        <div class="col-6 py-4 m-auto overflow-hidden">
+                            <canvas id="resultChart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Results Section -->
+                    <div id="results" class="overflow-auto p-3" role="alert"
+                        style="display: none; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
+                    </div>
+                </div>
+                <div>
+                    <a href="/" class="fw-bold"> Back </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/jquery-3.5.1.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Function to format input as INR while typing
+            function formatINR(input) {
+                let value = input.value.replace(/,/g, ''); // Remove existing commas
+                if (!isNaN(value) && value !== "") {
+                    let formattedValue = Number(value).toLocaleString('en-IN', {
+                        maximumFractionDigits: 0
+                    });
+                    input.value = formattedValue; // Set the formatted value back to the input
+                }
+            }
+
+            // Function to get raw value for calculation by removing commas
+            function getRawValue(input) {
+                return input.value.replace(/,/g, ''); // Remove commas and return numeric value
+            }
+
+            // Attach INR formatting to inputs when typing
+            document.getElementById("wealth_amount").oninput = function () {
+                formatINR(this);
+            };
+
+            document.getElementById("savings_amount").oninput = function () {
+                formatINR(this);
+            };
+
+            // Event listener for the 'Calculate' button
+            document.getElementById("calculate").addEventListener("click", function () {
+                fetchData(); // Trigger the fetchData function when button is clicked
+            });
+
+            // Function to fetch data from API
+            async function fetchData() {
+                // Retrieve values from form, stripping commas from currency inputs
+                const current_age = document.getElementById("current_age").value;
+                const retirement_age = document.getElementById("retirement_age").value;
+                const wealth_amount = getRawValue(document.getElementById("wealth_amount")); // Raw value for calculation
+                const inflation_rate = document.getElementById("inflation_rate").value;
+                const expected_return = document.getElementById("expected_return").value;
+                const savings_amount = getRawValue(document.getElementById("savings_amount")); // Raw value for calculation
+
+                // Replace with your actual API key
+                const apiKey = "mfapikey";
+                const apiUrl = `https://www.integratedindia.in/API/ADKAPI.aspx?reqtype=calc/getCrorepatiResult&current_age=${current_age}&retirement_age=${retirement_age}&wealth_amount=${wealth_amount}&inflation_rate=${inflation_rate}&expected_return=${expected_return}&savings_amount=${savings_amount}&key=${apiKey}`;
+
+                fetch(apiUrl)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.status === 200) {
+                            displayResult(data); // Show the result in the UI
+                            displayChart(data); // Show the result in a chart
+                        } else {
+                            displayError("Error fetching data from the API");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        displayError("Error fetching data from the API");
+                    });
+            }
+
+            // Function to display result
+            function displayResult(data) {
+                const formatter = new Intl.NumberFormat("en-IN", {
+                    style: "currency",
+                    currency: "INR",
+                });
+
+                // Show the results container
+                const resultsContainer = document.getElementById("results-container");
+                resultsContainer.style.display = "block";
+
+                // Display results in table format
+                const resultsDiv = document.getElementById("results");
+                resultsDiv.style.display = "block";
+                resultsDiv.innerHTML = `
+        <div class='col-12 m-auto overflow-auto'>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td><strong>Monthly Savings Needed:</strong></td>
+                        <td class="fw-bold">${formatter.format(data.monthly_savings)}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Invested Amount:</strong></td>
+                        <td class="fw-bold">${formatter.format(data.invested_amount)}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Earnings:</strong></td>
+                        <td class="fw-bold">${formatter.format(data.total_earnings)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+
+                // Display chart
+                displayChart(data);
+            }
+
+            function displayChart(data) {
+                const ctx = document.getElementById("resultChart").getContext("2d");
+
+                if (window.resultChart && typeof window.resultChart.destroy === "function") {
+                    window.resultChart.destroy(); // Destroy the previous chart instance
+                }
+
+                window.resultChart = new Chart(ctx, {
+                    type: "doughnut",
+                    data: {
+                        datasets: [
+                            {
+                                data: [data.invested_amount, data.total_earnings],
+                                backgroundColor: ["#00ae42", "#143980"],
+                                hoverBackgroundColor: ["#00ae42", "#143980"],
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: "top",
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (tooltipItem) {
+                                        return `${tooltipItem.label}: ${tooltipItem.raw.toLocaleString("en-IN", {
+                                            style: "currency",
+                                            currency: "INR",
+                                        })}`;
+                                    },
+                                },
+                            },
+                        },
+                    },
+                });
+            }
+
+
+            // Initial fetch when the page loads
+            fetchData();
+        });
+
+    </script>
+</body>
+
+</html>

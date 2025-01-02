@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Level Selection</title>
+    <!-- Add Bootstrap CSS (optional, for styling) -->
+    <link href="assets/css/theme.css" rel="stylesheet" />
+
+    <!-- Add jQuery -->
+
+    <!-- Add Bootstrap JavaScript -->
+
+
+
+
+    <style>
+        body {
+            background-color: #f4f5f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .risk-card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+            background-color: transparent !important;
+        }
+
+        .risk-card h5 {
+            font-size: 1.5rem !important;
+        }
+
+        .risk-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .risk-card.active {
+            /* border: 3px solid #007bff;
+            background-color: #e9f5ff; */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .risk-icon {
+            font-size: 42px;
+            color: #007bff;
+        }
+
+        .allocation-slider {
+            width: 100%;
+        }
+
+        .fund-tile {
+            background: #fff;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            /* margin-bottom: 15px; */
+            transition: transform 0.2s ease;
+        }
+
+        .fund-tile:hover {
+            transform: translateY(-5px);
+        }
+
+        .hover-fund:hover {
+            background-color: #f0f8ff !important;
+        }
+
+        .investment-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .investment-container h4 {
+            /* font-size: 1.5rem; */
+            /* font-weight: bold; */
+            /* color: #333; */
+            margin-bottom: 1rem;
+        }
+
+        .investment-container .form-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            /* color: #555; */
+        }
+
+        .investment-container .input-group {
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .investment-container .input-group-text {
+            background-color: #e9ecef;
+            font-weight: 600;
+            /* color: #495057; */
+        }
+
+        .investment-container .form-control {
+            border: none;
+            box-shadow: none;
+        }
+
+        .investment-container .form-range {
+            margin-top: 0.5rem;
+            height: 8px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .investment-container .form-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background-color: #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .investment-container .form-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background-color: #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .investment-container .form-text {
+            font-size: 0.85rem;
+            /* color: #6c757d; */
+        }
+
+        .investment-container .btn-primary {
+            background-color: #007bff;
+            border: none;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .investment-container .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .investment-container .d-flex span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            /* color: #555; */
+        }
+
+        #switchFundModal .modal-body h6 {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+
+
+        .list-group-item {
+            cursor: pointer;
+        }
+
+        .list-group-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .allocation-input {
+            /* text-align: start; */
+
+        }
+
+        .allocation-input input {
+            /* text-align: center; */
+            /* width: 95%; */
+            /* max-width: 25%; */
+            /* margin-left: 10px; */
+            border: 0.1px solid #143980 !important;
+            line-height: 1 !important;
+            border-radius: 3px;
+        }
+
+        .fs--14 {
+            font-size: 13px !important;
+            margin: 0 !important;
+        }
+
+        .sidebar {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background: #f8f9fa;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            transition: right 0.3s ease;
+            z-index: 1050;
+        }
+
+        .sidebar-header {
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            text-align: center;
+        }
+
+        .sidebar-body {
+            padding: 15px;
+        }
+
+        .sidebar.show {
+            right: 0;
+        }
+
+        .fund-tile.child-fund {
+            /* margin-left: 20px; */
+            background-color: #f0f8ff;
+        }
+
+        .ps-120 {
+            padding-left: 120px;
+        }
+
+        #cagrYearDropdown {
+            line-height: 1 !important;
+            padding: 5px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section>
+            <div class="container my-5">
+                <!-- Heading -->
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">Select Your Risk Profile</h2>
+                </div>
+
+                <!-- Risk Level Cards -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card risk-card text-center " data-risk="conservative">
+                            <div class="risk-icon">🌿</div>
+                            <h5 class="mt-3">Conservative</h5>
+                            <p>Low-risk investments for steady returns.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card risk-card text-center  active" data-risk="moderate">
+                            <div class="risk-icon">⚖️</div>
+                            <h5 class="mt-3">Moderate</h5>
+                            <p>A balanced approach to risk and return.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card risk-card text-center " data-risk="aggressive">
+                            <div class="risk-icon">🚀</div>
+                            <h5 class="mt-3">Aggressive</h5>
+                            <p>High-risk investments for high returns.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Investment Details -->
+                <div class="row mt-5">
+                    <div class="col-md-5">
+                        <div class="investment-container p-4 h-100">
+                            <h4 class="fw-bold">Investment Details</h4>
+                            <label for="investmentAmount" class="form-label">Investment Amount</label>
+                            <div class="input-group mb-4">
+                                <span class="input-group-text">&#8377;</span>
+                                <input type="text" id="investmentAmount" class="form-control" value="5,00,000"
+                                    oninput="formatCurrency(this)">
+                            </div>
+                            <div class="mb-4">
+                                <label for="investmentPeriod" class="form-label">Investment Period</label>
+                                <input type="range" id="investmentPeriod" class="form-range" min="1" max="20" step="1" value="10" oninput="updateInvestmentPeriodLabel(this)">
+                                <div class="d-flex justify-content-between">
+                                    <span>10 yrs</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Allocation -->
+                    <div class="col-md-7">
+                        <div class="investment-container p-4 h-100">
+                            <h4 class="fw-bold">Portfolio Allocation</h4>
+                            <div id="allocationSliders"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommended Funds -->
+                <div class="mt-3">
+                    <div class="d-flex flex-wrap justify-content-between py-2">
+                        <h4 class="fw-bold">Recommended Funds</h4>
+                        <div>
+                            <button class="text-center text-white fw-bold bg-b rounded-2 border-0 px-2  hover-top">
+                                Invest Now
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row align-items-center justify-content-between px-2 pb-2">
+                        <div class="col-md-4">
+                            <p class="m-0 fs--14 fw-bold">Fund Name:</p>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <p class="m-0 fs--14 fw-bold">Type:</p>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <div class="row gap-3 justify-content-center align-items-center">
+                                <div class="col-md-2">
+                                    <p class="m-0 fs--14 fw-bold">CAGR:</p>
+                                </div>
+                                <div class="col-md-8">
+                                    <select id="cagrYearDropdown" class="form-select form-select-sm"
+                                        onchange="updateCagrYear(this.value)">
+                                        <option value="year1">1 Year</option>
+                                        <option value="year3">3 Years</option>
+                                        <option value="year5" selected>5 Years</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 text-center">
+                            <p class="m-0 fs--14 fw-bold ps-120">Allocation</p>
+                        </div>
+                        <div class="col-md-1 text-center p-0">
+                            <p class="m-0 fs--14 fw-bold">Switch Fund</p>
+                        </div>
+                    </div>
+                    <div id="fundTiles" class="row g-2"></div>
+
+                </div>
+                <div id="switchFundModal" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Switch Fund</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    onclick="closeModal()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h6>Switch from</h6>
+                                <div id="switchFrom">
+                                    <!-- Fund being switched from will be dynamically updated here -->
+                                </div>
+                                <h6 class="mt-3">Switch to</h6>
+                                <ul id="switchToList" class="list-group">
+                                    <!-- List of funds to switch to will be dynamically updated here -->
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="fundSidebar" class="sidebar">
+                    <div class="sidebar-header">
+                        <h5>Switch Fund</h5>
+                        <button class="close" onclick="closeFundSidebar()">&times;</button>
+                    </div>
+                    <div id="fundTypeList" class="sidebar-body"></div>
+                </div>
+                
+
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const riskCards = document.querySelectorAll('.risk-card');
+        const allocationSliders = document.getElementById('allocationSliders');
+        const fundTiles = document.getElementById('fundTiles');
+
+        const riskData = {
+            conservative: {
+                allocation: [
+                    { label: 'Large Cap', value: 50 },
+                    { label: 'BAF - Conservative', value: 25 },
+                    { label: 'Multi Asset Allocation', value: 25 },
+                ],
+                funds: [
+                    {
+                        name: 'BANDHAN CORE EQUITY FUND',
+                        percentage: 50,
+                        originalPercentage: 50,
+                        type: 'Large Cap',
+                        cagr: { year1: '8.5%',  year3: '12.0%', year4: '14.0%', year5: '15.5%' },
+                        children: []
+                    },
+                    {
+                        name: 'EDELWEISS BALANCED ADVANTAGE FUND-GROWTH',
+                        percentage: 25,
+                        originalPercentage: 25,
+                        type: 'BAF - Conservative',
+                        cagr: { year1: '5.5%', year3: '8.9%', year4: '10.2%', year5: '11.5%' },
+                        children: []
+                    },
+                    {
+                        name: 'HDFC MULTI ASSET FUND',
+                        percentage: 25,
+                        originalPercentage: 25,
+                        type: 'Multi Asset Allocation',
+                        cagr: { year1: '6.2%', year3: '10.5%', year4: '12.0%', year5: '13.8%' },
+                        children: []
+                    },
+                ],
+                moreFunds: [
+                    { name: 'HDFC Conservative Growth', percentage: 20, type: 'Balanced', cagr: { year1: '4%',  year3: '6%',  year5: '8%' } },
+                    { name: 'Axis Debt Fund', percentage: 10, type: 'Debt', cagr: { year1: '3%',  year3: '4%', year5: '5%' } },
+                ],
+            },
+            moderate: {
+                allocation: [
+                    { label: 'Large & Mid Cap', value: 40 },
+                    { label: 'Flexi Cap', value: 25 },
+                    { label: 'Multi Cap', value: 25 },
+                    { label: 'BAF Aggressive', value: 10 },
+                ],
+                funds: [
+                    {
+                        name: 'BOI LARGE & MIDCAP EQUITY FUND',
+                        percentage: 40,
+                        originalPercentage: 40,
+                        type: 'Large & Mid Cap',
+                        cagr: { year1: '9.2%',  year3: '13.5%',  year5: '17.3%' },
+                        children: []
+                    },
+                    {
+                        name: 'EDELWEISS FLEXI CAP FUND',
+                        percentage: 25,
+                        originalPercentage: 25,
+                        type: 'Flexi Cap',
+                        cagr: { year1: '7.5%',  year3: '11.2%',  year5: '14.7%' },
+                        children: []
+                    },
+                    {
+                        name: 'NIPPON INDIA MULTI CAP FUND',
+                        percentage: 25,
+                        originalPercentage: 25,
+                        type: 'Multi Cap',
+                        cagr: { year1: '10.0%', year3: '14.5%',  year5: '19.0%' },
+                        children: []
+                    },
+                    {
+                        name: 'EDELWEISS BALANCED ADVANTAGE FUND',
+                        percentage: 10,
+                        originalPercentage: 10,
+                        type: 'BAF Aggressive',
+                        cagr: { year1: '6.8%',  year3: '10.0%',  year5: '13.0%' },
+                        children: []
+                    },
+                ],
+                moreFunds: [
+                    { name: 'SBI Equity Hybrid Fund', percentage: 15, type: 'Hybrid', cagr: { year1: '6%',  year3: '8%',  year5: '10%' } },
+                    { name: 'Tata Large Cap Fund', percentage: 20, type: 'Equity', cagr: { year1: '7%', year3: '10%',  year5: '13%' } },
+                ],
+            },
+            aggressive: {
+                allocation: [
+                    { label: 'Focused', value: 30 },
+                    { label: 'Mid Cap', value: 30 },
+                    { label: 'Small Cap', value: 15 },
+                    { label: 'Business Cycle Fund', value: 15 },
+                    { label: 'BAF Dynamic', value: 10 },
+                ],
+                funds: [
+                    {
+                        name: 'HDFC FOCUSED 30 FUND',
+                        percentage: 30,
+                        originalPercentage: 30,
+                        type: 'Focused',
+                        cagr: { year1: '12.0%',  year3: '17.0%',  year5: '22.0%' },
+                        children: []
+                    },
+                    {
+                        name: 'MOTILAL OSWAL MIDCAP FUND',
+                        percentage: 30,
+                        originalPercentage: 30,
+                        type: 'Mid Cap',
+                        cagr: { year1: '14.0%',  year3: '19.0%',  year5: '24.0%' },
+                        children: []
+                    },
+                    {
+                        name: 'DSP SMALL CAP FUND',
+                        percentage: 15,
+                        originalPercentage: 15,
+                        type: 'Small Cap',
+                        cagr: { year1: '15.5%', year3: '20.5%', year5: '25.5%' },
+                        children: []
+                    },
+                    {
+                        name: 'BANDHAN CORE EQUITY FUND',
+                        percentage: 15,
+                        originalPercentage: 15,
+                        type: 'Business Cycle Fund',
+                        cagr: { year1: '10.5%', year3: '15.5%',  year5: '20.5%' },
+                        children: []
+                    },
+                    {
+                        name: 'HDFC BALANCED ADVANTAGE FUND',
+                        percentage: 10,
+                        originalPercentage: 10,
+                        type: 'BAF Dynamic',
+                        cagr: { year1: '8.0%',  year3: '12.0%',  year5: '16.0%' },
+                        children: []
+                    },
+                ],
+                moreFunds: [
+                    { name: 'ICICI Small Cap Fund', percentage: 25, type: 'Equity', cagr: { year1: '11%',  year3: '15%',  year5: '19%' } },
+                    { name: 'Nippon Emerging Stars Fund', percentage: 20, type: 'Equity', cagr: { year1: '10%', year3: '14%',  year5: '18%' } },
+                ],
+            },
+        };
+
+
+        function updateAllocationSliders(riskLevel) {
+            const data = riskData[riskLevel];
+            allocationSliders.innerHTML = '';
+
+            data.allocation.forEach(item => {
+                const sliderWrapper = document.createElement('div');
+                sliderWrapper.classList.add('mb-3');
+
+                sliderWrapper.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <span class="me-2">${getCategoryIcon(item.label)}</span>
+                    <strong>${item.label}</strong>
+                </div>
+                <span>${item.value}%</span>
+            </div>
+            <div class="progress">
+                <div 
+                    class="progress-bar" 
+                    role="progressbar" 
+                    style="width: ${item.value}%; background-color: ${getProgressBarColor(item.label)};"
+                    aria-valuenow="${item.value}" 
+                    aria-valuemin="0" 
+                    aria-valuemax="100">
+                </div>
+            </div>
+        `;
+                allocationSliders.appendChild(sliderWrapper);
+            });
+        }
+
+        function addChildFund(parentIndex, riskLevel) {
+    const sidebar = document.getElementById('fundSidebar');
+    const fundTypeList = document.getElementById('fundTypeList');
+
+    // Show the sidebar
+    sidebar.classList.add('show');
+
+    // Get the parent fund data
+    const parentFund = riskData[riskLevel].funds[parentIndex];
+
+    // Display parent fund details in the sidebar
+    const fundDetails = `
+        <div>
+            <h5>${parentFund.name}</h5>
+            <p>Type: ${parentFund.type}</p>
+            <p>Current Allocation: ${parentFund.percentage.toFixed(2)}%</p>
+            <p>CAGR (${selectedCagrYear}): ${parentFund.cagr[selectedCagrYear]}</p>
+        </div>
+    `;
+    fundTypeList.innerHTML = fundDetails;
+
+    // List options for adding child funds
+    const addOptions = riskData[riskLevel].moreFunds
+        .map(
+            (fund, i) => `
+            <div class="list-group-item" onclick="confirmAddChildFund(${parentIndex}, ${i}, '${riskLevel}')">
+                <h6>${fund.name}</h6>
+                <p>Type: ${fund.type}, CAGR (${selectedCagrYear}): ${fund.cagr[selectedCagrYear]}</p>
+            </div>
+        `
+        )
+        .join('');
+
+    fundTypeList.innerHTML += `
+        <h6 class="mt-3">Add Child Fund:</h6>
+        <div class="list-group">${addOptions}</div>
+    `;
+}
+
+        function confirmAddChildFund(parentIndex, fundIndex, riskLevel) {
+    const parentFund = riskData[riskLevel].funds[parentIndex];
+    const newChildFund = riskData[riskLevel].moreFunds[fundIndex];
+
+    // Add the new child fund
+    parentFund.children.push({
+        ...newChildFund,
+        isChild: true,
+        percentage: 0, // Will be recalculated
+    });
+
+    // Adjust percentages for parent and children
+    const totalAllocations = 1 + parentFund.children.length;
+    const newPercentage = parentFund.originalPercentage / totalAllocations;
+    parentFund.percentage = parseFloat(newPercentage.toFixed(2));
+    parentFund.children.forEach(child => {
+        child.percentage = parseFloat(newPercentage.toFixed(2));
+    });
+
+    // Update funds array and remove the new child from "moreFunds"
+    riskData[riskLevel].funds.splice(parentIndex + 1, 0, ...parentFund.children);
+    riskData[riskLevel].moreFunds.splice(fundIndex, 1);
+
+    // Update UI
+    updateFundsTable(riskLevel);
+    closeFundSidebar();
+}
+function closeFundSidebar() {
+    const sidebar = document.getElementById('fundSidebar');
+    sidebar.classList.remove('show');
+}
+
+function removeChildFund(childIndex, riskLevel) {
+    const funds = riskData[riskLevel].funds;
+
+    // Validate child index
+    if (childIndex < 0 || childIndex >= funds.length) {
+        console.error('Invalid child index:', childIndex);
+        return;
+    }
+
+    const childFund = funds[childIndex];
+
+    // Ensure the fund is a child fund
+    if (!childFund.isChild) {
+        console.error('Selected fund is not a child fund:', childFund);
+        return;
+    }
+
+    // Identify the parent fund
+    const parentName = childFund.name.split(' - Child')[0];
+    const parentIndex = funds.findIndex(fund => fund.name === parentName);
+
+    if (parentIndex === -1) {
+        console.error('Parent fund not found for:', childFund);
+        alert('Parent fund not found!');
+        return;
+    }
+
+    const parentFund = funds[parentIndex];
+
+    // Remove the child from the parent's children array
+    parentFund.children = parentFund.children.filter(child => child.name !== childFund.name);
+
+    // Update percentages
+    const remainingChildrenCount = parentFund.children.length;
+    if (remainingChildrenCount === 0) {
+        // If no children remain, reset parent allocation to its original percentage
+        parentFund.percentage = parentFund.originalPercentage;
+    } else {
+        // Recalculate percentages for parent and remaining children
+        const totalAllocations = 1 + remainingChildrenCount;
+        const newPercentage = parentFund.originalPercentage / totalAllocations;
+
+        parentFund.percentage = parseFloat(newPercentage.toFixed(2));
+        parentFund.children.forEach(child => {
+            child.percentage = parseFloat(newPercentage.toFixed(2));
+        });
+    }
+
+    // Remove the child fund from the funds array
+    funds.splice(childIndex, 1);
+
+    // Update the UI
+    updateFundsTable(riskLevel);
+}
+
+        let selectedCagrYear = 'year5'; // Default to 5 years
+
+        function updateCagrYear(year) {
+            selectedCagrYear = year;
+            const activeRisk = document.querySelector('.risk-card.active').dataset.risk;
+            updateFundsTable(activeRisk); // Refresh the funds table
+        }
+
+        function updateFundsTable(riskLevel) {
+            const data = riskData[riskLevel];
+            const investmentAmount = parseFloat(document.getElementById('investmentAmount').value.replace(/,/g, ''));
+
+            // Clear existing fund tiles
+            fundTiles.innerHTML = '';
+
+            // Display fund tiles
+            data.funds.forEach((fund, index) => {
+                const allocatedAmount = (investmentAmount * fund.percentage) / 100;
+                const cagrValue = fund.cagr[selectedCagrYear] || 'N/A'; // Get CAGR for the selected year
+
+                const fundTile = document.createElement('div');
+                fundTile.className = `fund-tile ${fund.isChild ? 'child-fund' : 'hover-fund'}`;
+                fundTile.innerHTML = `
+            <div class="row align-items-center justify-content-between text-b">
+                <div class="col-md-4">
+                    <p class="fs--14 fw-medium">${fund.name}</p>
+                </div>
+                <div class="col-md-2 text-center fs--14">
+                    <span class="fw-medium">${fund.type}</span>
+                </div>
+                <div class="col-md-2 text-center fs--14">
+                    <span class="text-g fw-medium">${cagrValue}</span>
+                </div>
+                <div class="col-md-2 text-end fs--14">
+                    <span class="fw-medium">&#8377;${allocatedAmount.toLocaleString('en-IN')}</span>
+                </div>
+                <div class="col-md-1 text-start fs--14">
+                    <span class="fw-medium">${fund.percentage.toFixed(2)}%</span>
+                </div>
+                <div class="col-md-1 text-center fs--14">
+                    ${fund.isChild
+                        ? `<button class="border-0 bg-transparent" onclick="removeChildFund(${index}, '${riskLevel}')">-</button>`
+                        : `<button class="border-0 bg-transparent" onclick="addChildFund(${index}, '${riskLevel}')">+</button>`
+                    }
+<button class="border-0 bg-transparent" onclick="openSwitchFundSidebar(${index}, '${riskLevel}')">⇆</button>
+                </div>
+            </div>
+        `;
+
+                fundTiles.appendChild(fundTile);
+            });
+
+            // Calculate and display totals
+            calculateTotals(riskLevel);
+        }
+
+        function openSwitchFundSidebar(index, riskLevel) {
+    const sidebar = document.getElementById('fundSidebar');
+    const fundTypeList = document.getElementById('fundTypeList');
+
+    // Show sidebar
+    sidebar.classList.add('show');
+
+    // Clear previous content
+    fundTypeList.innerHTML = '';
+
+    // Get the selected fund data
+    const selectedFund = riskData[riskLevel].funds[index];
+
+    // Add selected fund details
+    const fundDetails = `
+        <div>
+            <h5>${selectedFund.name}</h5>
+            <p>Type: ${selectedFund.type}</p>
+            <p>Current Allocation: ${selectedFund.percentage.toFixed(2)}%</p>
+            <p>CAGR (${selectedCagrYear}): ${selectedFund.cagr[selectedCagrYear]}</p>
+        </div>
+    `;
+    fundTypeList.innerHTML = fundDetails;
+
+    // Add fund switching options
+    const switchOptions = riskData[riskLevel].moreFunds
+    .map(
+        (fund, i) => `
+        <div class="list-group-item" onclick="switchFund(${index}, ${i}, '${riskLevel}')">
+            <h6>${fund.name}</h6>
+            <p>Type: ${fund.type}, CAGR (${selectedCagrYear}): ${fund.cagr[selectedCagrYear]}</p>
+        </div>
+    `
+    )
+    .join('');
+
+    fundTypeList.innerHTML += `
+        <h6 class="mt-3">Switch to:</h6>
+        <div class="list-group">${switchOptions}</div>
+    `;
+}
+function switchFund(currentIndex, switchToIndex, riskLevel) {
+    const currentFund = riskData[riskLevel].funds[currentIndex];
+    const newFund = riskData[riskLevel].moreFunds[switchToIndex];
+
+    // Update the funds array
+    riskData[riskLevel].funds[currentIndex] = {
+        ...newFund,
+        percentage: currentFund.percentage, // Preserve the allocation percentage
+    };
+
+    // Remove the switched fund from the "moreFunds" list
+    riskData[riskLevel].moreFunds.splice(switchToIndex, 1);
+
+    // Add the old fund to "moreFunds"
+    riskData[riskLevel].moreFunds.push(currentFund);
+
+    // Refresh the funds table
+    updateFundsTable(riskLevel);
+
+    // Close the sidebar
+    closeFundSidebar();
+}
+
+// Function to close the sidebar
+function closeFundSidebar() {
+    const sidebar = document.getElementById('fundSidebar');
+    sidebar.classList.remove('show');
+}
+
+        function calculateTotals(riskLevel) {
+    const data = riskData[riskLevel];
+    const investmentAmount = parseFloat(document.getElementById('investmentAmount').value.replace(/,/g, '')) || 0;
+
+    // Initialize totals
+    let totalCAGR = 0;
+    let totalAllocationPercentage = 0;
+    let totalAllocatedAmount = 0;
+
+    // Calculate totals
+    data.funds.forEach((fund) => {
+        const percentage = fund.percentage; // Allocation percentage
+        const cagr = parseFloat(fund.cagr[selectedCagrYear]?.replace('%', '') || 0); // CAGR for the selected year
+        const allocatedAmount = (investmentAmount * percentage) / 100; // Allocated amount for this fund
+
+        totalCAGR += (percentage / 100) * cagr; // Weighted CAGR
+        totalAllocationPercentage += percentage; // Sum of allocation percentages
+        totalAllocatedAmount += allocatedAmount; // Sum of allocated amounts
+    });
+
+    // Update totals in the UI
+    const totalsContainer = document.getElementById('totalsContainer');
+    if (!totalsContainer) {
+        const totalsDiv = document.createElement('div');
+        totalsDiv.id = 'totalsContainer';
+        totalsDiv.className = 'mt-2';
+        totalsDiv.innerHTML = `
+            <div class="d-flex justify-content-between">
+                <div class="col-md-4"></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-2 text-center text-b fs--14">
+                    <p class="m-0 fs--14">Total Weighted CAGR:</p>
+                    <span class="fw-bold" id="totalCAGR" class="fs--14"></span>%
+                </div>
+                <div class="col-md-3 text-center text-b fs--14">
+                    <div class="ps-120">
+                        <p class="m-0 fs--14">Total Allocation:</p>
+                        <span id="totalAllocatedAmountContainer">
+                            <span class="fw-bold" id="currencySymbol" class="fs--14">₹</span>
+                            <span class="fw-bold" id="totalAllocatedAmount" class="fs--14"></span>
+                        </span>
+                        | <span class="fw-bold" id="totalAllocation" class="fs--14"></span>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        `;
+        fundTiles.parentElement.appendChild(totalsDiv);
+    }
+
+    // Update values in the totals container
+    document.getElementById('totalCAGR').textContent = totalCAGR.toFixed(2); // Weighted CAGR
+    document.getElementById('totalAllocation').textContent = `${totalAllocationPercentage.toFixed(2)}%`; // Total allocation percentage
+    document.getElementById('totalAllocatedAmount').textContent = totalAllocatedAmount.toLocaleString('en-IN'); // Total allocated amount
+
+    // Change color based on allocation completeness
+    const totalAllocationElement = document.getElementById('totalAllocation');
+    const totalAllocatedAmountContainer = document.getElementById('totalAllocatedAmountContainer');
+    if (totalAllocationPercentage < 100) {
+        totalAllocationElement.style.color = 'red'; // Highlight incomplete allocation
+        totalAllocatedAmountContainer.style.color = 'red';
+    } else {
+        totalAllocationElement.style.color = '#00AE42'; // Indicate complete allocation
+        totalAllocatedAmountContainer.style.color = '#00AE42';
+    }
+}
+
+        riskCards.forEach(card => {
+            card.addEventListener('click', () => {
+                riskCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                const riskLevel = card.dataset.risk;
+                updateAllocationSliders(riskLevel);
+                updateFundsTable(riskLevel);
+            });
+        });
+
+        updateAllocationSliders('moderate');
+        updateFundsTable('moderate');
+
+        function formatCurrency(input) {
+            let value = input.value.replace(/,/g, '');
+            if (!isNaN(value)) {
+                input.value = Number(value).toLocaleString('en-IN');
+                const activeRisk = document.querySelector('.risk-card.active').dataset.risk;
+                updateFundsTable(activeRisk);
+            }
+        }
+
+        function getCategoryIcon(label) {
+            const icons = {
+                'Large Cap': '📊',
+                'Mid Cap': '📈',
+                'Small Cap': '📉',
+                'Debt': '💰',
+                'Cash': '💵',
+                'Focused': '🎯',
+                'BAF - Conservative': '🌿',
+                'BAF Aggressive': '⚡',
+                'Flexi Cap': '🔀',
+                'Multi Cap': '🔄',
+                'Multi Asset Allocation': '🪙',
+                'Business Cycle Fund': '📆',
+            };
+            return icons[label] || '📁';
+        }
+
+        function getProgressBarColor(label) {
+            const colors = {
+                'Large Cap': '#006828',
+                'Mid Cap': '#28a745',
+                'Small Cap': '#337DC7',
+                'Debt': '#17a2b8',
+                'Cash': '#6c757d',
+                'Focused': '#833331',
+                'BAF - Conservative': '#4C3F10',
+                'BAF Aggressive': '#AE4442',
+                'Flexi Cap': '#835B1D',
+                'Multi Cap': '#27ae60',
+                'Multi Asset Allocation': '#495D7E',
+                'Business Cycle Fund': '#515253',
+            };
+            return colors[label] || '#495D7E';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('switchFundModal');
+            const bootstrapModal = bootstrap.Modal.getInstance(modal);
+            bootstrapModal.hide();
+        }
+        function updateInvestmentPeriodLabel(rangeInput) {
+    const years = rangeInput.value;
+    rangeInput.nextElementSibling.textContent = `${years} yrs`;
+}
+
+        // ... (other existing functions like openSwitchFundModal, confirmSwitch, etc.)
+
+    </script>
+    <script src="assets/js/jquery-3.5.1.js"></script>
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/chartbot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIP Calculator integrated</title>
+    <meta name="description"
+        content="Learn about the benefits of mutual funds investment with brief information. Discover how mutual funds can help you achieve your financial goals." />
+    <meta name="keywords"
+        content="mutual funds investment, mutual funds, benefits, brief information, advantage, mutual fund sip, mutual" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-md-8">
+            <div class="container ">
+                <div class="text-center pb-2 ">
+                    <h2 class="fw-bold ">SIP Calculator </h2>
+                </div>
+                <div class="border rounded-3 p-3">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3">
+                            <div>
+                                <img loading="lazy" class="img-fluid" src="assets/images/gallery/sip-01.webp" alt="Sip calculator">
+                            </div>
+                        </div>
+                        <div class=" col-lg-5 m-y">
+                            <div class="border rounded-3 p-4">
+                                <form id="sipForm" class="mb-4">
+                                    <div class="mb-3 form-group calculator">
+                                        <div class="d-flex justify-content-between align-items-center py-2">
+                                            <label for="sipAmountRange" class="form-label">SIP Amount:</label>
+                                            <div class="col-4">
+                                                <input type="number" class="form-control" id="sipAmount" value="25000" min="500" max="10000000" step="500" required>
+                                                <div id="sipAmountDisplay"></div> <!-- New element to display formatted value -->
+                                            </div>
+                                        </div>
+                                        
+                                        <input type="range" class="form-range" id="sipAmountRange" name="sip_amount"
+                                            min="500" max="10000000" step="500" value="25000" required>
+                                    </div>
+                                    <div class="mb-3 form-group calculator">
+                                        <div class="d-flex justify-content-between align-items-center py-2">
+                                            <label for="interestRateRange" class="form-label">Interest Rate (%):</label>
+                                            <div class="col-4">
+                                                <input type="number" class="form-control" id="interestRate" value="12.5"
+                                                    min="1" max="20" step="0.1" required>
+                                            </div>
+                                        </div>
+                                        <input type="range" class="form-range" id="interestRateRange"
+                                            name="interest_rate" min="1" max="20" step="0.1" value="12.5" required>
+                                    </div>
+                                    <div class="mb-3 form-group calculator">
+                                        <div class="d-flex justify-content-between align-items-center py-2">
+                                            <label for="periodRange m-0" class="form-label">Period (Months):</label>
+                                            <div class="col-4">
+                                                <input type="number" class="form-control col-2" id="period" value="140"
+                                                    min="6" max="999" step="1" required>
+                                            </div>
+                                        </div>
+                                        <input type="range" class="form-range" id="periodRange" name="period" min="6"
+                                            max="999" step="6" value="140" required>
+                                    </div>
+                                </form>
+                                <div class="text-center">
+                                    <a href="https://www.integratedindia.in/caoportfolio/nv2/MEXV/MFExplore.aspx?OSID=4d4j0z1qk3d1o32k0ik0efyr&TranParam=X1tq5fK8UnjjQCa1JOIsrQ=="
+                                        target="_blank" alit="Invest Now in SIP" title="Invest Now in SIP"
+                                        id="MF_SIP_AI_IN_BN">
+                                        <button id="invest-now" class="bg-g px-3 py-1 rounded-2">Invest Now</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="chart-container m-auto">
+                                <div class="row  justify-content-center py-3">
+                                    <div class="d-flex align-items-center  gap-1 col-md-6 p-0 ">
+                                        <div class="bg-b1 dots "></div> <span class=" text-b">Wealth Gained</span>
+                                    </div>
+                                    <div class="d-flex gap-1 col-md-6 p-0">
+                                        <div class="bg-g dots"></div> <span class=" text-b">Invested Amount</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6  position-relative m-auto ">
+                                    <!-- <img loading="lazy" class="position-absolute img-fluid rounded-5 img-op"
+                                        src="./img/new-logo-03.webp" alt="integrated" title="integrated"> -->
+                                    <canvas id="sipChart"></canvas>
+                                </div>
+                                <!-- <div class="chart-container">
+                                    </div> -->
+                                    <div class="my-2 ">
+                                        <table class="table table-bordered w-100 text-start">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Invested Amount:</td>
+                                                    <td><span class="fw-bold" id="investedAmount"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Growth Value:</td>
+                                                    <td><span class="fw-bold" id="growthValue"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Maturity Amount:</td>
+                                                    <td><span class="fw-bold" id="maturityAmount"></span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="financial-calculators.html" class="fw-bold">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+  <script src="assets/js/jquery-3.5.1.js"></script>
+  <script src="vendors/@popperjs/popper.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.min.js"></script>    <script src="assets/js/theme.js"></script>
+
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/calculator-sip.js"></script>
+</body>
+
+</html>

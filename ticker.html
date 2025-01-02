@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Market Ticker</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ticker-wrapper {
+            background-color: #e0f7fa;
+            padding: 10px;
+            overflow: hidden;
+            border-bottom: 2px solid #00796b;
+            position: relative;
+        }
+
+        .ticker {
+            display: flex;
+            animation: tickerScroll 20s linear infinite;
+            white-space: nowrap;
+            &:hover {
+                animation-play-state: paused;
+            }
+        }
+
+        .ticker-item {
+            margin-right: 50px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .up {
+            color: green;
+            margin-left: 5px;
+        }
+
+        .down {
+            color: red;
+            margin-left: 5px;
+        }
+
+        @keyframes tickerScroll {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ticker-wrapper">
+        <div class="ticker" id="ticker">
+
+            <!-- Market data will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'YOUR_API_KEY'; // Replace with your Alpha Vantage API key
+        const tickerSymbols = ['AAPL', 'GOOGL', 'MSFT', 'TSLA', 'RELIANCE.BSE']; // Example stock symbols
+        const tickerContainer = document.getElementById('ticker');
+
+        // Fetch data from Alpha Vantage API
+        async function fetchMarketData(symbol) {
+            const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data['Global Quote'];
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return null;
+            }
+        }
+
+        // Update the ticker with market data
+        async function updateTicker() {
+            tickerContainer.innerHTML = ''; // Clear the current ticker content
+            for (const symbol of tickerSymbols) {
+                const marketData = await fetchMarketData(symbol);
+                if (marketData) {
+                    const price = parseFloat(marketData['05. price']).toFixed(2);
+                    const change = parseFloat(marketData['10. change percent']).toFixed(2);
+                    const changeDirection = parseFloat(marketData['09. change']) > 0 ? 'up' : 'down';
+
+                    const tickerItem = document.createElement('div');
+                    tickerItem.className = 'ticker-item';
+                    tickerItem.innerHTML = `${symbol}: ${price} <span class="${changeDirection}">${change}%</span>`;
+                    tickerContainer.appendChild(tickerItem);
+                }
+            }
+        }
+
+        // Refresh the ticker every 60 seconds
+        updateTicker();
+        setInterval(updateTicker, 60000);
+
+
+    </script>
+</body>
+
+</html>

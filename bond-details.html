@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Explore Fixed Income Options: Fixed Deposits, Bonds & NCDs</title>
+    <style>
+        .bond-details-container {
+            /* display: flex;
+            justify-content: space-between; */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 20px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .bond-info,
+        .bond-summary {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .bond-info p,
+        .bond-summary p {
+            margin: 8px 0;
+        }
+
+        
+
+        .request-button:hover,
+        .info-button:hover {
+            background-color: #00ae42;
+        }
+
+        .bond-image {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .bond-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            margin-top: 20px;
+        }
+
+        .btn-light {
+            box-shadow: none;
+        }
+
+        .request-button {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            border-radius: 25px;
+        }
+
+        .request-button:hover {
+            background-color: #218838;
+        }
+
+        .quantity-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="container">
+        <h5 class="text-center mt-4">Choose Number of Bonds You Want to Buy</h5>
+
+        <div class="quantity-controls my-3">
+            <button id="decrement" class="btn btn-light">-</button>
+            <input type="text" id="bond-quantity" class="quantity-input form-control mx-2" value="10" readonly>
+            <button id="increment" class="btn btn-light">+</button>
+        </div>
+        <p class="text-center text-muted">Minimum Quantity: <span id="min-quantity">10</span></p>
+
+        <div class="card shadow p-3">
+            <div class="card-body">
+                <p>Face Value: <span class="float-end">₹ <span id="face-value">0.00</span></span></p>
+                <p>Minimum Investment: <span class="float-end">₹ <span id="min-investment">0.00</span></span></p>
+                <p>Yield to Maturity: <span class="float-end"><strong id="ytm">0.0%</strong></span></p>
+
+                <div class="bg-light p-2 rounded mb-3">
+                    <p>Principal Amount <span class="float-end">₹ <span id="principal-amount">0.00</span></span></p>
+                    <small class="text-muted">Market Value for <span id="bond-count">10</span> bond(s)</small>
+                </div>
+
+                <div class="bg-light p-2 rounded mb-3">
+                    <p>Accrued Interest Upto <strong id="accrued-date">--</strong> <span class="float-end">₹ <span
+                                id="accrued-interest">0.00</span></span></p>
+                    <small class="text-muted">Interest Earned on the Bond This Year</small>
+                </div>
+
+                <p>Stamp Duty: <span class="float-end">₹ <span id="stamp-duty">0.00</span></span></p>
+                <h5 class="text-center mt-3">Total Investment <span class="float-end">₹ <span
+                            id="total-investment">0.00</span></span></h5>
+
+                <button class="btn request-button w-100 mt-3" id="request-bond">Request This Bond</button>
+            </div>
+        </div>
+    </div> -->
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-5">
+            <div class="container">
+                <div id="bond-details" class=""></div>
+                
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/jquery-3.5.1.js"></script>
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <!-- <script>
+        $(document).ready(function () {
+            const params = new URLSearchParams(window.location.search);
+            const isin = params.get("isin");
+
+            // Fetch bond data from API
+            fetch("Bonds.json")
+                .then((response) => response.json())
+                .then((data) => {
+                    const bond = Array.isArray(data) ? data.find((b) => b.body.ISIN === isin) : data;
+
+                    if (bond) {
+                        // Extract dynamic data from the bond response
+                        const faceValue = bond.faceValue ?? 0;
+                        const accruedInterest = bond.body["Accrued Interest"] ?? 0;
+                        const stampDuty = bond.body["Stamp Duty"] ?? 0;
+                        const ytm = bond.offers[0]?.ytm ?? 0;
+                        const minQuantity = bond.body["Minimum Quantity"] ?? 10; // Fallback if API does not return
+
+                        // Initial values
+                        let quantity = minQuantity;
+
+                        // Set bond details
+                        $("#face-value").text(faceValue.toLocaleString());
+                        $("#ytm").text(`${ytm}%`);
+                        $("#accrued-date").text("08 Nov 2024"); // Placeholder for accrued date
+                        $("#accrued-interest").text(accruedInterest.toLocaleString());
+                        $("#stamp-duty").text(stampDuty.toLocaleString());
+                        $("#bond-quantity").val(quantity);
+                        $("#bond-count").text(quantity);
+                        $("#min-quantity").text(minQuantity);
+                        $("#min-investment").text((faceValue * minQuantity).toLocaleString());
+
+                        // Function to update totals based on quantity
+                        function updateTotals(newQuantity) {
+                            const principalAmount = newQuantity * faceValue;
+                            const totalInvestment = principalAmount + accruedInterest + stampDuty;
+
+                            $("#bond-quantity").val(newQuantity);
+                            $("#bond-count").text(newQuantity);
+                            $("#principal-amount").text(principalAmount.toLocaleString());
+                            $("#total-investment").text(totalInvestment.toLocaleString());
+                        }
+
+                        // Set initial totals
+                        updateTotals(quantity);
+
+                        // Increment button
+                        $("#increment").on("click", function () {
+                            quantity += 1;
+                            updateTotals(quantity);
+                        });
+
+                        // Decrement button
+                        $("#decrement").on("click", function () {
+                            if (quantity > minQuantity) {
+                                quantity -= 1;
+                                updateTotals(quantity);
+                            }
+                        });
+                    } else {
+                        $("#bond-details").html("<p>Bond details not found.</p>");
+                    }
+                })
+                .catch((error) => console.error("Error fetching bond data:", error));
+        });
+
+    </script> -->
+</body>
+
+</html>

@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Integratedindia</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico" />
+    <meta name="theme-color" content="#ffffff" />
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- Include WOW.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+    <style>
+        .form-label {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .form-check-input {
+            accent-color: #3498db;
+            /* Custom color */
+            transform: scale(1.3);
+            /* Larger input size */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .form-check-input:hover {
+            transform: scale(1.4);
+        }
+
+        .que {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .form-check-label {
+            margin-left: 10px;
+            font-size: 16px;
+            transition: color 0.3s;
+            color: #143980;
+        }
+
+        .form-check-input:checked+.form-check-label {
+            color: #2980b9;
+            font-weight: bold;
+        }
+
+        .form-container {
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+            margin: auto;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+
+        input {
+            margin: 10px 0;
+        }
+
+        #investmentSection {
+            display: none;
+            /* Initial state */
+            margin-top: 30px;
+        }
+
+        .calculator-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        label {
+            margin-bottom: 0 !important;
+            color: #143980 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-9">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <!-- Option Selection for Customer ID or Mobile Number -->
+                        <form id="mergedForm" class="border shadow rounded-3 m-auto p-1 p-md-5 col-12 col-lg-8">
+                            <h3>Fill-up Details to Proceed</h3>
+                            <div class="row ">
+                                <!-- Mobile Number Input -->
+                                <div class="form-group col-md-5">
+                                    <label>Mobile Number</label>
+                                    <input type="text" id="mobileNumber" placeholder="Mobile Number"
+                                        class="form-control contact-input" />
+                                </div>
+
+                                <!-- PAN Number Input -->
+                                <div class="form-group col-md-5">
+                                    <label>PAN Number</label>
+                                    <input type="text" id="panNumber" placeholder="PAN Number"
+                                        class="form-control contact-input" />
+                                </div>
+                            </div>
+                            <!-- Terms and Conditions -->
+                            <div class="form-group opacity-25" id="termsGroup">
+                                <label for="termsCheckbox" class="fs--14">
+                                    <input type="checkbox" id="termsCheckbox" checked />
+                                    By Proceeding, I agree to Integrated’s T&C, Privacy Policy & Credit Bureau’s Terms &
+                                    conditions
+                                </label>
+                            </div>
+                            <div id="termsError" class="error hidden">You must agree to the Terms and Conditions to
+                                proceed.</div>
+
+                            <div id="errorMessage" class="error hidden">Please enter valid details.</div>
+
+                            <!-- OTP Input (Initially Hidden) -->
+                            <div class="">
+                                <div id="otpSection" class="form-group hidden col-md-12">
+                                    <div class="col-md-5">
+                                        <label>OTP</label>
+                                        <input type="text" id="otpInput" placeholder="Enter OTP" class="form-control"
+                                            maxlength="6" />
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-primary mt-2"
+                                                onclick="verifyOTP()">Verify
+                                                OTP</button>
+                                        </div>
+                                        <div class="col-8">
+                                            <div id="timerContainer" class="hidden mt-2 col-md-6">
+                                                <span id="timer"></span>
+                                                <button type="button" id="resendButton" class="btn btn-secondary hidden"
+                                                    onclick="resendOTP()">Resend OTP</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <button type="button" id="submitButton" class="btn btn-primary mt-2"
+                                onclick="handleFormSubmit()">Submit</button>
+                        </form>
+
+                        <!-- Edit User Data Form -->
+                        <form id="editForm" class="hidden m-auto p-2 col-12">
+                            <div class="row gap-4">
+                                <div class="form-group position-relative col-md-5">
+                                    <label class="text-b m-0" for="fullName">Full Name</label>
+                                    <input type="text" id="fullName" placeholder="Full Name" required
+                                        class="form-control" disabled />
+                                    <button type="button" class="edit-icon" onclick="toggleEdit('fullName')">
+                                        <img src="assets/images/gallery/edit_icon.png" alt="Edit"
+                                            class="edit-icon-img" />
+                                    </button>
+                                </div>
+                                <div class="form-group position-relative col-md-3">
+                                    <label class="text-b m-0" for="dob">DOB</label>
+                                    <input type="date" id="dob" placeholder="DOB" required class="form-control"
+                                        disabled />
+                                    <button type="button" class="edit-icon" onclick="toggleEdit('dob')">
+                                        <img src="assets/images/gallery/edit_icon.png" alt="Edit"
+                                            class="edit-icon-img" />
+                                    </button>
+                                </div>
+                                <div class="form-group position-relative col-md-3">
+                                    <label class="text-b m-0" for="gender">Gender</label>
+                                    <input type="text" id="gender" placeholder="Gender" required class="form-control"
+                                        disabled />
+                                    <button type="button" class="edit-icon" onclick="toggleEdit('gender')">
+                                        <img src="assets/images/gallery/edit_icon.png" alt="Edit"
+                                            class="edit-icon-img" />
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row  justify-content-end">
+                                <div class="col-12 col-lg-5 form-group position-relative">
+                                    <label class="text-b m-0" for="email">Email</label>
+                                    <input type="email" id="email" placeholder="Email" required class="form-control"
+                                        disabled />
+                                    <button type="button" class="edit-icon" onclick="toggleEdit('email')">
+                                        <img src="assets/images/gallery/edit_icon.png" alt="Edit"
+                                            class="edit-icon-img" />
+                                    </button>
+                                </div>
+                                <div class="col-12 col-lg-7 form-group mt-4">
+                                    <!-- Add Family Member Button -->
+                                    <div class="d-flex align-items-center justify-content-end gap-3">
+                                        <span class="text-b">Add Family Member
+                                        </span>
+                                        <button type="button" class="btttn  addFamilyMember"><img
+                                                src="assets/images/gallery/add_user.png" class="img-fluid"
+                                                alt="Add User" /></button>
+                                    </div>
+                                    <!-- <button type="button" id="addFamilyMember" class="btttn">
+                                        </button> -->
+                                </div>
+                            </div>
+                            <div id="familyMembersContainer"></div>
+
+                            <!-- Initial "Add Family Member" Button -->
+
+
+                        </form>
+
+
+
+                        <section id="showriskprofile" class="hidden pt-0">
+                            <div class="container form-container">
+                                <h4 class="text-center mb-4 fw-bold">Select Your Risk Profile</h4>
+
+                                <form>
+                                    <!-- Risk Profile Selection -->
+                                    <div id="risk-profile-selection">
+                                        <div class=" d-flex justify-content-around">
+                                            <div id="riskProfile" class="form-check">
+                                                <input class="form-check-input" type="radio" name="riskProfile"
+                                                    id="conservative" value="Conservative" required
+                                                    onchange="lockSelection()">
+                                                <label class="form-check-label" for="conservative">Conservative</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" name="riskProfile"
+                                                    id="moderate" value="Moderate" onchange="lockSelection()">
+                                                <label class="form-check-label" for="moderate">Moderate</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" name="riskProfile"
+                                                    id="aggressive" value="Aggressive" onchange="lockSelection()">
+                                                <label class="form-check-label" for="aggressive">Aggressive</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Link to show Investment Section -->
+                                    <a href="javascript:void(0);" class="important-link fw-bold" id="investmentLink"
+                                        onclick="showInvestmentSection()">
+                                        If you are not able to select your risk profile <br> Click here to Answer
+                                        following 3 simple questions
+                                    </a>
+                                    <!-- Calculator Section -->
+
+
+                                    <!-- Investment Section (appears when the link is clicked) -->
+                                    <div id="investmentSection" class="mb-5 ">
+                                        <div class="container">
+                                            <div class="question-card">
+                                                <h5 class="que">How do you react to potential investment losses?</h5>
+                                                <form id="investmentForm">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="reaction" id="sellImmediately" value="2">
+                                                                <label class="form-check-label"
+                                                                    for="sellImmediately">Sell
+                                                                    investments immediately</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="reaction" id="sellSome" value="4">
+                                                                <label class="form-check-label" for="sellSome">Sell some
+                                                                    high-loss investments</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="reaction" id="doNothing" value="6">
+                                                                <label class="form-check-label" for="doNothing">Do
+                                                                    nothing and
+                                                                    wait for recovery</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="reaction" id="investMore" value="8">
+                                                                <label class="form-check-label" for="investMore">
+                                                                    Take advantage of the drop and invest more
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <h5 class="que">What is your attitude towards achieving returns
+                                                        higher than
+                                                        fixed
+                                                        deposits?</h5>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="attitude" id="stronglyDisagree" value="1">
+                                                                <label class="form-check-label"
+                                                                    for="stronglyDisagree">Strongly
+                                                                    disagree</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="attitude" id="disagree" value="2">
+                                                                <label class="form-check-label"
+                                                                    for="disagree">Disagree</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="attitude" id="agree" value="3">
+                                                                <label class="form-check-label"
+                                                                    for="agree">Agree</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="attitude" id="stronglyAgree" value="4">
+                                                                <label class="form-check-label"
+                                                                    for="stronglyAgree">Strongly
+                                                                    agree</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <h5 class="que">How much of your investment portfolio might you need
+                                                        to withdraw
+                                                        in the
+                                                        next five years?</h5>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="withdrawal" id="moreThan30" value="1.5">
+                                                                <label class="form-check-label" for="moreThan30">More
+                                                                    than
+                                                                    30%</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="withdrawal" id="20To30" value="3">
+                                                                <label class="form-check-label"
+                                                                    for="20To30">20–30%</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="withdrawal" id="10To20" value="4.5">
+                                                                <label class="form-check-label"
+                                                                    for="10To20">10–20%</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="withdrawal" id="lessThan10" value="6">
+                                                                <label class="form-check-label" for="lessThan10">Less
+                                                                    than
+                                                                    10%</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+
+                                                    <button type="button" class="btn btn-primary"
+                                                        onclick="calculateScore()">Submit</button>
+
+                                                </form>
+                                            </div>
+
+
+                                            <!-- Graph column -->
+                                            <div class=" graph-column " id="graphContainer" style="display: none;">
+                                                <div>
+                                                    <h4 class="text-center">Your Risk Profile</h4>
+                                                    <div class="speedometer-container">
+                                                        <img src="assets/images/gallery/graph.svg" alt=""
+                                                            class="speedometer-img w-100 img-fluid">
+                                                        <img id="needle" src="assets/images/gallery/niddle.svg"
+                                                            alt="Needle" />
+                                                    </div>
+                                                </div>
+                                                <div class="riskLabel label-top" id="conservativeLabel"
+                                                    style="display: none;">
+                                                    Conservative</div>
+                                                <div class="riskLabel label-top" id="moderateLabel"
+                                                    style="display: none;">
+                                                    Moderate
+                                                </div>
+                                                <div class="riskLabel label-top" id="aggressiveLabel"
+                                                    style="display: none;">
+                                                    Aggressive</div>
+                                                <div id="scoreResult">
+                                                    <h4 id="resultMessage"></h4>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="calculator-section" class="mb-4" style="display:none;">
+                                        <section class="pb-0">
+                                            <div class="container">
+                                                <h3 class="fw-bold text-center ">Are you Interested towards achieving
+                                                    returns higher than fixed deposits?</h3>
+                                                <div class="row justify-content-between">
+                                                    <div class="col-md-4 col-sm-6 bo">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 bo">
+                                                        <div
+                                                            class="calculator-card text-center border-b shadow-sm h-100">
+                                                            <div class="card-body">
+                                                                <!-- Custom Checkbox on top-left -->
+                                                                <input type="checkbox" id="check1"
+                                                                    class="calculator-checkbox" data-id="1" checked>
+                                                                <label for="check1" class="checkbox-label"></label>
+
+                                                                <img src="assets/images/gallery/wealth-plus.webp"
+                                                                    class="img-fluid mb-3" alt="Goal Savings">
+                                                                <h5 class="calculator-card-title">Wealth Plus</h5>
+                                                                <p class="calculator-card-text w-100">A solution to grow
+                                                                    your wealth through smart investments</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 bo">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 bo">
+                                                        <div
+                                                            class="calculator-card text-center border-b shadow-sm h-100">
+                                                            <div class="card-body">
+                                                                <!-- Custom Checkbox on top-left -->
+                                                                <input type="checkbox" id="check2"
+                                                                    class="calculator-checkbox" data-id="2" checked>
+                                                                <label for="check2" class="checkbox-label"></label>
+
+                                                                <img src="assets/images/gallery/goal-plus.webp"
+                                                                    class="img-fluid mb-3" alt="Retirement Planning">
+                                                                <h5 class="calculator-card-title">Goal Plus</h5>
+                                                                <p class="calculator-card-text w-100">Tailored plans to
+                                                                    achieve your financial milestones.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 bo">
+                                                        <div
+                                                            class="calculator-card text-center border-b shadow-sm h-100">
+                                                            <div class="card-body">
+                                                                <!-- Custom Checkbox on top-left -->
+                                                                <input type="checkbox" id="check3"
+                                                                    class="calculator-checkbox" data-id="3" checked>
+                                                                <label for="check3" class="checkbox-label"></label>
+
+                                                                <img src="assets/images/gallery/protect-plus.webp"
+                                                                    class="img-fluid mb-3" alt="Goal Savings">
+                                                                <h5 class="calculator-card-title">Protect Plus</h5>
+                                                                <p class="calculator-card-text w-100">Comprehensive
+                                                                    protection for your life.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Proceed Button -->
+                                                <div id="proceed-button-container" class="text-center mt-4">
+                                                    <button id="proceed-button" class="btn btn-primary">Proceed</button>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0 exist-img">
+                        <img src="assets/images/gallery/side.png" class="" alt="Gallery Image" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- Graph column -->
+    <script>// Function to check if all checkboxes are selected
+        // Function to check if at least one checkbox is selected
+        function checkAtLeastOneSelected() {
+            const checkedCheckboxes = document.querySelectorAll('.calculator-checkbox:checked');
+
+            // If at least one checkbox is selected, show the "Proceed" button
+            const proceedButtonContainer = document.getElementById('proceed-button-container');
+            if (checkedCheckboxes.length > 0) {
+                proceedButtonContainer.style.display = 'block'; // Show Proceed button
+            } else {
+                proceedButtonContainer.style.display = 'none'; // Hide Proceed button
+            }
+        }
+
+        // Initially, check if at least one checkbox is selected
+        checkAtLeastOneSelected();
+
+        // Add event listeners to each checkbox
+        document.querySelectorAll('.calculator-checkbox').forEach(function (checkbox) {
+            // Ensure the checkbox is checked by default
+            checkbox.checked = true;
+
+            checkbox.addEventListener('change', function () {
+                // After each change, check if at least one checkbox is selected
+                checkAtLeastOneSelected();
+            });
+        });
+
+        // When the "Proceed" button is clicked, redirect with the selected IDs
+        const proceedButton = document.getElementById('proceed-button');
+        proceedButton.addEventListener('click', function () {
+            const selectedIds = [];
+            const checkedCheckboxes = document.querySelectorAll('.calculator-checkbox:checked');
+
+            checkedCheckboxes.forEach(function (checkbox) {
+                selectedIds.push(checkbox.getAttribute('data-id'));
+            });
+
+            // Redirect to goalcalc.html with selected IDs as query parameters
+            if (selectedIds.length > 0) {
+                window.location.href = 'goalcalc.html?selectedIds=' + selectedIds.join(',');
+            } else {
+                alert('Please select at least one option before proceeding.');
+            }
+        });
+
+
+    </script>
+    <script>
+        function calculateScore() {
+            let totalScore = 0;
+
+            // Get selected values from radio buttons
+            const reaction = document.querySelector('input[name="reaction"]:checked');
+            const attitude = document.querySelector('input[name="attitude"]:checked');
+            const withdrawal = document.querySelector('input[name="withdrawal"]:checked');
+
+            // Ensure all questions are answered
+            if (!reaction || !attitude || !withdrawal) {
+                alert("Please answer all the questions.");
+                resetNeedle(); // Reset needle to flat position if answers are incomplete
+                return;
+            }
+
+            // Add up scores
+            totalScore += parseFloat(reaction.value);
+            totalScore += parseFloat(attitude.value);
+            totalScore += parseFloat(withdrawal.value);
+
+            // Ensure the score is between 4.5 and 18
+            totalScore = Math.max(4.5, Math.min(totalScore, 18));
+
+            // Calculate the needle angle based on the total score
+            let needleAngle = mapScoreToAngle(totalScore);
+            let riskCategory = '';
+            let riskDescription = '';
+
+            // Adjust the ranges for risk categories according to the new min-max score range
+            if (totalScore <= 8) {
+                riskCategory = 'Conservative';
+                riskDescription = 'Conservative: Low tolerance for risk; prioritizes stability over returns.';
+            } else if (totalScore > 8 && totalScore <= 14) {
+                riskCategory = 'Moderate';
+                riskDescription = 'Moderate: Willing to take some risk for moderate growth, balancing safety and returns.';
+            } else {
+                riskCategory = 'Aggressive';
+                riskDescription = 'Aggressive: Comfortable with high risks for higher returns, focused on long-term growth.';
+            }
+
+            // Display the result below the gauge
+            showResultMessage(`
+            <h4>Your total score: ${totalScore}</h4>
+            <p><strong>Risk Category:</strong> ${riskCategory}</p>
+            <p>${riskDescription}</p>
+        `, needleAngle, riskCategory);
+
+            // Show the graph container
+            document.getElementById('graphContainer').style.display = 'block';
+            document.getElementById('calculator-section').style.display = 'block';
+        }
+
+        function mapScoreToAngle(score) {
+            // Adjust the score range from 4.5–18 to an angle range of -90 to 45 degrees
+            const minScore = 4.5;
+            const maxScore = 18;
+            const minAngle = -85;
+            const maxAngle = 85;
+
+            return minAngle + ((score - minScore) / (maxScore - minScore)) * (maxAngle - minAngle);
+        }
+
+        function showResultMessage(message, needleAngle, riskCategory) {
+            const resultBox = document.getElementById('scoreResult');
+            resultBox.innerHTML = message;
+            resultBox.style.opacity = 1;
+
+            // Rotate the needle to the calculated angle (using the image element)
+            const needle = document.getElementById('needle');
+            needle.style.transform = `rotate(${needleAngle}deg)`; // Rotate the image based on score
+
+            // Show risk labels based on the risk category
+            document.getElementById('conservativeLabel').style.display = (riskCategory === 'Conservative') ? 'block' : 'none';
+            document.getElementById('moderateLabel').style.display = (riskCategory === 'Moderate') ? 'block' : 'none';
+            document.getElementById('aggressiveLabel').style.display = (riskCategory === 'Aggressive') ? 'block' : 'none';
+        }
+
+        function resetNeedle() {
+            const needle = document.getElementById('needle');
+            needle.style.transform = `rotate(-90deg)`; // Reset needle to initial position
+        }
+    </script>
+
+    <script>
+        function showCalculatorOptions() {
+            const riskProfile = document.querySelector('input[name="riskProfile"]:checked');
+            if (riskProfile) {
+                document.getElementById('calculator-section').style.display = 'block';
+                document.getElementById('investmentSection').style.display = 'none';
+            }
+        }
+
+        function showInvestmentSection() {
+            // Show the investment section
+            const investmentSection = document.getElementById('investmentSection');
+            if (investmentSection) {
+                investmentSection.classList.remove('hidden');
+                investmentSection.style.display = 'block'; // Ensure the section is visible
+                document.getElementById('calculator-section').style.display = 'none'; // Hide other sections
+            } else {
+                console.error('Investment section element not found.');
+            }
+
+            // Retain selected risk profile
+            const riskProfile = document.querySelector('input[name="riskProfile"]:checked');
+            if (riskProfile) {
+                console.log(`Selected risk profile: ${riskProfile.value}`);
+                riskProfile.checked = true; // Ensure it remains checked
+            } else {
+                console.log("No risk profile selected.");
+            }
+
+            // Hide the risk-profile-selection section
+            const riskProfileSelection = document.getElementById("risk-profile-selection");
+            if (riskProfileSelection) {
+                riskProfileSelection.style.display = "none";
+                console.log("Risk profile selection section hidden.");
+            } else {
+                console.error("Element with ID 'risk-profile-selection' not found.");
+            }
+        }
+
+
+    </script>
+
+    <script src="assets/js/theme.js"></script>
+    <script>
+        function lockSelection() {
+            const riskProfileRadios = document.querySelectorAll('input[name="riskProfile"]');
+
+
+            // Disable all radio buttons in the group
+            riskProfileRadios.forEach((radio) => {
+                radio.disabled = true;
+            });
+
+            // Show the calculator section
+            const calculator = document.getElementById('calculator-section');
+            if (calculator) {
+                calculator.classList.remove('hidden');
+                calculator.style.display = 'block';
+            }
+
+            // Hide the "If you are not able to select your risk profile" link
+            const investmentLink = document.getElementById('investmentLink');
+            if (investmentLink) {
+                investmentLink.style.display = 'none';
+            }
+        }
+        new WOW().init();
+
+        // Show the 'showriskprofile' section
+        function showRiskProfileSection() {
+            const showRiskProfile = document.getElementById('showriskprofile');
+
+            if (showRiskProfile) {
+                console.log('Showing #showriskprofile');
+                showRiskProfile.classList.remove('hidden');
+                showRiskProfile.style.display = 'none'; // Ensure it is shown
+            } else {
+                console.error('showriskprofile section not found.');
+            }
+        }
+
+        document.querySelectorAll('input[name="contactOption"]').forEach((radio) => {
+            radio.addEventListener("change", function () {
+                // No need to hide or show fields based on the selected option anymore
+            });
+        });
+        document.querySelectorAll('input[name="contactOption"]').forEach((radio) => {
+            radio.addEventListener("change", function () {
+                // No need to hide or show fields based on the selected option anymore
+            });
+        });
+
+        // Function to handle form submission and send OTP
+        function handleFormSubmit() {
+            const panNumber = document.getElementById("panNumber").value.trim().toUpperCase();
+            const mobileNumber = document.getElementById("mobileNumber").value.trim();
+            const termsCheckbox = document.getElementById("termsCheckbox").checked;
+            const errorMessage = document.getElementById("errorMessage");
+            const termsError = document.getElementById("termsError");
+            const otpSection = document.getElementById("otpSection");
+            const submitButton = document.getElementById("submitButton");
+            const timerContainer = document.getElementById("timerContainer");
+            const resendButton = document.getElementById("resendButton");
+
+            // Reset previous error messages
+            errorMessage.classList.add("hidden");
+            termsError.classList.add("hidden");
+
+            // Validate inputs
+            if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(panNumber)) {
+                errorMessage.textContent = "Please enter a valid PAN Number.";
+                errorMessage.classList.remove("hidden");
+                return;
+            }
+
+            if (!/^\d{10}$/.test(mobileNumber)) {
+                errorMessage.textContent = "Please enter a valid 10-digit Mobile Number.";
+                errorMessage.classList.remove("hidden");
+                return;
+            }
+
+            if (!termsCheckbox) {
+                termsError.textContent = "You must agree to the Terms and Conditions.";
+                termsError.classList.remove("hidden");
+                return;
+            }
+
+            // Show OTP section and hide Submit button
+            otpSection.classList.remove("hidden");
+            submitButton.classList.add("hidden");
+
+            // Show timer container
+            timerContainer.classList.remove("hidden");
+            resendButton.classList.add("hidden"); // Hide resend button initially
+
+            // Simulate sending OTP
+            sendOTP();
+
+            // Start the timer for Resend OTP (45 seconds)
+            startTimer(45, "timer", () => {
+                resendButton.classList.remove("hidden"); // Show Resend OTP button after 45 seconds
+            });
+        }
+
+        // Function to simulate sending OTP
+        function sendOTP() {
+            const otp = "123456"; // Hardcoded OTP for simulation
+            alert(`Your OTP is ${otp}`); // Display OTP alert
+        }
+
+        // Timer function (adjustable duration)
+        function startTimer(durationInSeconds, timerElementId, callback) {
+            const timerElement = document.getElementById(timerElementId);
+            let remainingTime = durationInSeconds;
+
+            const timerInterval = setInterval(() => {
+                const minutes = Math.floor(remainingTime / 60);
+                const seconds = remainingTime % 60;
+                timerElement.textContent = `Time remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                remainingTime--;
+
+                if (remainingTime < 0) {
+                    clearInterval(timerInterval);
+                    timerElement.textContent = ""; // Clear timer text
+                    callback(); // Execute callback when timer ends
+                }
+            }, 1000);
+        }
+
+        // Function to verify OTP input
+        function verifyOTP() {
+            const otpValue = document.getElementById("otpInput").value.trim();
+            const termsCheckbox = document.getElementById("termsCheckbox").checked;
+            const termsError = document.getElementById("termsError");
+
+            // Ensure Terms and Conditions are agreed upon
+            if (!termsCheckbox) {
+                termsError.textContent = "You must agree to the Terms and Conditions.";
+                termsError.classList.remove("hidden");
+                return;
+            }
+
+            // Reset previous error message
+            termsError.classList.add("hidden");
+
+            if (otpValue === "123456") { // Match OTP
+                alert("OTP verified successfully.");
+                // Show fetched user data form
+                showUserDataForm();
+            } else {
+                alert("Invalid OTP. Please try again.");
+            }
+        }
+
+        // Function to resend OTP
+        function resendOTP() {
+            alert("Resending OTP...");
+            sendOTP();
+
+            // Restart the timer (45 seconds)
+            const resendButton = document.getElementById("resendButton");
+            resendButton.classList.add("hidden"); // Hide resend button during countdown
+            startTimer(45, "timer", () => {
+                resendButton.classList.remove("hidden"); // Show resend button after countdown
+            });
+        }
+
+        // Function to show the edit form after OTP is verified
+        function showUserDataForm() {
+            const editForm = document.getElementById("editForm");
+            const mergedForm = document.getElementById("mergedForm");
+
+            // Hide the merged form and show the edit form
+            mergedForm.classList.add("hidden");
+            editForm.classList.remove("hidden");
+        }
+
+
+        // Function to update button states based on Terms and Conditions checkbox
+        function updateButtonStates() {
+            const termsCheckbox = document.getElementById("termsCheckbox");
+            const submitButton = document.getElementById("submitButton");
+            const verifyOtpButton = document.querySelector("#otpSection button");
+            const termsGroup = document.getElementById("termsGroup");
+
+            if (termsCheckbox.checked) {
+                submitButton.disabled = false;
+                verifyOtpButton.disabled = false;
+                termsGroup.classList.remove("opacity-100");
+                termsGroup.classList.add("opacity-25");
+            } else {
+                submitButton.disabled = true;
+                verifyOtpButton.disabled = true;
+                termsGroup.classList.remove("opacity-25");
+                termsGroup.classList.add("opacity-100");
+            }
+        }
+
+        // Add event listener to Terms and Conditions checkbox
+        document.getElementById("termsCheckbox").addEventListener("change", updateButtonStates);
+
+        // Initialize button states on page load
+        updateButtonStates();
+
+
+        function showUserDataForm() {
+            const editForm = document.getElementById("editForm");
+            const mergedForm = document.getElementById("mergedForm");
+            const showriskprofile = document.getElementById("showriskprofile");
+
+
+            // Hide the merged form and show the edit form
+            mergedForm.classList.add("hidden");
+            editForm.classList.remove("hidden");
+            showriskprofile.classList.remove("hidden");
+
+            // Fetch user data
+            fetchUserData();
+        }
+        function toggleEdit(fieldId) {
+            const field = document.getElementById(fieldId);
+
+            // If the field is currently disabled, enable it and change the button icon
+            if (field.disabled) {
+                field.disabled = false; // Enable field
+                field.style.backgroundColor = "#f8f9fa"; // Optionally change background to indicate editing
+            } else {
+                field.disabled = true; // Disable field
+                field.style.backgroundColor = "#fff"; // Optionally change background back to non-edit mode
+            }
+        }
+
+        // Function to fetch and populate user data (Unchanged)
+        function fetchUserData() {
+            const userData = {
+                fullName: "PUNIL ISHWERLAL SHAH",
+                email: "punilishwerlalshah@gmail.com",
+                dob: "1960-08-26",
+                gender: "Male",
+            };
+
+            // Populate the form fields with fetched data
+            document.getElementById("fullName").value = userData.fullName;
+            document.getElementById("email").value = userData.email;
+            document.getElementById("dob").value = userData.dob;
+            document.getElementById("gender").value = userData.gender;
+        }
+
+        // Function to add a new family member row
+        function addFamilyMember() {
+            const container = document.getElementById("familyMembersContainer");
+
+            // Create new family member form block
+            const familyMemberDiv = document.createElement("div");
+            familyMemberDiv.className = "family-member mb-3 p-3";
+            familyMemberDiv.innerHTML = `
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-4">
+                <label for="relation">Relation</label>
+                <select name="familyMemberRelation[]" class="form-control">
+                    <option value="" disabled selected>Select Relation</option>
+                    <option value="Father">Father</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Son">Son</option>
+                    <option value="Daughter">Daughter</option>
+                    <option value="Spouse">Spouse</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="name">Name</label>
+                <input type="text" name="familyMemberName[]" class="form-control" placeholder="Enter Name">
+            </div>
+            <div class="col-md-2 form-group">
+                <label for="age">Age</label>
+                <input type="number" name="familyMemberAge[]" class="form-control" placeholder="Enter Age">
+            </div>
+            <div class="col-md-2 d-flex align-items-end justify-content-between">
+                <button type="button" class="btn btn-danger removeFamilyMember">X</button>
+                <button type="button" class="btn btn-success addFamilyMember">+</button>
+            </div>
+        </div>
+    `;
+            container.appendChild(familyMemberDiv);
+
+            // Add event listener for the new remove button
+            familyMemberDiv.querySelector(".removeFamilyMember").addEventListener("click", () => container.removeChild(familyMemberDiv));
+
+            // Add event listener for the new add button
+            familyMemberDiv.querySelector(".addFamilyMember").addEventListener("click", addFamilyMember);
+        }
+
+        // Attach event listener to the initial "Add Family Member" button
+        document.querySelector(".addFamilyMember").addEventListener("click", addFamilyMember);
+
+    </script>
+
+</body>
+
+</html>

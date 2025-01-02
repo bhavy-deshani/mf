@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Retirement Savings Calculator integrated</title>
+    <style type="text/css">
+        .Div_1 {
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /*
+    .rounded-corners {-moz-border-radius: 10px;-webkit-border-radius: 10px;-khtml-border-radius: 10px;border-radius: 10px;border:1px #999999 solid;background-color:#f0f0f0;padding:10px;margin:10px;text-align:center;vertical-align:middle;}
+    */
+        .tablesorter {}
+
+        table {
+            display: table;
+            border-collapse: separate;
+            box-sizing: border-box;
+            text-indent: initial;
+            border-spacing: 2px;
+            border-color: grey;
+        }
+
+        strong {
+            font-size: 16px;
+        }
+
+        .input_text_1 {
+            width: 150px;
+            text-align: right;
+            padding: 3px;
+            vertical-align: middle;
+            margin: 0px;
+            font-weight: normal;
+            font-size: 14px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+        .input_text_2 {
+            width: 150px;
+            text-align: right;
+            padding: 3px;
+            vertical-align: middle;
+            margin: 0px;
+            font-weight: normal;
+            font-size: 14px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+        .input_text_3 {
+            width: 150px;
+            text-align: right;
+            padding: 3px;
+            vertical-align: middle;
+            margin: 0px;
+            font-weight: normal;
+            font-size: 14px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+        .select_1 {
+            width: 150px;
+            padding: 3px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #FFFFFF;
+        }
+
+        .talign_left {
+            text-align: left;
+        }
+
+        ul.tabs {
+            display: table;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            border-bottom: #0B98DF;
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: normal;
+            color: #FFFFFF;
+        }
+
+        ul.tabs>li {
+            float: left;
+            padding: 10px;
+            background-color: #0B98DF;
+            width: 30.06%;
+            border-top: 1px solid #FFFFFF;
+            border-left: 1px solid #FFFFFF;
+            border-right: 1px solid #FFFFFF;
+            cursor: pointer;
+            webkit-border-radius: 7px 7px 0px 0px;
+            -moz-border-radius: 7px 7px 0px 0px;
+            border-radius: 7px 7px 0px 0px;
+        }
+
+        ul.tabs>li>div {
+            width: 100%
+        }
+
+        /* ul {
+            overflow: auto;
+        } */
+
+        ul.tabssci {
+            display: table;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            border-bottom: #0B98DF;
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: normal;
+            color: #FFFFFF;
+        }
+
+        ul.tabssci>li {
+            float: left;
+            padding: 10px;
+            background-color: #0B98DF;
+            width: 30.06%;
+            border-top: 1px solid #FFFFFF;
+            border-left: 1px solid #FFFFFF;
+            border-right: 1px solid #FFFFFF;
+            cursor: pointer;
+            webkit-border-radius: 7px 7px 0px 0px;
+            -moz-border-radius: 7px 7px 0px 0px;
+            border-radius: 7px 7px 0px 0px;
+        }
+
+        ul.tabssci>li>div {
+            width: 100%
+        }
+
+        #ResultTab,
+        #CalculationTab,
+        #GraphTab {
+            display: none;
+            padding: 10px;
+        }
+
+        .Rbg_1 {
+            background-color: #EEEEEE;
+            width: 40%;
+            font-size: 15px;
+            border: 0;
+        }
+
+        .Rbg_2 {
+            background-color: #FFFFFF;
+            font-weight: bold;
+            font-size: 16px;
+            padding-right: 30%;
+            text-align: right;
+        }
+
+        .Rbg_3 {
+            background-color: #FFFFFF;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center
+        }
+
+        .Rbg_4 {
+            background-color: #EEEEEE;
+            width: 60%;
+            font-size: 15px;
+        }
+
+        .Rbg_5 {
+            background-color: #FFFFFF;
+            font-weight: bold;
+            font-size: 16px;
+            width: 40%;
+            text-align: right;
+            padding-right: 10%;
+        }
+
+
+        #Calc_Container input,
+        select {
+            padding: 0px;
+            padding-right: 3px;
+            width: 200px;
+            margin-right: 9px;
+            border: 1px solid #2a466a;
+        }
+
+        ul.tabs {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+        ul.tabs li {
+            background: none;
+            color: #222;
+            display: inline-block;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        ul.tabs li.current {
+            background: #eb807d;
+            color: #222;
+        }
+
+        ul.tabssci {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+        ul.tabssci li {
+            background: none;
+            color: #222;
+            display: inline-block;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        ul.tabssci li.current {
+            background: #eb807d;
+            color: #222;
+        }
+
+        #CalculationTab {
+            display: none;
+        }
+
+        #ExcelBut {
+            display: none;
+        }
+
+        #PdfBut {
+            display: none;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-11bd514 {
+            margin-top: 60px;
+            margin-bottom: 0px;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tabs-wrapper {
+            width: 22%;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-title,
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-title:before,
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-title:after,
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-content,
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tabs-content-wrapper {
+            border-width: 0px;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-desktop-title.elementor-active {
+            background-color: #F6F6F6;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tabs-content-wrapper {
+            background-color: #F6F6F6;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-title,
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-title a {
+            color: #000000;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-title.elementor-active a {
+            color: #1B3098;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-title {
+            font-family: "Roboto", Sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-91106f4 .elementor-tab-content {
+            font-family: "Roboto", Sans-serif;
+            font-weight: 400;
+        }
+
+        .elementor-1286 .elementor-element.elementor-element-91106f4>.elementor-widget-container {
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .elementor-widget .tippy-tooltip .tippy-content {
+            text-align: center;
+        }
+
+        /* Start custom CSS for tabs, class: .elementor-element-91106f4 */
+        .elementor-widget-tabs .elementor-tab-desktop-title {
+            position: relative;
+            padding: 15px 10px;
+            font-weight: 700;
+            line-height: 1;
+            border-bottom: 1px solid #ccc;
+            border-width: 1px !important;
+        }
+
+        .elementor-tabs-wrapper {
+            border: 1px solid #ccc;
+        }
+
+        .elementor-tabs-content-wrapper {
+            padding: 15px;
+        }
+
+        .elementor-tab-content {
+            background: #fff;
+            height: 100%;
+        }
+
+
+        #Calc_Container tr {
+            margin-bottom: 10px;
+            /* display: grid; */
+            width: 100%;
+            float: none;
+            border: 0;
+        }
+
+        #Calc_Container td {
+            width: 290px;
+            border: 0;
+        }
+
+        #Calc_Container input,
+        select {
+            padding: 7px;
+            width: 200px;
+            margin-right: 10px
+        }
+
+        .calcc td {
+            width: 180px !important;
+            background: #fff !important;
+            padding: 5px;
+            border: 0;
+        }
+
+        .calcc input,
+        select {
+            padding: 5px !important;
+            margin-right: 0px !important;
+            width: 198px !important;
+
+        }
+
+        /* End custom CSS */
+        #Calc_Container .elementor-button {
+            font-family: "Roboto", Sans-serif;
+            font-weight: 400;
+            background-color: #EB807D;
+            padding: 12px;
+            width: 150px;
+            font-size: 16px;
+            color: #ffffff;
+            cursor: pointer;
+            border: 1px solid #EB807D !important;
+            border-radius: 3px;
+        }
+
+        .Modal {
+            position: absolute;
+            top: 353%;
+            left: 42%;
+            height: 190px;
+            width: 500px;
+            border-radius: 10px;
+            background: white;
+            z-index: 999999999999999999;
+        }
+
+        #mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9;
+            width: 3000px;
+            height: 3000px;
+            background-color: rgba(0, 0, 0, 0.904);
+            display: none;
+            opacity: 0.5;
+            backdrop-filter: blur(1px);
+        }
+
+        #boxes #dialog {
+            width: 80%;
+            height: auto;
+            margin-left: -1%;
+            padding: 25px;
+            font-size: 19px;
+            position: fixed;
+        }
+
+        #boxes .window {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            right: 0px;
+            display: none;
+            z-index: 99;
+            padding: 20px;
+        }
+
+        .Modal-InText {
+            text-align: center;
+            transform: translateY(25px);
+            font-family: sans-serif;
+        }
+
+        .Btn-Right {
+            background: #eb807d;
+            color: white;
+        }
+
+        .Modal-InBtn {
+            padding: 3px 40px;
+            transform: translate(191px, 40px);
+            border-radius: 20px;
+            font-family: sans-serif;
+            font-size: 17px;
+            outline: none;
+            border: 1px solid white;
+            transition: 0.2s ease-in-out all;
+            cursor: pointer;
+        }
+
+        .Result_1 {
+            font-family: Calibri, "Calibri Light", Tahoma;
+            font-size: 14px;
+            font-weight: normal;
+            padding: 5px;
+            color: #000000;
+            text-align: justify;
+            vertical-align: middle;
+        }
+
+        .pane {
+            background-color: #FFFFFF;
+            border-top: 1px solid #eb807d;
+            border-left: 1px solid #eb807d;
+            border-right: 1px solid #eb807d;
+            border-bottom: 1px solid #eb807d;
+        }
+
+        ul.tabs li.current {
+            background: #eb807d;
+            color: #222;
+        }
+
+        ul.tabs li {
+            background: #eb807d;
+            color: #ffffff;
+            display: inline-block;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        ul.tabs {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+        ul.tabs {
+            display: table;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            border-bottom: #0B98DF;
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: normal;
+            color: #FFFFFF;
+        }
+
+        .Calc_General_1 {
+            font-family: Calibri, "Calibri Light", Tahoma;
+            font-size: 14px;
+            font-weight: normal;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: #143980;
+            margin: auto;
+            text-align: justify;
+            vertical-align: middle;
+        }
+
+        @media screen and (max-width:700px) {
+            #Calc_Container td {
+                width: 200px;
+            }
+
+            .Modal {
+                font-size: 14px;
+                top: 400%;
+                left: 4%;
+                width: 380px;
+            }
+
+            .Modal-InBtn {
+                transform: translate(140px, 40px);
+                font-size: 12px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-md-8">
+            <div class="container">
+                <div>
+
+                </div>
+
+                <div id="Savings-Calculator" class="togglediv mt-3 ">
+                    <h1 class="fw-bold">Savings Calculator</h1>
+                    <table class="calcc" width="100%">
+                        <tbody>
+                            <tr>
+                                <td class="Calc_Txt text-b" valign="top">Use our saving calculator to see how a
+                                    consistent
+                                    approach to investing can make your money grow. This calculator will help you to
+                                    determine the right amount to save on a regular basis to achieve your goal.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-12 col-md-8">
+                            <div id="Calc_Container" class="rounded-corners">
+                                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                                    <tbody>
+
+
+                                        <tr>
+                                            <td class="Calc_Txt" width="40%">Initial Investment:</td>
+                                            <td class="talign_left" width="59%"><input id="Init_Inv_txt"
+                                                    class="input_text_1" type="text" /><span
+                                                    style="font-family: Arial; font-size: 12px;">(Rs.)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Calc_Txt">Regular Addition Amt:</td>
+                                            <td class="talign_left"><input id="Reg_Amt_txt" class="input_text_1"
+                                                    type="text" /><span
+                                                    style="font-family: Arial; font-size: 12px;">(Rs.)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Calc_Txt">Regular Addition Period:</td>
+                                            <td class="talign_left"><select id="Reg_Int_Dlist" class="select_1">
+                                                    <option selected="selected" value="Monthly">Monthly</option>
+                                                    <option value="Quarterly">Quarterly</option>
+                                                    <option value="Half-Yearly">Half-Yearly</option>
+                                                    <option value="Yearly">Yearly</option>
+                                                </select></td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td class="Calc_Txt">Interest Rate:</td>
+                                            <td class="talign_left"><input id="Int_Rat_txt" class="input_text_2"
+                                                    type="text" /><span
+                                                    style="font-family: Arial; font-size: 12px;">(%)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Calc_Txt">Interest Compound :</td>
+                                            <td class="talign_left"><select id="Int_CI_Int_Dlist" class="select_1">
+                                                    <option value="Monthly">Monthly</option>
+                                                    <option value="Quarterly">Quarterly</option>
+                                                    <option value="Half-Yearly">Half-Yearly</option>
+                                                    <option selected="selected" value="Yearly">Yearly</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Calc_Txt">Years to Grow:</td>
+                                            <td class="talign_left"><input id="No_Yrs_txt" class="input_text_3"
+                                                    type="text" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"><input id="sci_calc" class="elementor-button" type="button"
+                                                    value="Calculate" onclick="CI_Calc()" /></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div>
+                                <img src="assets/images/gallery/savings-calculator.webp" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Calc_General_1 text-b">Any results or calculations displayed on this site are made
+                        available
+                        for information purposes only, and do not constitute financial or legal advice.</div>
+                    <div id="Result_Container" class="rounded-corners" style="background-color: #fff;">
+                        <ul class="tabs">
+                            <li id="STab_1" onclick="OpenTab('1','ResultTab')">
+                                <div>Result</div>
+                            </li>
+                            <li id="STab_2" onclick="OpenTab('2','CalculationTab')">
+                                <div>Calculations</div>
+                            </li>
+                        </ul>
+                        <div class="pane">
+                            <div id="ResultTab">
+                                <div id="OutResult" class="Result_1">
+                                    <table style="background-color: #e1e1e1;" width="100%" cellspacing="1"
+                                        cellpadding="5px">
+                                        <tbody>
+                                            <tr>
+                                                <td class="Rbg_1">Initial investment</td>
+                                                <td id="TD_II" class="Rbg_2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="Rbg_1" id="RegAddiPeriodTd">Yearly investment</td>
+                                                <td id="TD_YI" class="Rbg_2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="Rbg_1">Annual interest rate</td>
+                                                <td id="TD_IA" class="Rbg_2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="Rbg_1">Interest Compound</td>
+                                                <td id="TD_IC" class="Rbg_2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="Rbg_1">Future Value</td>
+                                                <td id="TD_FV" class="Rbg_2"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="CalculationTab">
+                                <div id="ddResult" class="overflow-auto"></div>
+                                <center>
+                                    <input id="ExcelBut" class="elementor-button" type="button" value="Excel Format" />
+                                </center><input id="PdfBut" class="elementor-button" type="button" value="PDF Format" />
+
+                            </div>
+                            <div id="GraphTab">
+                                <div id="graph1" style="width: 500px; height: 400px;"></div>
+                            </div>
+                        </div>
+                        <!--
+                    <table>
+                    <tr>
+                    <td colspan="2">
+                    <div id="OutResult" class="Result_1"></div></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2">
+                    <div id="ddResult_sci"></div></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2" class="Calc_Txt">Graphical Analysis</td>
+                    </tr>
+                    <tr>
+                    <td colspan="2">
+                    <div style="border-bottom:1px #999999 solid;"></div></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2">
+                    <div id='graph1_sci' style='width:600px;height:350px;'></div></td>
+                    </tr>
+                    </table>
+                    -->
+                    </div>
+
+
+                    <div id="boxes">
+                        <div id="dialog" class="window" style="display: none;">
+                            <div class="Modal">
+                                <div
+                                    style="background-color:#2a466a;height: 38px;text-align: center;color:white;font-family:'Montserrat';padding: 7px;border-radius: 9px 9px 0px 0px;">
+                                    Message</div>
+                                <h5 class="Modal-InText">
+                                    <label id="ifeaalertmsg" style="font-family:'Montserrat'"></label>
+                                </h5>
+                                <button class="Modal-InBtn Btn-Right" onclick="DoUnMask('dialog','window')">OK</button>
+                            </div>
+                        </div>
+                        <div id="mask" style="width: 1423px; height: 1358px; margin-left: -1%; display: none;"></div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="assets/js/jquery-3.5.1.js"></script>
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/calculator-retirement.js"></script>
+    <script>
+
+        function isValidInput(input, min, max, msg) {
+            msg = msg + " field has invalid data: " + $("#" + input).val();
+            var str = $("#" + input).val();
+            if (str.length <= 0) {
+                alert(msg + " field should be with in in range [" + min + ".." + max + "]");
+                return false;
+            }
+            for (var i = 0; i < str.length; i++) {
+                var ch = str.substring(i, i + 1);
+                if ((ch < "0" || "9" < ch) && ch != '.') {
+                    alert(msg);
+                    return false;
+                }
+            }
+            var num = 0 + str
+            if (num < min || max < num) {
+                alert(msg + " not in range [" + min + ".." + max + "]");
+                return false;
+            }
+            $("#" + input).val(str);
+            $("#" + input).focus();
+            return true;
+        }
+
+        function isValidDigit(input, Option) {
+            var str = $("#" + input).val();
+            if (Option == 1) {
+                if (str.length <= 0) { $('#' + input).val("0"); }
+                for (var i = 0; i < str.length; i++) {
+                    var ch = str.substring(i, i + 1);
+                    if ((ch < "0" || "9" < ch) && ch != '.') { $('#' + input).val("0"); }
+                }
+            }
+            else {
+                if (str == "0") {
+                    $('#' + input).val("");
+                }
+            }
+        }
+
+        function RupeeSeparator(x) {
+            var afterPoint = '';
+            if (x.indexOf('.') > 0)
+                afterPoint = x.substring(x.indexOf('.'), x.length);
+            x = Math.floor(x);
+            x = x.toString();
+            var lastThree = x.substring(x.length - 3);
+            var otherNumbers = x.substring(0, x.length - 3);
+            if (otherNumbers != '')
+                lastThree = ',' + lastThree;
+            var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+            return res
+        }
+
+
+        function DownloadAsPdf(ContainerId, PdfFileName) {
+            var pdf = new jsPDF('p', 'pt', 'ledger');
+            source = $('#' + ContainerId)[0];
+            specialElementHandlers = { '#bypassme': function (element, renderer) { return true } };
+            margins = { top: 80, bottom: 60, left: 60, width: 522 };
+            pdf.fromHTML(source, margins.left, margins.top, { 'width': margins.width, 'elementHandlers': specialElementHandlers });
+            pdf.save(PdfFileName + '.pdf');
+        }
+
+        function DownloadAsExcel(ContainerId) {
+            var ExcelWriter = "";
+            ExcelWriter += "<html xmlns:x=\"urn:schemas-microsoft-com:office:excel\">";
+            ExcelWriter += "<head>";
+            ExcelWriter += "<META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-     8\">";
+            ExcelWriter += "<!--[if gte mso 9]><xml>";
+            ExcelWriter += "<x:ExcelWorkbook>";
+            ExcelWriter += "<x:ExcelWorksheets>";
+            ExcelWriter += "<x:ExcelWorksheet>";
+            ExcelWriter += "<x:Name>Sheet1</x:Name>";
+            ExcelWriter += "<x:WorksheetOptions>";
+            ExcelWriter += "<x:Print>";
+            ExcelWriter += "<x:ValidPrinterInfo/>";
+            ExcelWriter += "</x:Print>";
+            ExcelWriter += "</x:WorksheetOptions>";
+            ExcelWriter += "</x:ExcelWorksheet>";
+            ExcelWriter += "</x:ExcelWorksheets>";
+            ExcelWriter += "</x:ExcelWorkbook>";
+            ExcelWriter += "</xml>";
+            ExcelWriter += "<![endif]--> ";
+            ExcelWriter += "<\head> ";
+            ExcelWriter += "<body> ";
+            ExcelWriter += $("#" + ContainerId).html();
+            ExcelWriter += "</body> ";
+            ExcelWriter += "</html> "
+            var blob = new Blob([ExcelWriter], { type: "application/vnd.ms-excel;charset=charset=utf-8" });
+            saveAs(blob, "Report.xls");
+        }
+
+        function Redirect() {
+            if ($("#NpsACOpenStatus").val() == "NSDL") {
+                LoadContainer("NPS_Acopen_Link", "Templates/NPS/NPS_NSDLCalculator.aspx", "Calculator");
+                $('html, body').animate({ scrollTop: 100 }, 1000);
+            }
+            else if ($("#NpsACOpenStatus").val() == "CAMS") {
+                LoadContainer("NPS_Acopen_Link", "Templates/NPS/NPS_CAMSCalculator.aspx", "Calculator");
+                $('html, body').animate({ scrollTop: 100 }, 1000);
+            }
+        }
+        var plot1 = "";
+        $("#Result_Container").css("display", "none");
+        function CI_Calc() {
+
+            if (!isValidInput("Init_Inv_txt", 1, 10000000, 'Initial Investment')) { return false; }
+            if (!isValidInput("Reg_Amt_txt", 1, 10000000, 'Regular Addition Amount')) { return false; }
+            if (!isValidInput("Int_Rat_txt", 0.01, 100.00, 'Interest Rate')) { return false; }
+            if (!isValidInput("No_Yrs_txt", 1, 30, 'Years to Grow')) { return false; }
+
+            $("#Result_Container").css("display", "block");
+            var Initial = Number($("#Init_Inv_txt").val());
+            var Addition = Number($("#Reg_Amt_txt").val());
+            var Add_Period = $("#Reg_Int_Dlist").val();
+            var Interest = Number($("#Int_Rat_txt").val()) / 100;
+            var Disp_Interest = $("#Int_Rat_txt").val();
+            var Int_Period = $("#Int_CI_Int_Dlist").val();
+            var Years = Number($("#No_Yrs_txt").val());
+
+
+
+            $("#RegAddiPeriodTd").html(Add_Period + " investment");
+
+            var Int_flag = 0;
+
+            var Add_power = Calc_Period(Add_Period);
+            var Int_power = Calc_Period(Int_Period);
+            var AnnualInterest = Calc_AnnualInterest(Initial, Addition, Add_power, Int_power, Interest);
+
+            var Principal = Number(Initial);
+            var AnnualContribution = Number(Addition) * Number(Add_power);
+            var Part_Interest = Number(AnnualInterest);
+            var TotalValue = Number(Principal) + Number(AnnualContribution) + Number(AnnualInterest);
+            var CurrentInterest = 0;
+            var LastTotal = 0;
+
+            var graphplots = new Array();
+            var graphPrincipal = new Array();
+            var graphinterest = new Array();
+            var graphtotal = new Array();
+
+            //graphplots[0] =0;
+            //graphPrincipal[0]=0;
+            //graphinterest[0] = 0;
+            //graphtotal[0] = 0;
+
+            for (GP = 0; GP <= Years + 1; GP++) { graphplots[GP] = GP; }
+            /*
+            var CITable ='<div class="pager" id="pager" style="position:relative !important;top:0px !important;"><form><table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><select  class="pagesize"><option selected="selected"  value="10">10</option><option value="20">20</option><option value="30">30</option><option  value="40">40</option></select></td><td style="width:328px;"></td>';
+            if ($.browser.webkit){
+                CITable += '<td class="controls-wrapper"><img class="first table-button" src="images/first.png"><img class="prev table-button" src="images/prev.png"><span class="mypage" style="display:block;float:left;margin-top:2px;font-size:10pt;margin-left:5px;">Page: </span><input type="text" class="pagedisplay table-button" readonly /><img class="next table-button" src="images/next.png"><img class="last table-button" src="images/last.png"></td></tr></table></form></div><div class="clear"></div>';
+            } else if($.browser.msie && Number($.browser.version.substring(0)) >= 9){
+                CITable += '<td class="controls-wrapper"><img class="first table-button" src="images/first.png"><img class="prev table-button" src="images/prev.png"><span class="mypage" style="display:block;float:left;margin-top:2px;font-size:10pt;margin-left:5px;">Page: </span><input type="text" class="pagedisplay table-button" readonly /><img class="next table-button" src="images/next.png"><img class="last table-button" src="images/last.png"></td></tr></table></form></div><div class="clear"></div>';		  		
+            } else if($.browser.msie && Number($.browser.version.substring(0)) >= 8){
+                CITable += '<td class="controls-wrapper"><img class="first table-button" src="images/first.png"><img class="prev table-button" src="images/prev.png"><span class="mypage" style="display:block;float:left;margin-top:1px;font-size:10pt;margin-left:5px;">Page: </span><input type="text" class="pagedisplay table-button" readonly style="margin-top:1px;" /><img class="next table-button" src="images/next.png"><img class="last table-button" src="images/last.png"></td></tr></table></form></div><div class="clear"></div>';		  		
+            } else if($.browser.msie && Number($.browser.version.substring(0)) >= 7){
+                CITable += '<td class="controls-wrapper"><img class="first table-button" src="images/first.png"><img class="prev table-button" src="images/prev.png"><span class="mypage" style="display:block;float:left;margin-top:2px;font-size:10pt;margin-left:5px;">Page: </span><input type="text" class="pagedisplay table-button" readonly style="margin-top:2px;" /><img class="next table-button" src="images/next.png"><img class="last table-button" src="images/last.png"></td></tr></table></form></div><div class="clear"></div>';		  		
+            } else {
+                CITable += '<td class="controls-wrapper"><img class="first table-button" src="images/first.png"><img class="prev table-button" src="images/prev.png"><span class="mypage" style="display:block;float:left;margin-top:1px;font-size:10pt;margin-left:5px;">Page: </span><input type="text" class="pagedisplay table-button" readonly /><img class="next table-button" src="images/next.png"><img class="last table-button" src="images/last.png"></td></tr></table></form></div><div class="clear"></div>';  
+            }
+            */
+            var CITable = "";
+            CITable += '<table class="table-number tablesorter " id="table-number" width="100%" cellspacing="0" cellpadding="2" border="0" style="border-top:1px #666666 solid;border-left:1px #666666 solid ">'
+            CITable += "<thead><tr><th width='55'>Year</th><th>Principal</th><th>Annual Contribution</th><th>Annual Interest</th><th>Total Interest</th><th>Total Value</th></tr></thead>";
+            for (CI_Year = 1; CI_Year <= Years; CI_Year++) {
+                LastTotal = TotalValue;
+                CITable += "<tr>";
+                CITable += "<td>" + CI_Year.toString() + "</td>";
+                CITable += "<td>" + RupeeSeparator(Principal.toString()) + "</td>";
+                CITable += "<td>" + RupeeSeparator(AnnualContribution.toFixed().toString()) + "</td>";
+                CITable += "<td>" + RupeeSeparator(Part_Interest.toString()) + "</td>";
+                CITable += "<td>" + RupeeSeparator(AnnualInterest.toString()) + "</td>";
+                CITable += "<td>" + RupeeSeparator(TotalValue.toString()) + "</td>";
+                CITable += "</tr>";
+
+                graphPrincipal[CI_Year - 1] = Principal;
+                graphinterest[CI_Year - 1] = AnnualInterest;
+                graphtotal[CI_Year - 1] = TotalValue;
+
+
+                Principal = Number(Principal + AnnualContribution);
+                var Part_Interest = Number(Calc_AnnualInterest(TotalValue, Addition, Add_power, Int_power, Interest));
+                AnnualInterest = Number(AnnualInterest) + Number(Part_Interest);
+                TotalValue = Number(Principal) + Number(AnnualContribution) + Number(AnnualInterest);
+
+            }
+            CITable += "</table>";
+            $("#ddResult").html(CITable);
+
+            /*
+            var OutString="Your initial investment of <strong>";
+            OutString+=formatMoney(Initial,2,'.',',').toString();
+            OutString+=" </strong>plus your <strong>"+Add_Period.toString();
+            OutString+=" </strong>investment of <strong>"+formatMoney(Addition, 2, '.', ',').toString();
+            OutString+=" </strong>at an annualized interest rate of <strong>"+formatMoney(Disp_Interest,2,'.',',').toString()+"%";
+            OutString+=" </strong>will be worth <strong>"+formatMoney(LastTotal, 2, '.', ',').toString();
+            OutString+=" </strong>after <strong>"+Years.toString()+"</strong> years when compounded <strong>"+Int_Period.toString();
+            */
+
+            $("#TD_II").html("<font size='-1'>Rs. </font>" + formatMoney(Initial, 2, '.', ',').toString());
+            $("#TD_YI").html("<font size='-1'>Rs. </font>" + formatMoney(Addition, 2, '.', ',').toString());
+            $("#TD_IA").html(formatMoney(Disp_Interest, 2, '.', ',').toString() + "%");
+            $("#TD_IC").html(Int_Period.toString());
+            $("#TD_FV").html("<font size='-1'>Rs. </font>" + formatMoney(LastTotal, 2, '.', ',').toString());
+
+            //$("#OutResult").html(OutString);
+
+            //var maximum = Principal+AnnualInterest;
+            var maximum = LastTotal;
+            if (parseInt(LastTotal) > 100 && parseInt(LastTotal) < 1000) {
+                maximum = Math.round(parseInt(LastTotal) / 100, 0) * 100;
+            }
+            else if (parseInt(LastTotal) > 1000 && parseInt(LastTotal) < 10000) {
+                maximum = Math.round(parseInt(LastTotal) / 500, 0) * 500;
+            }
+            else if (parseInt(LastTotal) > 10000) {
+                maximum = Math.round(parseInt(LastTotal) / 1000, 0) * 1100;
+            }
+
+
+            /*
+            $("#graph1").html();
+            plot1 = $.jqplot('graph1', [graphPrincipal, graphinterest, graphtotal], 
+               {
+                    title: '', 
+                    animate: true,							 
+                    seriesDefaults: {
+                            showMarker: true,
+                            fill: false,
+                            fillAlpha: 1,
+                            fillAndStroke: true,
+                            pointLabels: {show: true,edgeTolerance: 5}
+                        },
+                    series:[
+                        { label: 'Value of investment', color: "#000000" }, { label: 'Total interest earned', color: "#00cc00" }, { label: 'Total Amount earned', color: "#006699" }
+                    ],		 
+                    animateReplot:true,								
+                    axes:{
+                        xaxis:{
+                            min: 0,
+                            ticks: graphplots, 
+                            tickOptions: {formatString: "%'d"},
+                            labelOptions: {
+                                textColor: '#000',
+                                enableFontSupport: true
+                            },
+                            label: 'Years'
+                        }, 
+                        yaxis:{
+                            min: 0,
+                            max: maximum,
+                            labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+                            labelOptions:{
+                                textColor:'#000',
+                                enableFontSupport:true	
+                            },
+                            label: 'Amount',
+                            tickOptions: {formatString: "%'d"}
+                        }
+                    },
+                    highlighter: {
+                        show: true,
+                        sizeAdjust: 17.5
+                    },
+                    legend:{
+                        show: true,
+                        location: 'e',
+                        placement: 'outside',
+                        marginLeft: 300
+                    }
+             });
+             */
+            //makeTableSorter();
+
+            $('html, body').animate({ scrollTop: $(".Calc_General_1").offset().top }, 2000);
+
+            OpenTab('1', 'ResultTab');
+            //$("#ResultTab").show();
+        }
+
+
+        function OpenTab(TabSource, ContainerId) {
+            $(".pane>div").css("display", "none");
+            $(".tabs>li").css('background-color', '#0B98DF');
+            $(".tabs>li>div").css('color', '#FFFFFF');
+            $("#STab_" + TabSource).css('background-color', '#A3D6F5');
+            $("#STab_" + TabSource + ">div").css({ 'color': '#000000', 'font-weight': 'bold' });
+            //$('#' + ContainerId).css("display", "block");
+            $('#' + ContainerId).slideDown("slow");
+            if (TabSource == 3) { plot1.replot(); }
+            if (ContainerId == "ResultTab") {
+                $("div#ResultTab").show();
+                $("#ResultTab").css("display", "block");
+            }
+        }
+
+        function Calc_Period(Period) {
+            var RetValue = 1;
+            if (Period.substr(0, 1) == "M") { RetValue = 12; }
+            if (Period.substr(0, 1) == "Q") { RetValue = 4; }
+            if (Period.substr(0, 1) == "H") { RetValue = 2; }
+            if (Period.substr(0, 1) == "Y") { RetValue = 1; }
+            return RetValue;
+        }
+        function Calc_AnnualInterest(Initial, Addition, Add_power, Int_power, Interest) {
+            var Total_Interest = 0
+            var Total_Interest_Part_2 = 0;
+            var Total_Interest_Part_1 = 0;
+
+            if (Add_power == 12) { StartFlag = 0; EndFlag = 300; IncFlag = 30 }
+            if (Add_power == 4) { StartFlag = 90; EndFlag = 270; IncFlag = 90 }
+            if (Add_power == 2) { StartFlag = 0; EndFlag = 180; IncFlag = 180 }
+            if (Add_power == 1) { StartFlag = 0; EndFlag = 0; IncFlag = 1 }
+            Total_Interest_Part_1 = (Initial * (Math.pow((1 + (Interest / Int_power)), Int_power))) - Initial;
+            if (Add_power == 12) { Total_Interest_Part_2 = ((Addition * (Math.pow((1 + (Interest / Int_power)), Int_power))) - Addition) * (335 / 365); }
+            for (i = StartFlag; i <= EndFlag; i = i + IncFlag) {
+                Total_Interest_Part_2 += ((Addition * (Math.pow((1 + (Interest / Int_power)), Int_power))) - Addition) * (i / 365);
+            }
+            return (Number(Total_Interest_Part_1) + Number(Total_Interest_Part_2)).toFixed();
+        }
+
+        function formatMoney(number, c, d, t) {
+            var n = number, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+        };
+        function makeTableSorter() {
+            $('.table-number').tablesorter().tablesorterPager({ container: $("#pager") });
+            $('.table-info').append('<div style="position: relative; top: 0px;" id="pager2" class="pager"></div>');
+            //$('#pager2').html($('#pager').html());			
+            var paginationClone = $("#pager > *").clone(true);
+            $("#pager2").empty();
+            paginationClone.appendTo("#pager2");
+
+            $('#pager').css('position', 'relative');
+            $('#pager').css('top', '0px');
+        }
+    </script>
+</body>
+
+</html>

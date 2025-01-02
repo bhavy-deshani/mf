@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Level Selection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/theme.css">
+
+    <style>
+        body {
+            background-color: #f4f5f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .risk-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .risk-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .risk-card.active {
+            border: 3px solid #007bff;
+            background-color: #e9f5ff;
+        }
+
+        .risk-icon {
+            font-size: 42px;
+            color: #007bff;
+        }
+
+        .allocation-slider {
+            width: 100%;
+        }
+
+        .fund-tile {
+            background: #fff;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .fund-tile:hover {
+            transform: translateY(-5px);
+        }
+
+        .hover-fund:hover {
+            background-color: #f0f8ff !important;
+        }
+        .investment-container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .investment-container h4 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        /* color: #333; */
+        margin-bottom: 1.5rem;
+    }
+
+    .investment-container .form-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        /* color: #555; */
+    }
+
+    .investment-container .input-group {
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .investment-container .input-group-text {
+        background-color: #e9ecef;
+        font-weight: 600;
+        /* color: #495057; */
+    }
+
+    .investment-container .form-control {
+        border: none;
+        box-shadow: none;
+    }
+
+    .investment-container .form-range {
+        margin-top: 0.5rem;
+        height: 8px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        outline: none;
+        -webkit-appearance: none;
+    }
+
+    .investment-container .form-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background-color: #007bff;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .investment-container .form-range::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background-color: #007bff;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .investment-container .form-text {
+        font-size: 0.85rem;
+        /* color: #6c757d; */
+    }
+
+    .investment-container .btn-primary {
+        background-color: #007bff;
+        border: none;
+        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+        border-radius: 5px;
+        transition: background-color 0.2s ease;
+    }
+
+    .investment-container .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .investment-container .d-flex span {
+        font-size: 0.85rem;
+        font-weight: 600;
+        /* color: #555; */
+    }
+    </style>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section>
+
+            <div class="container my-5">
+                <!-- Heading -->
+                <div class="text-center mb-5">
+                    <h1 class="fw-bold">Select Your Risk Profile</h1>
+                </div>
+
+                <!-- Risk Level Cards -->
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card risk-card text-center p-3" data-risk="conservative">
+                            <div class="risk-icon">🌿</div>
+                            <h5 class="mt-3">Conservative</h5>
+                            <p class="">Low-risk investments for steady returns.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card risk-card text-center p-3 active" data-risk="moderate">
+                            <div class="risk-icon">⚖️</div>
+                            <h5 class="mt-3">Moderate</h5>
+                            <p class="">A balanced approach to risk and return.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card risk-card text-center p-3" data-risk="aggressive">
+                            <div class="risk-icon">🚀</div>
+                            <h5 class="mt-3">Aggressive</h5>
+                            <p class="">High-risk investments for high returns.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="investment-container mt-5 bg-white shadow p-5 rounded-3 h-100">
+                            <h4>Investment Details</h4>
+                            <div class="">
+                                <label for="investmentAmount" class="form-label">Investment Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="text" id="investmentAmount" class="form-control" value="5,00,000" placeholder="Enter amount" oninput="formatCurrency(this)">
+                                </div>
+                                <small class="form-text text-muted">Enter the amount you wish to invest.</small>
+                            </div>
+                            <div class="mb-4">
+                                <label for="investmentPeriod" class="form-label">Investment Period</label>
+                                <input type="range" id="investmentPeriod" class="form-range" min="1" max="20" step="1" value="10" oninput="updateInvestmentPeriodLabel(this)">
+                                <div class="d-flex justify-content-between">
+                                    <span>10 yrs</span>
+                                </div>
+                            </div>
+                            <!-- <div class="text-center">
+                                <button class="btn btn-primary">Calculate Returns</button>
+                            </div> -->
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-7">
+                        <div class="mt-5 bg-white shadow p-5 rounded-3 h-100">
+                            <h4>Portfolio Allocation</h4>
+                            <div id="allocationSliders">
+                                <!-- Sliders will be dynamically generated here -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Recommended Funds -->
+                <div class="mt-5">
+                    <div class="d-flex flex-wrap justify-content-between py-4">
+                        <h3 class="fw-bold">Recommended Funds</h3>
+                        <div>
+                            <button class="text-center text-white fw-bold bg-b rounded-2 border-0 px-3 py-1 hover-top">
+                                Invest Now
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-between">
+                        <div class="col-3">
+                            <p class="m-0">Fund Name:</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="m-0">Type:</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="m-0">CAGR:</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="m-0">Allocation:</p>
+                        </div>
+                    </div>
+                    <div id="fundTiles" class="row g-4">
+                        <!-- Fund tiles will be dynamically inserted here -->
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+    </main>
+    <script>
+        const riskCards = document.querySelectorAll('.risk-card');
+        const allocationSliders = document.getElementById('allocationSliders');
+        const fundTiles = document.getElementById('fundTiles');
+
+        const riskData = {
+            conservative: {
+                allocation: [
+                    { label: 'Large Cap', value: 50 },
+                    { label: 'BAF - Conservative', value: 25 },
+                    { label: 'Multi Asset Allocation ', value: 25 },
+                ],
+                funds: [
+                    { name: 'HDFC Large Cap Fund', type: 'Equity', cagr: '8.5%' },
+                    { name: 'ICICI Debt Fund', type: 'Debt', cagr: '5.2%' },
+                ],
+            },
+            moderate: {
+                allocation: [
+                    { label: 'Large & Mid Cap', value: 40 },
+                    { label: 'Flexi Cap', value: 25 },
+                    { label: 'Multi Cap', value: 25 },
+                    { label: 'BAF Aggressive', value: 10 },
+                ],
+                funds: [
+                    { name: 'SBI Balanced Fund', type: 'Balanced', cagr: '12.8%', allocation: '40%' },
+                    { name: 'Axis Bluechip Fund', type: 'Equity', cagr: '14.7%', allocation: '60%' },
+                ],
+            },
+
+            aggressive: {
+                allocation: [
+                    { label: 'Focused', value: 30 },
+                    { label: 'Midcap', value: 30 },
+                    { label: 'Small Cap', value: 15 },
+                    { label: 'Business Cycle Fund', value: 15 },
+                    { label: 'BAF Dynamic', value: 10 },
+                ],
+                funds: [
+                    { name: 'Kotak Small Cap Fund', type: 'Equity', cagr: '20.5%' },
+                    { name: 'Nippon Growth Fund', type: 'Equity', cagr: '22.1%' },
+                ],
+            },
+        };
+
+        function updateAllocationSliders(riskLevel) {
+            const data = riskData[riskLevel];
+            allocationSliders.innerHTML = '';
+
+            data.allocation.forEach(item => {
+                const sliderWrapper = document.createElement('div');
+                sliderWrapper.classList.add('mb-3');
+
+                sliderWrapper.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <span class="me-2">${getCategoryIcon(item.label)}</span>
+                    <strong>${item.label}</strong>
+                </div>
+                <span>${item.value}%</span>
+            </div>
+            <div class="progress">
+                <div 
+                    class="progress-bar" 
+                    role="progressbar" 
+                    style="width: ${item.value}%; background-color: ${getProgressBarColor(item.label)};"
+                    aria-valuenow="${item.value}" 
+                    aria-valuemin="0" 
+                    aria-valuemax="100">
+                </div>
+            </div>
+        `;
+                allocationSliders.appendChild(sliderWrapper);
+            });
+        }
+
+        function getCategoryIcon(label) {
+            const icons = {
+                'Large Cap': '📊',
+                'Mid Cap': '📈',
+                'Small Cap': '📉',
+                'Debt': '💰',
+                'Cash': '💵',
+                'Focused': '🎯',
+                'BAF - Conservative': '🌿',
+                'BAF Aggressive': '⚡',
+                'Flexi Cap': '🔀',
+                'Multi Cap': '🔄',
+                'Multi Asset Allocation': '🪙',
+                'Business Cycle Fund': '📆',
+            };
+            return icons[label] || '📁';
+        }
+
+        function getProgressBarColor(label) {
+            const colors = {
+                'Large Cap': '#007bff',
+                'Mid Cap': '#28a745',
+                'Small Cap': '#ffc107',
+                'Debt': '#17a2b8',
+                'Cash': '#6c757d',
+                'Focused': '#ff5733',
+                'BAF - Conservative': '#98c9e4',
+                'BAF Aggressive': '#d9534f',
+                'Flexi Cap': '#ff8500',
+                'Multi Cap': '#27ae60',
+                'Multi Asset Allocation': '#3498db',
+                'Business Cycle Fund': '#9b59b6',
+            };
+            return colors[label] || '#143980';
+        }
+
+        
+        function updateFundsTable(riskLevel) {
+            const data = riskData[riskLevel];
+            const fundTiles = document.getElementById('fundTiles'); // Container for fund tiles
+            fundTiles.innerHTML = ''; // Clear previous fund tiles
+
+            data.funds.forEach(fund => {
+                const fundTile = document.createElement('div');
+                fundTile.classList.add('bg-white', 'p-3', 'rounded-2', 'mb-1', 'hover-fund'); // Styling for each fund
+
+                fundTile.innerHTML = `
+            <div class="d-flex flex-wrap justify-content-between ">
+                <div class="col-3">
+                    <p class="m-0"> ${fund.name}</p>
+                </div>
+                <div class="col-3">
+                    <p class="m-0">${fund.type}</p>
+                </div>
+                <div class="col-3">
+                    <p class="m-0">${fund.cagr}</p>
+                </div>
+                <div class="col-3">
+                    <p class="m-0">${fund.allocation || 'N/A'}</p>
+                </div>
+            </div>
+        `;
+
+                fundTiles.appendChild(fundTile);
+            });
+        }
+
+
+        // Add this to the risk card event listener
+        riskCards.forEach(card => {
+            card.addEventListener('click', () => {
+                riskCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                const riskLevel = card.dataset.risk;
+                updateAllocationSliders(riskLevel);
+                updateFundsTable(riskLevel); // Call the table update function
+            });
+        });
+
+        // Initialize with Moderate Risk
+        updateAllocationSliders('moderate');
+        updateFundsTable('moderate');
+        function formatCurrency(input) {
+    let value = input.value.replace(/,/g, ''); // Remove existing commas
+    if (!isNaN(value)) {
+        input.value = Number(value).toLocaleString('en-IN'); // Format in INR
+    }
+}
+
+function updateInvestmentPeriodLabel(rangeInput) {
+    const years = rangeInput.value;
+    rangeInput.nextElementSibling.textContent = `${years} yrs`;
+}
+
+    </script>
+
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script src="assets/js/app-link.js"></script>
+</body>
+
+</html>

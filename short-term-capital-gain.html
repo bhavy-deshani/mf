@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Short Term Capital Gain Tax Calculator</title>
+    <style>
+        .result-box {
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .result-box h5 {
+            margin: 0.5rem 0;
+        }
+        .text-gr{
+            color: rgba(128, 128, 128, 0.705);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-md-7">
+            <div class="container">
+                <h2 class="text-center py-4 fw-bold">Short Term Capital Gain Tax </h2>
+                <div class="row border p-3 rounded-3 shadow justify-content-between ">
+                    <div class="col-md-3 m-y">
+                        <div>
+                            <img src="assets/images/gallery/short-term-capital-gain.webp" class="img-fluid" alt="">
+                        </div>
+
+                    </div>
+                    <div class="col-md-5 shadow border rounded-3 p-4">
+                        <div class="calculator row">
+                            <!-- Input Section -->
+                            <div class="mb-3">
+                                <label for="boughtValue" class="form-label">Bought Value</label>
+                                <input type="text" id="boughtValue" class="form-control"
+                                    placeholder="Enter Bought Value" value="1,000">
+                            </div>
+                            <div class="mb-3">
+                                <label for="soldValue" class="form-label">Sold Value</label>
+                                <input type="text" id="soldValue" class="form-control" placeholder="Enter Sold Value"
+                                    value="10,000">
+                            </div>
+                            <p class="info-text">
+                                <small class="text-gr">This calculator is applicable for stocks bought after 1st April, 2018 and sold on
+                                    or after 23rd July,
+                                    2024.</small>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="result-box">
+                            <h5>Short Term Capital Gain</h5>
+                            <h2 id="capitalGain">₹ 0</h2>
+                            <h5>Tax Amount (20%)</h5>
+                            <h2 id="taxAmount">₹ 0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="financial-calculators.html" class="fw-bold">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <!-- <script src="assets/js/jquery-3.5.1.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script>
+        // Format numbers as INR using Indian number system
+        function formatINR(value, isDecimal = false) {
+            // Remove non-numeric characters and handle edge cases
+            value = value.toString().replace(/[^\d.]/g, '');
+            if (!value || value === "0") return "₹ 0";
+
+            // Split whole and decimal parts
+            let [whole, decimal] = value.split('.');
+            decimal = decimal ? (isDecimal ? '.' + decimal : '') : '';
+
+            // Add commas for INR format
+            let lastThree = whole.slice(-3);
+            let otherNumbers = whole.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+
+            return (otherNumbers ? otherNumbers + ',' : '') + lastThree + decimal;
+        }
+
+        // Clean input by removing non-numeric characters
+        function cleanInput(value) {
+            return value.replace(/[^\d]/g, '');
+        }
+
+        // Function to calculate short term capital gain and tax amount
+        function calculateCapitalGain() {
+            const boughtValue = parseFloat(cleanInput(document.getElementById('boughtValue').value)) || 0;
+            const soldValue = parseFloat(cleanInput(document.getElementById('soldValue').value)) || 0;
+
+            // Calculate Capital Gain and Tax Amount
+            const capitalGain = Math.max(soldValue - boughtValue, 0);
+            const taxAmount = capitalGain > 0 ? capitalGain * 0.2 : 0;
+
+            // Update the DOM
+            document.getElementById('capitalGain').textContent = formatINR(capitalGain);
+            document.getElementById('taxAmount').textContent = formatINR(taxAmount.toFixed(2), taxAmount % 1 !== 0);
+        }
+
+        // Add Event Listeners for input formatting and calculation
+        document.getElementById('boughtValue').addEventListener('input', function (e) {
+            const value = cleanInput(e.target.value);
+            e.target.value = value ? formatINR(value) : '';
+            calculateCapitalGain();
+        });
+
+        document.getElementById('soldValue').addEventListener('input', function (e) {
+            const value = cleanInput(e.target.value);
+            e.target.value = value ? formatINR(value) : '';
+            calculateCapitalGain();
+        });
+
+        // Initial Calculation
+        calculateCapitalGain();
+    </script>
+</body>
+
+</html>

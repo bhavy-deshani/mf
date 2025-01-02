@@ -1,0 +1,85 @@
+{
+    "_id": "64883ec25ea8b68f8fbe9d7f",
+    "nameOfIssuer": "SHRIRAM FINANCE LIMITED",
+    "faceValue": 100000,
+    "flags": "Secured-Senior-Private Placement-Taxable",
+    "IM": "https://inrbonds-prod-storage.s3.ap-south-1.amazonaws.com/InformationMemorandum/INE721A07RN7.pdf",
+    "creditSpreadScore": 0.5,
+    "description": "Shriram Finance Ltd has been formed by merger of Shriram Transport Finance(STFCL) Company and Shriram City Union Finance Ltd(SCUF).  STFCL provides financing for vehicles such as commercial vehicles, tractors, and passenger vehicles. SCUF operates in the retail financing segment with a focus on small enterprise loans, two-wheeler financing, gold loans, housing loans and others (auto and personal loans).",
+    "quickInvest": {
+      "type": "Trending",
+      "priority": 9
+    },
+    "ratingRational": "https://www.crisilratings.com/mnt/winshare/Ratings/RatingList/RatingDocs/ShriramFinanceLimited_February%2007,%202023_RR_311022.html",
+    "curatedFor": [
+      {
+        "cptyId": "INRBONDS"
+      }
+    ],
+    "tradeInfo": {
+      "Last Trade Volume": 50000,
+      "Last Trade Date": "12 Jun 2024",
+      "Last Trade Yield": "9.15%"
+    },
+    "body": {
+      "Coupon": "8.75%",
+      "Name of Debenture Trustee": "Catalyst Trusteeship Limited",
+      "Interest Payment": "04 May of Every Year",
+      "ISIN": "INE721A07RN7",
+      "Rating": "AA+, by CRISIL on 07 Feb 2023",
+      "Industry": "NBFC",
+      "Issue Date": "04 May 2023",
+      "Maturity Date": "04 May 2026"
+    },
+    "offers": [
+      {
+        "_id": "672cb802624f1626afca87f7",
+        "pricePerHundred": 99.7333,
+        "quantity": 10,
+        "ytm": "8.88%",
+        "rfqUser": {
+          "_id": "66333e2bcb57bc9f87210d3b",
+          "firstName": "Zephyr Financial Publishers Pvt Ltd\t",
+          "userName": "vaibhav.kabra@zephyr.org.in",
+          "email": "vaibhav.kabra@zephyr.org.in",
+          "phoneNo": "8446682583",
+          "roleId": 2,
+          "subscriptions": [],
+          "isVerified": "verified",
+          "pan": "AAACZ5420E",
+          "cptyId": "INRBONDS",
+          "nseCredentials": {
+            "Domain": "ZEPHYRFINPUBPLTD",
+            "Login": "ZEPHYRAPI",
+            "password": "BV:hFQymWCJ7i"
+          },
+          "oldPasswords": [
+            "$2a$10$lROY.RvZMR02ZaJ1RS9jme2PJIinzmcnslGhYOEgF7520w9uITMUG",
+            "$2a$10$Rbs93qbIWZNyJzLLaDaPTOupScpYVyfyGKgw5MLakTX.G4QAKzwTa"
+          ],
+          "createdAt": "2024-05-02T07:18:03.255Z",
+          "updatedAt": "2024-11-08T03:11:12.970Z",
+          "__v": 4,
+          "password": "$2a$10$Rbs93qbIWZNyJzLLaDaPTOupScpYVyfyGKgw5MLakTX.G4QAKzwTa",
+          "passwordExpiry": "2025-01-29T17:06:41.208Z",
+          "tOtp": {
+            "key": "755289",
+            "expires": 1731037272970
+          },
+          "bank": {
+            "accno": "8877210000001120",
+            "ifsc": "DBSS0IN0877",
+            "name": "DBS BANK INDIA LTD"
+          },
+          "demat": {
+            "clientId": "01858423",
+            "dpId": "12020600"
+          }
+        }
+      }
+    ],
+    "settlementDate": "2024-11-11T00:00:00.000Z",
+    "numDays": 191,
+    "fromDate": "2024-05-04T00:00:00.000Z",
+    "accruedInterest": "4578.7671"
+  }

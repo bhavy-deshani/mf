@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Tunwal E-Motors Limited (SME)",
+        "issueDate": "15\/07\/2024",
+        "priceMin": 59.00,
+        "priceMax": 59.00,
+        "ipoSize": 2000.00
+    },
+    {
+        "name": "AELEA COMMODITIES LIMITED (SME)",
+        "issueDate": "12\/07\/2024",
+        "priceMin": 91.00,
+        "priceMax": 95.00,
+        "ipoSize": 1200.00
+    },
+    {
+        "name": "Prizor Viztech Limited (SME)",
+        "issueDate": "12\/07\/2024",
+        "priceMin": 82.00,
+        "priceMax": 87.00,
+        "ipoSize": 1600.00
+    },
+    {
+        "name": "Sati Poly Plast Limited (SME)",
+        "issueDate": "12\/07\/2024",
+        "priceMin": 123.00,
+        "priceMax": 130.00,
+        "ipoSize": 1000.00
+    },
+    {
+        "name": "THREE M PAPER BOARDS LIMITED (SME)",
+        "issueDate": "12\/07\/2024",
+        "priceMin": 67.00,
+        "priceMax": 69.00,
+        "ipoSize": 2000.00
+    },
+    {
+        "name": "Sahaj Solar Limited (SME)",
+        "issueDate": "11\/07\/2024",
+        "priceMin": 171.00,
+        "priceMax": 180.00,
+        "ipoSize": 800.00
+    }
+]

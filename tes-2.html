@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Portfolio Allocation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .portfolio-type {
+      cursor: pointer;
+    }
+
+    .selected {
+      border: 2px solid #0d6efd;
+      background-color: #e7f1ff;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+      transition: right 0.3s;
+      z-index: 1050;
+    }
+
+    .sidebar.open {
+      right: 0;
+    }
+
+    .category-label {
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .category-label span {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-4">
+    <div class="row text-center mb-3">
+      <div class="col portfolio-type" id="conservative" onclick="changePortfolio('conservative')">
+        <div class="p-3">Conservative<br><small>Low-risk investments for steady returns.</small></div>
+      </div>
+      <div class="col portfolio-type selected" id="moderate" onclick="changePortfolio('moderate')">
+        <div class="p-3">Moderate<br><small>A balanced approach to risk and return.</small></div>
+      </div>
+      <div class="col portfolio-type" id="aggressive" onclick="changePortfolio('aggressive')">
+        <div class="p-3">Aggressive<br><small>High-risk investments for high returns.</small></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Investment Details</h5>
+        <div class="mb-3">
+          <label for="investmentAmount" class="form-label">Investment Amount</label>
+          <div class="input-group">
+            <span class="input-group-text">&#8377;</span>
+            <input type="number" id="investmentAmount" class="form-control" value="500000"
+              oninput="updateAllocation(); mainFundTable();">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h5>Portfolio Allocation</h5>
+        <div id="portfolioAllocation"></div>
+      </div>
+    </div>
+
+    <h5 class="mt-4">Recommended Funds</h5>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Fund Name</th>
+          <th>Category</th>
+          <th>CAGR</th>
+          <th>Allocation</th>
+          <th>Add Fund</th>
+        </tr>
+      </thead>
+      <tbody id="fundTable"></tbody>
+    </table>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <button class="btn btn-danger m-3" onclick="toggleSidebar()">Close</button>
+    <h5 class="px-3">Add Funds</h5>
+    <ul class="list-group" id="sidebarFundList"></ul>
+  </div>
+
+  <script>
+    const portfolios = {
+      conservative: {
+        allocation: [50, 30],
+        funds: [
+          { name: 'Fund A', category: 'Large Cap', value: 50, cagr: '10%' },
+          { name: 'Fund B', category: 'Debt', cagr: '7%' },
+        ]
+      },
+      moderate: {
+        allocation: [40, 25],
+        funds: [
+          { name: 'Fund C', category: 'Large & Mid Cap', value: 40, cagr: '12%' },
+          { name: 'Fund D', category: 'Flexi Cap', cagr: '11%' },
+        ]
+      },
+      aggressive: {
+        allocation: [30, 20, 30, 20],
+        funds: [
+          { name: 'Fund E', category: 'Equity', cagr: '15%' },
+          { name: 'Fund F', category: 'Aggressive Hybrid', cagr: '13%' },
+        ]
+      }
+    };
+
+    let currentPortfolio = 'moderate';
+
+    function changePortfolio(type) {
+      currentPortfolio = type;
+      document.querySelectorAll('.portfolio-type').forEach(el => el.classList.remove('selected'));
+      document.getElementById(type).classList.add('selected');
+      updateAllocation();
+      mainFundTable();
+    }
+
+    function updateAllocation() {
+      const amount = parseInt(document.getElementById('investmentAmount').value);
+      const allocation = portfolios[currentPortfolio].allocation;
+      const allocationContainer = document.getElementById('portfolioAllocation');
+      allocationContainer.innerHTML = '';
+      const categories = ['Large & Mid Cap', 'Flexi Cap', 'Multi Cap', 'BAF Aggressive'];
+      const colors = ['#2c3e50', '#8e44ad', '#27ae60', '#c0392b'];
+
+      allocation.forEach((percent, index) => {
+        const barContainer = document.createElement('div');
+        barContainer.className = 'mb-2';
+
+        const label = document.createElement('div');
+        label.className = 'category-label';
+        label.innerHTML = `<span style="color: ${colors[index]};">&#9679;</span> ${categories[index]}`;
+
+        const bar = document.createElement('div');
+        bar.className = 'progress';
+        bar.innerHTML = `<div class="progress-bar" style="width: ${percent}%; background-color: ${colors[index]};">${percent}%</div>`;
+
+        barContainer.appendChild(label);
+        barContainer.appendChild(bar);
+        allocationContainer.appendChild(barContainer);
+      });
+    }
+
+    function mainFundTable() {
+      const amount = parseInt(document.getElementById('investmentAmount').value);
+      const allocation = portfolios[currentPortfolio].allocation;
+      const fundTable = document.getElementById('fundTable');
+      fundTable.innerHTML = '';
+      const funds = portfolios[currentPortfolio].funds;
+
+      funds.forEach((fund, index) => {
+        const allocatedAmount = (amount * allocation[index]) / 100;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+                <td>${fund.name}</td>
+                <td>${fund.category}</td>
+                <td>${fund.cagr}</td>
+                <td>&#8377;${allocatedAmount.toLocaleString()} (${allocation[index]}%)</td>
+                <td><button class="btn btn-success" onclick="openSidebar('${fund.category}')">Add Fund</button></td>
+            `;
+        fundTable.appendChild(row);
+      });
+    }
+
+    // Open the sidebar with the list of funds for a specific category
+    function openSidebar(category) {
+      const sidebar = document.getElementById('sidebar');
+      const sidebarFundList = document.getElementById('sidebarFundList');
+      sidebarFundList.innerHTML = ''; // Clear existing list
+
+      // Filter the funds based on the selected category
+      const funds = portfolios[currentPortfolio].funds.filter(fund => fund.category === category);
+
+      // Create list items for each fund in the selected category
+      funds.forEach(fund => {
+        const item = document.createElement('li');
+        item.className = 'list-group-item';
+        item.textContent = fund.name;
+        item.onclick = function () {
+          addFund(fund, category);  // Pass category to add fund under the correct category
+        };
+        sidebarFundList.appendChild(item);
+      });
+
+      toggleSidebar();  // Open sidebar
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+    function addFund(fund, category) {
+      const amount = parseInt(document.getElementById('investmentAmount').value);
+      const fundTable = document.getElementById('fundTable');
+      const portfolio = portfolios[currentPortfolio];
+
+      // Find the allocation percentage for the selected category
+      const allocationPercent = portfolio.allocation.find((alloc, index) => {
+        return portfolio.funds[index].category === category;
+      });
+
+      // Add the new fund to the portfolio's list of funds
+      portfolio.funds.push(fund);
+
+      // Calculate the new allocation per fund based on how many funds are in this category
+      const categoryFunds = portfolio.funds.filter(f => f.category === category);
+      const newAllocationPercent = allocationPercent / categoryFunds.length;
+
+      // Calculate the allocated amount for the new fund
+      const allocatedAmount = (amount * newAllocationPercent) / 100;
+
+      // Create a new row for the fund in the table
+      const row = document.createElement('tr');
+      row.className = 'child-row'; // Add a class to indicate it is a child row
+      row.innerHTML = `
+    <td style="padding-left: 30px;">${fund.name}</td>
+    <td>${fund.category}</td>
+    <td>${fund.cagr}</td>
+    <td>&#8377;${allocatedAmount.toLocaleString()} (${newAllocationPercent.toFixed(2)}%)</td>
+    <td><button class="btn btn-danger" onclick="removeFund(this)">Remove</button></td>
+  `;
+
+      // Insert the new fund row as a child of the appropriate category row
+      let inserted = false;
+      for (let i = 0; i < fundTable.rows.length; i++) {
+        if (fundTable.rows[i].cells[1].textContent === category && !inserted) {
+          // Insert below the category row
+          fundTable.insertBefore(row, fundTable.rows[i + 1]);
+          inserted = true;
+        }
+      }
+
+      // If no category found, add the fund at the end of the table
+      if (!inserted) {
+        fundTable.appendChild(row);
+      }
+
+      // Close the sidebar after adding the fund
+      toggleSidebar();
+
+      // Now update the allocation percentages for all funds in the clicked category
+      updateFundAllocation(category);
+    }
+
+
+    function updateFundAllocation(category) {
+      const amount = parseInt(document.getElementById('investmentAmount').value);
+      const portfolio = portfolios[currentPortfolio];
+
+      // Find the allocation percentage for the selected category
+      const allocationPercent = portfolio.allocation.find((alloc, index) => {
+        return portfolio.funds[index]?.category === category;
+      });
+
+      // Get all funds in the selected category
+      const fundsInCategory = portfolio.funds.filter(f => f.category === category);
+
+      // Divide the total category allocation evenly across all the funds
+      const newAllocationPercent = allocationPercent / fundsInCategory.length;
+
+      // Update the allocation for each fund in that category
+      fundsInCategory.forEach((fund, index) => {
+        // Calculate the new allocated amount for each fund
+        const allocatedAmount = (amount * newAllocationPercent) / 100;
+
+        // Find the corresponding table row and update the allocated amount and percentage
+        const fundRows = document.querySelectorAll('#fundTable tr');
+        fundRows.forEach(row => {
+          if (row.cells[0].textContent === fund.name) {
+            row.cells[3].textContent = `₹${allocatedAmount.toLocaleString()} (${newAllocationPercent.toFixed(2)}%)`;
+          }
+        });
+      });
+    }
+
+    function removeFund(button) {
+      const row = button.closest('tr');
+      const fundName = row.cells[0].textContent;
+      const category = row.cells[1].textContent;
+
+      // Get the total investment amount
+      const amount = parseInt(document.getElementById('investmentAmount').value);
+      const portfolio = portfolios[currentPortfolio];
+
+      // Find and remove the selected fund from the portfolio
+      const fundIndex = portfolio.funds.findIndex(fund => fund.name === fundName && fund.category === category);
+      if (fundIndex > -1) {
+        portfolio.funds.splice(fundIndex, 1);
+      }
+
+      // Remove the selected fund's row from the table
+      row.remove();
+
+      // Get remaining funds in the same category
+      const categoryFunds = portfolio.funds.filter(fund => fund.category === category);
+
+      if (categoryFunds.length > 0) {
+        // Get the original allocation percentage for the category
+        const categoryAllocation = portfolios[currentPortfolio].allocation.find((alloc, index) => {
+          return portfolios[currentPortfolio].funds[index]?.category === category;
+        });
+
+        // Redistribute the category allocation percentage among remaining funds
+        const newAllocationPercent = categoryAllocation / categoryFunds.length;
+
+        // Update allocations for all remaining funds in this category
+        categoryFunds.forEach(fund => {
+          const fundRows = document.querySelectorAll('#fundTable tr');
+          fundRows.forEach(row => {
+            if (row.cells[0].textContent === fund.name && row.cells[1].textContent === category) {
+              const allocatedAmount = (amount * newAllocationPercent) / 100;
+              row.cells[3].textContent = `₹${allocatedAmount.toLocaleString()} (${newAllocationPercent.toFixed(2)}%)`;
+            }
+          });
+        });
+      }
+
+      // Update the allocation progress bars to reflect the new distribution
+      updateAllocation();
+    }
+
+
+
+    // Initialize the page
+    updateAllocation();
+    mainFundTable();
+  </script>
+</body>
+
+</html>

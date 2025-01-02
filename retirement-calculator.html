@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Retirement Planning Calculator integrated</title>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-md-7">
+            <div class="container">
+                <h2 class="text-center py-4 fw-bold">Retirement Planning</h2>
+                <div class="row border p-3 rounded-3 shadow ">
+                    <div class="col-md-3">
+                        <div>
+                            <img src="assets/images/gallery/retierment.png" class="img-fluid" alt="">
+                        </div>
+
+                    </div>
+                    <div class="col-md-5 shadow border rounded-3 p-4">
+                        <form id="retirement-form">
+                            <div class="form-group pb-3 calculator">
+                                <div class="d-flex justify-content-between">
+                                    <label class="" for="current_age">Current Age</label>
+                                    <input type="number" class="form-control my-1" id="current_age" style="width: 30%;"
+                                        required>
+                                </div>
+                                <input type="range" id="current_age_range" min="0" max="100" step="1">
+                            </div>
+                            <div class="form-group pb-3 calculator">
+                                <div class="d-flex justify-content-between">
+                                    <label class="" for="retirement_age">Retirement Age</label>
+                                    <input type="number" class="form-control my-2" id="retirement_age"
+                                        style="width: 30%;" required>
+                                </div>
+                                <input type="range" id="retirement_age_range" min="0" max="100" step="1">
+                            </div>
+                            <div class="form-group pb-3 calculator ">
+                                <div class="d-flex justify-content-between">
+                                    <label class="" for="wealth_amount">Desired Wealth at Retirement</label>
+                                    <input type="number" class="form-control" id="wealth_amount" style="width: 30%;"
+                                        required>
+                                </div>
+                                <input type="range" id="wealth_amount_range" min="0" max="100000000" step="1000000">
+                            </div>
+                            <div class="form-group pb-3 calculator ">
+                                <div class="d-flex justify-content-between">
+                                    <label class="" for="inflation_rate">Inflation Rate (%)</label>
+                                    <input type="number" class="form-control" id="inflation_rate" step="0.01"
+                                        style="width: 30%;" required>
+                                </div>
+                                <input type="range" id="inflation_rate_range" min="0" max="20" step="0.01">
+                            </div>
+                            <div class="form-group pb-3 calculator">
+                                <div class="d-flex justify-content-between">
+                                    <label class="" for="expected_return">Expected Return Rate (%)</label>
+                                    <input type="number" class="form-control" id="expected_return" step="0.01"
+                                        style="width: 30%;" required>
+                                </div>
+                                <input type="range" id="expected_return_range" min="0" max="20" step="0.01">
+                            </div>
+                            <div class="form-group pb-3 calculator">
+                                <div class="d-flex justify-content-between">
+                                    <label class="" for="savings_amount">Current Savings</label>
+                                    <input type="number" class="form-control" id="savings_amount" style="width: 30%;"
+                                        required>
+                                </div>
+                                <input type="range" id="savings_amount_range" min="0" max="100000000" step="1000000">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="d-flex gap-3 justify-content-center py-3">
+                            <div class="d-flex gap-2 ">
+                                <div class="bg-b1 dots "></div> <span class="text-b">Invested Amount</span>
+                            </div>
+                            <div class="d-flex gap-2 ">
+                                <div class="bg-g dots"></div> <span class="text-b">Total Earnings</span>
+                            </div>
+                        </div>
+                        <div class="col-6 py-4 m-auto overflow-hidden">
+                            <canvas id="resultChart"></canvas>
+                        </div>
+                        <div id="results" class="overflow-auto" role="alert" style="display:none;">
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="financial-calculators.html" class="fw-bold">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="assets/js/jquery-3.5.1.js"></script>
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/calculator-retirement.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <title>Lumpsum Calculator integrated  </title>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="pt-md-8">
+            <div class="container">
+                <h1 class="text-center py-3 fw-bold">Lumpsum Calculator</h1>
+                <div class="row border rounded-3 p-3 shadow justify-content-between">
+                    <div class="col-md-3">
+                        <div>
+                            <img src="assets/images/gallery/lumpsum-calculator.png" class="img-fluid" alt="">
+                        </div>
+
+                    </div>
+                    <div class="col-md-5 border rounded-3 p-3">
+                        <form id="lumpsumCalculatorForm" class=" col-11 m-auto">
+                            <div class="form-group calculator mb-5">
+                              <div class="d-flex justify-content-between">
+                                <label for="targetAmount">Target Amount (₹):</label>
+                                <input type="number" class="form-control" id="targetAmount" name="targetAmount" value="1000000" required
+                                  style="width: 25%;">
+                              </div>
+                              <input type="range" class="" id="targetAmountRange" min="0" max="10000000" step="500"
+                                value="1000000">
+                            </div>
+                            <div class="form-group calculator mb-5">
+                              <div class="d-flex justify-content-between">
+                                <label for="years">Number of Years:</label>
+                                <input type="number" class="form-control" id="years" name="years" value="10" required style="width: 25%;">
+                              </div>
+                              <input type="range" class="" id="yearsRange" min="0" max="40" step="1" value="10">
+                            </div>
+                            <div class="form-group calculator mb-5">
+                              <div class="d-flex justify-content-between">
+                                <label for="expectedReturn">Expected Return (%):</label>
+                                <input type="number" step="1" class="form-control" id="expectedReturn" name="expectedReturn" value="8"
+                                  required style="width: 25%;">
+                              </div>
+                              <input type="range" class="" id="expectedReturnRange" min="0" max="50" step="1" value="8">
+                            </div>
+                          </form>
+                          <div class="text-center">
+                            <a href="https://www.integratedindia.in/caoportfolio/nv2/MEXV/MFExplore.aspx?OSID=4d4j0z1qk3d1o32k0ik0efyr&TranParam=X1tq5fK8UnjjQCa1JOIsrQ=="
+                                target="_blank" alit="Invest Now in SIP" title="Invest Now in SIP"
+                                id="MF_SIP_AI_IN_BN">
+                                <button id="invest-now" class="text-center text-white fw-bold bg-b rounded-2 border-0  px-3 py-1 hover-top">Invest Now</button>
+                            </a>
+                        </div>
+                    </div>
+                  
+                    <div class="col-md-4">
+                        <div class="d-flex gap-3 justify-content-center py-3">
+                            <div class="d-flex gap-2 ">
+                                <div class="bg-b1 dots "></div> <span class="text-b">Target Amount</span>
+                            </div>
+                            <div class="d-flex gap-2 ">
+                                <div class="bg-g dots"></div> <span class="text-b">Lumpsum Amount</span>
+                            </div>
+                        </div>
+                        <div class="col-8 m-auto overflow-hidden">
+                            <canvas id="resultChart" ></canvas>
+                        </div>
+                        <div class="overflow-auto" id="results">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Your Targeted Amount:</td>
+                                        <td><span class="fw-bold" id="targetAmountResult"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Number of years to achieve your goal:</td>
+                                        <td><span class="fw-bold" id="yearsResult"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lumpsum Investment Amount:</td>
+                                        <td><span class="fw-bold" id="lumpsumAmount"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="financial-calculators.html" class="fw-bold">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="assets/js/jquery-3.5.1.js"></script>
+  <script src="vendors/@popperjs/popper.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.min.js"></script>    <script src="assets/js/theme.js"></script>
+
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/calculator-Lumpsum.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Integratedindia</title>
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="msapplication-TileImage" content="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    =============================================== -->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <!-- <link href="assets/css/swiper-bundle-min.css" rel="stylesheet" /> -->
+
+    <script src="vendors/fontawesome/all.min.js"></script>
+    <style>
+        states,
+        .cities,
+        .addresses {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        #states {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            /* background-color: #002366; */
+            color: white;
+        }
+
+        .cities {
+            flex: 1;
+            min-width: 200px;
+            background-color: #f4f4f4;
+        }
+
+        .addresses {
+            flex: 2;
+            min-width: 300px;
+            background-color: #eef;
+        }
+
+        button {
+            border: 0;
+            border-radius: 0.75rem;
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        button i {
+            margin-right: 0.5rem;
+        }
+
+        .button {
+            cursor: pointer;
+            padding: 5px 10px;
+            color: white;
+            margin: 5px 0;
+            background-color: #005cb9;
+            width: 150px;
+        }
+
+        h5 {
+            margin: 0;
+            padding: 0.5rem 0;
+        }
+
+        p {
+            margin: 0.5rem 0;
+        }
+
+        iframe {
+            width: 100%;
+            border: none;
+            margin-top: 10px;
+        }
+
+        .green {
+            background-color: #218838;
+            color: white;
+            /* border-radius: 30px; */
+        }
+
+        .green2 {
+            background-color: #218838;
+            color: white;
+            /* border-radius: 30px; */
+        }
+
+        .contact-form {
+            position: sticky;
+            /* justify-content: space-between; */
+            bottom: 0;
+            /* left: 0; */
+            width: 100%;
+            /* background-color: #002366; */
+            /* padding: 10px; */
+            /* box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); */
+            /* display: flex; */
+            /* justify-content: space-between; */
+            /* align-items: center; */
+        }
+
+        /* form {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        } */
+
+        .form-group {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .form-group label {
+            color: white;
+            margin-right: 10px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+
+        .border-red {
+            border: 1px solid red;
+        }
+
+        .vh-62 {
+            height: auto !important;
+        }
+
+        @media (min-width: 992px) {
+            .vh-62 {
+                height: 71vh !important;
+            }
+
+            #states {
+                display: block;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .states,
+            .cities,
+            .addresses {
+                min-width: 100%;
+            }
+
+            iframe {
+                width: 100%;
+            }
+
+            form {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-group {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .btn-submit {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <section class="pt-8">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-12 col-md-4">
+                        <div>
+                            <img class="img-fluid" src="./assets/images/gallery/customer-care.webp" alt="">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-7  ">
+                        <div class="py-2">
+                            <h1 class="fw-bold">Get In Touch <span class="text-g"> With Us</span></h1>
+                            <p class=" text-justify lh-lg  ">
+                                You can contact us at <a href="mailto:customercare@integratedindia.in"
+                                    class="text-g fw-bold">
+                                    customercare@integratedindia.in</a> or fill out the
+                                "Get in Touch" form below, and we will get back to you as soon as possible.
+                            </p>
+                        </div>
+                        <form action="#" class="col-md-9" id="contact-form" method="post">
+                            <div class="m-auto">
+                                <div class="py-3 d-flex justify-content-between">
+                                    <input type="text" required placeholder="Name" class="form-control rounded-3"
+                                        id="name" style="width: 48%;" name="Name">
+                                    <input type="tel" class="form-control rounded-3" name="PinCode" maxlength="6"
+                                        minlength="6" required placeholder="Pincode" id="pin" style="width: 48%;">
+                                </div>
+                                <div class="py-2">
+                                    <input type="tel" name="Mobile" id="mobile" required placeholder="Mobile No."
+                                        class="form-control rounded-3" maxlength="10" minlength="10">
+                                    <div class="py-2"></div>
+                                    <select class="borderx py-2 px-2 rounded-3 text-b" id="help-select" required>
+                                        <option class="opacity-25" selected disabled>What we can help you with?
+                                        </option>
+                                        <option value="I want to invest in mutual fund">I want to invest in Mutual
+                                            Fund</option>
+                                            <option value="I want to open a DigiTrade Account">I want to open a DigiTrade Account</option>
+                                            <option value="Call me to understand Life Insurance/Health Insurance Policies">Call me to understand Life Insurance/Health Insurance Policies</option>
+                                            <option value="I want to open my NPS Account">I want to open my NPS Account</option>
+                                            <option value="I want to contact an RM">I want to contact an RM</option>
+                                        <option value="I have some other queries">I have some other queries</option>
+                                        <option value="Can you Please Call me?">Can you Please Call me?</option>
+                                    </select>
+                                </div>
+                                <div class="d-none">
+                                    <input type="checkbox" name="consent" id="consent" required checked>
+                                    <span class="opacity-75">I hereby give consent to receive updates on various
+                                        financial information through WhatsApp in my mobile number.</span>
+                                </div>
+                                <div class="text-center py-3">
+                                    <input type="submit" value="Submit"
+                                        class=" fw-bold hover-top py-2 px-5 bg-b text-white rounded-3">
+                                </div>
+                            </div>
+                           
+                        </form>
+                        <div id="response-message" style="display:none;"></div>
+
+                    </div>
+                </div>
+                <!-- <div class="row flex-wrap border p-3 rounded-3">
+                    <div class="col-md-6 border-end ">
+                        <h5 class="fw-bold text-g">Registered Office</h5>
+                        <p class="fs--1">5A, 5th Floor, Kences Towers, <br>
+                            1, Ramakrishna Street,<br>
+                            T. Nagar, Chennai - 600 017.<br>
+                            Tel No: 044 - 28143045/46
+                        </p>
+                        <a href="https://maps.app.goo.gl/xLnEjjrDWEhhhdKt6" target="_blank" class="btn-get-direction">
+                            <span class="material-icons material-symbols-outlined">
+                                location_on
+                            </span>
+                            Get Direction
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="fw-bold text-g">Admin Office</h5>
+                        <p class="fs--1">501-502, Coral Classic Commercial Complex,<br>
+                            Road No. 20, Chembur East, <br>
+                            Mumbai - 400 071.<br>
+                            Tel No: 022 - 4066 1800<br>
+                        </p>
+                        <a href="https://maps.app.goo.gl/jHTjNcXhmJcQcTWj8" target="_blank" class="btn-get-direction">
+                            <span class="material-icons material-symbols-outlined">
+                                location_on
+                            </span>
+                            Get Direction
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+        <section>
+            <div class="container overflow-hidden ">
+                <h2 class="fw-bold text-center">Our Branch Network</h2>
+                <div class="row flex-wrap py-4">
+                    <div class="col-md-3 col-12 ">
+                        <div class="text-white overflow-auto">
+                            <div id="states"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-12   ">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div id="cities" class="text-white vh-62 overflow-auto  " style="display: none;"></div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row flex-wrap vh-62 gap-2">
+                                    <div class="text-white col-md-5 col-12 overflow-auto  vh-62 " id="areas"
+                                        style="display: none;"></div>
+                                    <div class="flex-grow-1 col-md-5 col-12 home-color-1 p-3 fs--1 text-b" id="addresses"
+                                        style="display: none;">
+                                        <div class="fw-bolder overflow-hidden"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="map" class="map-container position-absolute z-1-1">
+                            <div class="d-none d-lg-block">
+                                <img src="assets/images/gallery/Integrated-branch-in-india.webp" alt="Map" class=" vh-62 ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- <section>
+            <div class="container">
+                <div class="row justify-content-center py-5 border shadow rounded-3">
+                    <div class="col-md-4 bg-doorstep-img img-center text-white rounded-start-5 position-relative">
+                        <div class="w-100">
+                            <img loading="lazy" class="img-fluid w-100" src="assets/images/gallery/Group 3433.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-7 bg-white rounded-start rounded-5 py-4 ">
+                        <div class="fs-3 text-b fw-bold text-center">
+                            <p>Our Team Will<span class="text-b"> Get In Touch With You </span></p>
+                        </div>
+                        <div class="col-12 justify-content-center d-flex">
+                            <form action="#" class="col-md-9" id="contact-form" method="post">
+                                <div class="m-auto">
+                                    <div class="py-3 d-flex justify-content-between">
+                                        <input type="text" required placeholder="Name" class="form-control rounded-3"
+                                            id="name" style="width: 48%;" name="Name">
+                                        <input type="tel" class="form-control rounded-3" name="PinCode" maxlength="6"
+                                            minlength="6" required placeholder="Pincode" id="pin" style="width: 48%;">
+                                    </div>
+                                    <div class="py-2">
+                                        <input type="tel" name="Mobile" id="mobile" required placeholder="Mobile No."
+                                            class="form-control rounded-3" maxlength="10" minlength="10">
+                                        <div class="py-2"></div>
+                                        <select class="borderx py-2 px-2 rounded-3 text-b" id="help-select" required>
+                                            <option class="opacity-25" selected disabled>What we can help you with?
+                                            </option>
+                                            <option value="I want to invest in mutual fund">I want to invest in mutual
+                                                fund</option>
+                                            <option value="I want to contact an RM">I want to contact an RM</option>
+                                            <option value="I want to do a mutual fund KYC">I want to do a mutual fund
+                                                KYC</option>
+                                            <option value="Can you please call me?">Can you please call me?</option>
+                                            <option value="I have some other queries">I have some other queries</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-none">
+                                        <input type="checkbox" name="consent" id="consent" required checked>
+                                        <span class="opacity-75">I hereby give consent to receive updates on various
+                                            financial information through WhatsApp in my mobile number.</span>
+                                    </div>
+                                    <div class="text-center py-3">
+                                        <input type="submit" value="Submit"
+                                            class=" fw-bold hover-top py-2 px-5 bg-b text-white rounded-3">
+                                    </div>
+                                </div>
+                                <div id="response-message" style="display:none;"></div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!-- <div class=" contact-form m-auto  z-0  home-color-1  ">
+            <div class="">
+                <form id="myForm" method="post">
+                    <div class="d-flex gap-5 justify-content-around">
+                        <div class=" text-white py-3 px-3">
+                            <h4 class="m-0 text-white">Get in Touch</h4>
+                        </div>
+                        <div class="m-auto">
+                            <input type="text" id="name" name="name" placeholder="Your Name"
+                                class="border-0 py-2 px-2 rounded-3" required>
+                        </div>
+                        <div class="m-auto">
+                            <input type="email" id="email" name="email" placeholder="Your Email ID"
+                                class="border-0 py-2 px-2 rounded-3 shadow" required>
+                        </div>
+                        <div class="m-auto">
+                            <input type="tel" id="mobile" placeholder="Mobile Number"
+                                class="border-0 py-2 px-2 rounded-3" name="mobile" minlength="10" maxlength="10"
+                                required
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                        </div>
+                        <div class="m-auto">
+                            <div class="input-group ">
+                                <select class="border-0 py-2 px-2 rounded-3 text-b" id="inputGroupSelect01" required>
+                                    <option class="opacity-25" selected disabled>What we can help you with?</option>
+                                    <option value="I want to invest in mutual fund">I want to invest in mutual fund
+                                    </option>
+                                    <option value="I want to contact an RM">I want to contact an RM</option>
+                                    <option value="I want to do a mutual fund KYC">I want to do a mutual fund KYC
+                                    </option>
+                                    <option value="Can you please call me?">Can you please call me? </option>
+                                    <option value="I have some other queries">I have some other queries </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="m-auto">
+                            <button type="submit" class="bg-g border-0 py-2 px-4 rounded-3 text-white ">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> -->
+        <script src="assets/js/footer.js"></script>
+        <div class="py-3">
+
+        </div>
+    </main>
+  <script src="assets/js/jquery-3.5.1.js"></script>
+  <script src="vendors/@popperjs/popper.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.min.js"></script>    <script src="assets/js/theme.js"></script>
+
+  <script src="assets/js/chartbot.js"></script>
+    <script>
+        //fetch('contactusdata.json')
+             fetch('https://pre.integratedindia.in/iindia/api/RBLAPIs.aspx',{
+             method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                Type: "Contactus",})
+            })
+            .then(response => response.json())
+            .then(data => {
+                const statesDiv = document.getElementById('states');
+                const citiesDiv = document.getElementById('cities');
+                const areasDiv = document.getElementById('areas');
+                const addressesUl = document.getElementById('addresses');
+                const map = document.getElementById('map');
+
+                let selectedStateButton = null;
+                let selectedCityButton = null;
+                let selectedAreaButton = null;
+
+                function createButton(text, onClick) {
+                    const button = document.createElement('div');
+                    button.textContent = text;
+                    button.classList.add('button');
+                    button.addEventListener('click', () => {
+                        onClick();
+                    });
+                    button.addEventListener('touchstart', () => { // Add touchstart event listener
+                        onClick();
+                    });
+                    return button;
+                }
+
+                function displayStates() {
+                    statesDiv.innerHTML = "";
+                    data.forEach((state, index) => {
+                        const button = createButton(state.name, () => {
+                            if (selectedStateButton) {
+                                selectedStateButton.classList.remove('green');
+                            }
+                            selectedStateButton = button;
+                            selectedStateButton.classList.add('green');
+                            citiesDiv.style.display = 'block';
+                            map.style.display = 'block';
+                            areasDiv.style.display = 'none';
+                            addressesUl.style.display = 'none';
+                            displayCities(state);
+
+                            // Scroll down to the cities section
+                            citiesDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                        });
+                        statesDiv.appendChild(button);
+                    });
+                }
+
+                function displayCities(state) {
+                    citiesDiv.innerHTML = "";
+                    addressesUl.innerHTML = "";
+                    state.cities.forEach((city, index) => {
+                        const button = createButton(city.name, () => {
+                            if (selectedCityButton) {
+                                selectedCityButton.classList.remove('green2');
+                            }
+                            selectedCityButton = button;
+                            selectedCityButton.classList.add('green2');
+                            hideAllAreasAndAddresses();
+                            if (city.areas && city.areas.length > 0) {
+                                displayAreas(city);
+                            } else {
+                                displayAddresses(city);
+                            }
+                            citiesDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                        });
+                        citiesDiv.appendChild(button);
+                    });
+                }
+
+                function hideAllAreasAndAddresses() {
+                    areasDiv.style.display = 'none';
+                    addressesUl.style.display = 'none';
+                    map.style.display = 'none';
+                }
+
+                function displayAreas(city) {
+                    areasDiv.style.display = 'block';
+                    areasDiv.innerHTML = "";
+                    addressesUl.innerHTML = "";
+                    city.areas.forEach((area, index) => {
+                        const button = createButton(area.name, () => {
+                            if (selectedAreaButton) {
+                                selectedAreaButton.classList.remove('green2');
+                            }
+                            selectedAreaButton = button;
+                            selectedAreaButton.classList.add('green2');
+                            displayAddresses(area);
+                            citiesDiv.style.display = 'block';
+                            areasDiv.style.display = 'block';
+                            addressesUl.style.display = 'block';
+                        }); addressesUl.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+                        areasDiv.appendChild(button);
+                    });
+
+                    // Scroll down to the areas section
+                    areasDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+
+                function displayAddresses(data) {
+                    addressesUl.style.display = 'block';
+                    addressesUl.innerHTML = "";
+                    data.addresses.map(addressObj => {
+                        const formattedAddress = addressObj.address.replace(/\n/g, '<br>');
+                        const addressContainer = document.createElement('div');
+                        const head = document.createElement('h5');
+                        head.textContent = 'Address:';
+                        addressContainer.appendChild(head);
+                        const li = document.createElement('p');
+                        li.innerHTML = formattedAddress;
+                        addressContainer.appendChild(li);
+                        const button = document.createElement('button');
+                        button.textContent = 'Get Direction';
+                        button.addEventListener('click', () => {
+                            openGoogleMaps(addressObj.link);
+                        });
+                        const icon = document.createElement('i');
+                        icon.className = 'fa-solid fa-location-dot text-white';
+                        button.prepend(icon);
+                        const iframe = document.createElement('iframe');
+                        iframe.src = addressObj.ilink;
+                        iframe.width = '200';
+                        iframe.height = '150';
+                        iframe.style.border = '0';
+                        iframe.allowFullscreen = true;
+                        iframe.loading = 'lazy';
+                        iframe.referrerPolicy = 'no-referrer-when-downgrade';
+                        addressContainer.appendChild(button);
+                        addressContainer.appendChild(iframe);
+                        addressesUl.appendChild(addressContainer);
+                    });
+                    addressesUl.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+
+                function openGoogleMaps(link) {
+                    window.open(link, '_blank');
+                }
+
+                displayStates();
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+
+        // form 
+        document.getElementById('contact-form').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            const name = document.getElementById('name').value;
+            const pin = document.getElementById('pin').value;
+            const mobile = document.getElementById('mobile').value;
+            const helpSelect = document.getElementById('help-select').value;
+
+            // Validate mobile number
+            const mobileRegex = /^[0-9]{10}$/;
+            if (!mobileRegex.test(mobile)) {
+                alert('Please enter a valid 10-digit mobile number.');
+                return;
+            }
+
+            // Validate pin code
+            const pinRegex = /^[0-9]{6}$/;
+            if (!pinRegex.test(pin)) {
+                alert('Please enter a valid 6-digit pin code.');
+                return;
+            }
+
+            try {
+                // Example API call
+                const response = await fetch('https://pre.integratedindia.in/iindia/uat/api/CDSLAPI.aspx', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        Type: 'GetInTouch',
+                        Name: name,
+                        PinCode: pin,
+                        Mobile: mobile,
+                        Mode:'DATASAVE',
+                        SaveInd:'104',
+                        Email:'',
+                        Help: helpSelect
+                    }), // Adding the Type parameter and formatting JSON
+                });
+
+                const result = await response.json();
+
+                // Handle API response
+                const responseMessage = document.getElementById('response-message');
+                if (response.ok) {
+                    document.getElementById('contact-form').style.display = 'none';
+                    responseMessage.style.display = 'block';
+                    responseMessage.innerText = 'Form submission successful. Thank you for contacting us!';
+                    responseMessage.style.color = 'green';
+                } else {
+                    document.getElementById('contact-form').style.display='none';
+                    responseMessage.style.display = 'block';
+                    responseMessage.innerText = 'Form submission failed: ' + result.message;
+                    responseMessage.style.color = 'red';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+
+
+        // document.getElementById('myForm').addEventListener('submit', function (event) {
+        //     event.preventDefault();
+
+        //     const name = document.getElementById('name');
+        //     const email = document.getElementById('email');
+        //     const mobile = document.getElementById('mobile');
+        //     const query = document.getElementById('inputGroupSelect01');
+
+        //     let isValid = true;
+
+        //     if (name.value.trim() === '') {
+        //         name.classList.add('border-red');
+        //         isValid = false;
+        //     } else {
+        //         name.classList.remove('border-red');
+        //     }
+
+        //     if (email.value.trim() === '' || !validateEmail(email.value)) {
+        //         email.classList.add('border-red');
+        //         isValid = false;
+        //     } else {
+        //         email.classList.remove('border-red');
+        //     }
+
+        //     if (mobile.value.trim() === '' || !validateMobile(mobile.value)) {
+        //         mobile.classList.add('border-red');
+        //         isValid = false;
+        //     } else {
+        //         mobile.classList.remove('border-red');
+        //     }
+
+        //     if (query.value === '' || query.value === 'What we can help you with?') {
+        //         query.classList.add('border-red');
+        //         isValid = false;
+        //     } else {
+        //         query.classList.remove('border-red');
+        //     }
+
+        //     if (isValid) {
+        //         const formData = {
+        //             name: name.value,
+        //             email: email.value,
+        //             mobile: mobile.value,
+        //             query: query.value
+        //         };
+
+        //         fetch('YOUR_API_ENDPOINT_HERE', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             },
+        //             body: JSON.stringify(formData)
+        //         })
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 if (data.success) {
+        //                     alert('Form submitted successfully!');
+        //                     document.getElementById('myForm').reset();
+        //                 } else {
+        //                     alert('An error occurred while submitting the form.');
+        //                 }
+        //             })
+        //             .catch(error => {
+        //                 console.error('Error:', error);
+        //                 alert('An error occurred while submitting the form.');
+        //             });
+        //     } else {
+        //         alert('Please fill out all fields correctly.');
+        //     }
+        // });
+
+        // function validateEmail(email) {
+        //     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        //     return re.test(email);
+        // }
+
+        // function validateMobile(mobile) {
+        //     const re = /^\d{10}$/;
+        //     return re.test(mobile);
+        // }
+
+
+    </script>
+</body>
+
+</html>

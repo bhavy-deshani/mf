@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Allocation</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+  />
+  <style>
+    .progress-bar {
+      text-align: left;
+      padding-left: 5px;
+      font-weight: bold;
+    }
+    .sidebar {
+      position: fixed;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 300px;
+      background-color: #f8f9fa;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: none;
+    }
+    .sidebar.open {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <!-- Risk Profile Selection -->
+    <h2 class="text-center mb-4">Select Your Risk Profile</h2>
+    <div class="d-flex justify-content-around mb-4">
+      <div
+        id="conservative"
+        class="text-center p-3 border rounded risk-profile"
+        style="cursor: pointer;"
+      >
+        <img src="icons/conservative.svg" alt="Conservative" />
+        <h5>Conservative</h5>
+        <p>Low-risk investments for steady returns.</p>
+      </div>
+      <div
+        id="moderate"
+        class="text-center p-3 border rounded risk-profile"
+        style="cursor: pointer;"
+      >
+        <img src="icons/moderate.svg" alt="Moderate" />
+        <h5>Moderate</h5>
+        <p>A balanced approach to risk and return.</p>
+      </div>
+      <div
+        id="aggressive"
+        class="text-center p-3 border rounded risk-profile"
+        style="cursor: pointer;"
+      >
+        <img src="icons/aggressive.svg" alt="Aggressive" />
+        <h5>Aggressive</h5>
+        <p>High-risk investments for high returns.</p>
+      </div>
+    </div>
+
+    <!-- Investment Details -->
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Investment Details</h4>
+        <div class="input-group mb-3">
+          <span class="input-group-text">₹</span>
+          <input
+            type="number"
+            id="investmentAmount"
+            class="form-control"
+            value="50000"
+            placeholder="Enter Investment Amount"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h4>Portfolio Allocation</h4>
+        <div id="portfolioAllocation"></div>
+      </div>
+    </div>
+
+    <!-- Recommended Funds -->
+    <h4>Recommended Funds</h4>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Fund Name</th>
+          <th>Type</th>
+          <th>CAGR</th>
+          <th>Allocation</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="fundTable"></tbody>
+    </table>
+  </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <h4>Manage Fund</h4>
+    <ul id="sidebarList" class="list-group"></ul>
+  </div>
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h4>Fund Details</h4>
+      <button id="closeSidebar" class="btn-close">&times;</button>
+    </div>
+    <div id="sidebarContent">
+      <!-- Dynamic content for child funds -->
+    </div>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+const portfolios = {
+  conservative: {
+    allocation: {
+      "Large & Mid Cap": 40,
+      "Flexi Cap": 25,
+      "Multi Cap": 25,
+      "BAF Aggressive": 10,
+    },
+    funds: [
+      { name: "BOI Large & MidCap Equity Fund", type: "Large & Mid Cap", cagr: 20.32 },
+      { name: "Edelweiss Flexi Cap Fund", type: "Flexi Cap", cagr: 21.11 },
+      { name: "Nippon India Multi Cap Fund", type: "Multi Cap", cagr: 24.0 },
+      { name: "Edelweiss Balanced Advantage Fund", type: "BAF Aggressive", cagr: 15.33 },
+    ],
+  },
+  moderate: {
+    allocation: {
+      "Large & Mid Cap": 30,
+      "Flexi Cap": 30,
+      "Multi Cap": 30,
+      "BAF Aggressive": 10,
+    },
+    funds: [
+      { name: "BOI Large & MidCap Equity Fund", type: "Large & Mid Cap", cagr: 20.32 },
+      { name: "Edelweiss Flexi Cap Fund", type: "Flexi Cap", cagr: 21.11 },
+      { name: "Nippon India Multi Cap Fund", type: "Multi Cap", cagr: 24.0 },
+      { name: "Edelweiss Balanced Advantage Fund", type: "BAF Aggressive", cagr: 15.33 },
+    ],
+  },
+  aggressive: {
+    allocation: {
+      "Large & Mid Cap": 20,
+      "Flexi Cap": 30,
+      "Multi Cap": 40,
+      "BAF Aggressive": 10,
+    },
+    funds: [
+      { name: "BOI Large & MidCap Equity Fund", type: "Large & Mid Cap", cagr: 20.32 },
+      { name: "Edelweiss Flexi Cap Fund", type: "Flexi Cap", cagr: 21.11 },
+      { name: "Nippon India Multi Cap Fund", type: "Multi Cap", cagr: 24.0 },
+      { name: "Edelweiss Balanced Advantage Fund", type: "BAF Aggressive", cagr: 15.33 },
+    ],
+  },
+};
+
+// Default selected profile
+let selectedProfile = "conservative";
+
+// Add Event Listeners for Risk Profiles
+document.querySelectorAll(".risk-profile").forEach((profile) => {
+  profile.addEventListener("click", () => {
+    document.querySelectorAll(".risk-profile").forEach((el) => el.classList.remove("selected"));
+    profile.classList.add("selected");
+    selectedProfile = profile.id;
+    updatePortfolioAllocation();
+    calculateFundAllocation();
+  });
+});
+
+// Update Portfolio Allocation (Progress Bars)
+function updatePortfolioAllocation() {
+  const allocationData = portfolios[selectedProfile].allocation;
+  const portfolioDiv = document.getElementById("portfolioAllocation");
+  portfolioDiv.innerHTML = ""; // Clear previous data
+  for (const [category, percentage] of Object.entries(allocationData)) {
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress mb-2";
+    progressBar.innerHTML = `
+      <div
+        class="progress-bar"
+        role="progressbar"
+        style="width: ${percentage}%;"
+      >
+        ${category} (${percentage}%)
+      </div>`;
+    portfolioDiv.appendChild(progressBar);
+  }
+}
+
+// Calculate Fund Allocation Based on Investment Amount
+function calculateFundAllocation() {
+  const amount = parseFloat(document.getElementById("investmentAmount").value || 0);
+  const profile = portfolios[selectedProfile];
+  const funds = profile.funds;
+  const tableBody = document.getElementById("fundTable");
+  tableBody.innerHTML = ""; // Clear previous data
+
+  for (const fund of funds) {
+    const percentage = profile.allocation[fund.type];
+    const allocation = (amount * percentage) / 100; // Calculate allocation based on percentage
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${fund.name}</td>
+      <td>${fund.type}</td>
+      <td>${fund.cagr}%</td>
+      <td>${percentage}%</td>
+      <td>₹${allocation.toFixed(2)}</td>
+      <td>
+        <button class="btn btn-sm btn-primary add-child-fund" data-type="${fund.type}">+</button>
+        <button class="btn btn-sm btn-secondary switch-fund" data-type="${fund.type}">Switch</button>
+      </td>`;
+    tableBody.appendChild(row);
+  }
+}
+
+// Add Event Listener for Investment Amount Input
+document.getElementById("investmentAmount").addEventListener("input", calculateFundAllocation);
+
+// Initialize Default Portfolio Allocation
+updatePortfolioAllocation();
+calculateFundAllocation();
+
+// Add Event Listeners for adding funds or switching funds
+document.querySelectorAll('.add-child-fund').forEach((button) => {
+  button.addEventListener('click', () => {
+    const fundType = button.getAttribute('data-type');
+    adjustChildAllocation(fundType, 'add');
+  });
+});
+
+document.querySelectorAll('.switch-fund').forEach((button) => {
+  button.addEventListener('click', () => {
+    const fundType = button.getAttribute('data-type');
+    adjustChildAllocation(fundType, 'switch');
+  });
+});
+
+// Function to adjust child account allocation
+function adjustChildAllocation(fundType, action) {
+  const allocationData = portfolios[selectedProfile].allocation;
+  const amount = parseFloat(document.getElementById("investmentAmount").value || 0);
+  const portfolioDiv = document.getElementById("portfolioAllocation");
+
+  // Adjust allocation based on action
+  if (action === 'add') {
+    // Increase the allocation for the selected fund type
+    allocationData[fundType] += 5; // Increase by 5%, for example
+  } else if (action === 'switch') {
+    // Swap allocation between two categories
+    const otherCategory = findOtherCategory(fundType);
+    allocationData[fundType] -= 5;
+    allocationData[otherCategory] += 5;
+  }
+
+  // Update progress bars and fund allocation after adjustment
+  updatePortfolioAllocation();
+  calculateFundAllocation();
+}
+
+// Helper function to find another category for switching allocation
+function findOtherCategory(fundType) {
+  const categories = Object.keys(portfolios[selectedProfile].allocation);
+  return categories.find((category) => category !== fundType);
+}
+
+  </script>
+</body>
+</html>

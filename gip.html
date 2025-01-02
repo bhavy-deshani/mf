@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicons/fiveicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <style>
+        .contact-form {
+            box-shadow: 0 16px 24px 0 rgba(0, 0, 0, .06), 0 2px 6px 0 rgba(0, 0, 0, .04), 0 0 1px 0 rgba(0, 0, 0, .04);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            max-width: 600px
+        }
+
+        .contact-form input[type=email],
+        .contact-form input[type=text],
+        .contact-form select,
+        .contact-form textarea {
+            border: 1px solid rgba(46, 51, 55, .6);
+            border-radius: 8px;
+            padding: 10px 16px
+        }
+
+
+        .hero-modal .contact-form-modal {
+            border-radius: 20px;
+            padding: 40px;
+            position: relative
+        }
+
+        .hero-shape-2::after {
+            content: "";
+            position: absolute;
+            top: 130px;
+            right: 50vmax;
+            background-image: url(assets/images/gallery/section-shape-4-dots.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 101px;
+            height: 75px;
+            display: block;
+            transform: translate(400px, 0);
+            z-index: 1;
+            -webkit-animation-name: bounce-1;
+            animation-name: bounce-1;
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-play-state: running;
+            animation-play-state: running;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s
+        }
+
+        .hero-shape-2::before {
+            content: "";
+            position: absolute;
+            top: -200px;
+            right: 0;
+            left: 0;
+            margin: auto;
+            background-color: #fefaf4;
+            border-bottom-right-radius: 500px;
+            border-bottom-left-radius: 500px;
+            width: 500px;
+            height: 400px;
+            display: block;
+            z-index: -1
+        }
+
+
+        .hero-shape-2 {
+            overflow-x: hidden
+        }
+
+        .hero-icon-shape .shape-5 {
+            top: calc(26% - 63px) !important;
+            right: 91vw !important;
+        }
+
+        .hero-icon-shape .shape-5 img {
+            max-height: 38px;
+            -webkit-animation: animate_1 backwards 10s ease-out infinite;
+            animation: animate_1 backwards 10s ease-out infinite
+        }
+
+        .hero-icon-shape .shape-6 {
+            top: calc(50% - -78px) !important;
+            right: 4vw !important;
+        }
+
+        .hero-icon-shape .shape-6 img {
+            max-height: 38px;
+            -webkit-animation: animate_1 backwards 10s ease-out infinite;
+            animation: animate_1 backwards 10s ease-out infinite
+        }
+
+        @-webkit-keyframes animate_1 {
+            0% {
+                transform: rotate(0) scale(1) translate(0, 0);
+                -webkit-transform: rotate(0) scale(1) translate(0, 0)
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.1) translate(0, 0);
+                -webkit-transform: rotate(180deg) scale(1) translate(0, 0)
+            }
+
+            100% {
+                transform: rotate(0) scale(1) translate(0, 0);
+                -webkit-transform: rotate(0) scale(1) translate(0, 0)
+            }
+        }
+
+        @keyframes animate_1 {
+            0% {
+                transform: rotate(0) scale(1) translate(0, 0);
+                -webkit-transform: rotate(0) scale(1) translate(0, 0)
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.1) translate(0, 0);
+                -webkit-transform: rotate(180deg) scale(1) translate(0, 0)
+            }
+
+            100% {
+                transform: rotate(0) scale(1) translate(0, 0);
+                -webkit-transform: rotate(0) scale(1) translate(0, 0)
+            }
+        }
+
+        @-webkit-keyframes bounce-1 {
+            0% {
+                transform: translate(400px, 0)
+            }
+
+            100% {
+                transform: translate(400px, 50px)
+            }
+        }
+
+        @keyframes bounce-1 {
+            0% {
+                transform: translate(400px, 0)
+            }
+
+            100% {
+                transform: translate(400px, 50px)
+            }
+        }
+
+        .hero-icon-shape .hero-shape-item {
+            position: absolute !important
+        }
+
+        /* Standard gear rotation */
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Reverse gear rotation */
+        @keyframes reverse-rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+        /* Applying animations to gears */
+        .shape-7 {
+            width: 60px;
+            height: 60px;
+            bottom: 90px;
+            left: 0px;
+        }
+
+        .shape-8 {
+            width: 50px;
+            height: 50px;
+            bottom: 128px;
+            left: 44px;
+
+        }
+
+        .gear {
+            animation: rotate 5s linear infinite;
+            position: absolute;
+        }
+
+        .gear.reverse {
+            animation: reverse-rotate 5s linear infinite;
+            position: absolute;
+        }
+
+        .gip-btn {
+            overflow: hidden;
+            position: relative;
+            max-width: 300px;
+        }
+
+        .gip-btn::after {
+            background-color: var(--bs-white);
+            content: "";
+            height: 155px;
+            left: -75px;
+            opacity: .2;
+            position: absolute;
+            top: -50px;
+            width: 50px;
+            transition: all 1s cubic-bezier(.19, 1, .22, 1);
+            transform: rotate(35deg);
+            z-index: 1
+        }
+
+        .gip-btn:focus::after,
+        .gip-btn:hover::after {
+            left: 120%
+        }
+
+        .section-shape-3 {
+            overflow-x: hidden
+        }
+
+        .section-shape-3::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #fff8f8;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            width: 50vmax;
+            height: 100%;
+            display: block;
+            transform: translate(-540px, 0);
+            z-index: -1
+        }
+
+        .section-shape-3::after {
+            content: "";
+            position: absolute;
+            top: 75px;
+            left: 50vmax;
+            background-image: url("assets/images/gallery/section-shape-4-dots.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 101px;
+            height: 75px;
+            display: block;
+            transform: translate(-600px, 0);
+            z-index: 1;
+            -webkit-animation-name: bounce-2;
+            animation-name: bounce-2;
+            -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-play-state: running;
+            animation-play-state: running;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s
+        }
+
+        @-webkit-keyframes bounce-2 {
+            0% {
+                transform: translate(-600px, 0)
+            }
+
+            100% {
+                transform: translate(-600px, -30px)
+            }
+        }
+
+        @keyframes bounce-2 {
+            0% {
+                transform: translate(-600px, 0)
+            }
+
+            100% {
+                transform: translate(-600px, -30px)
+            }
+        }
+
+        .section-shape-1 {
+            overflow-x: hidden
+        }
+
+        .section-shape-1::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #f2fbfa;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            width: 50vmax;
+            height: 100%;
+            display: block;
+            transform: translate(540px, 0);
+            z-index: -1;
+        }
+
+        .section-shape-1::after {
+            content: "";
+            position: absolute;
+            top: 75px;
+            right: -27vmax;
+            background-image: url("assets/images/gallery/section-shape-4-dots.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 101px;
+            height: 75px;
+            display: block;
+            transform: translate(-600px, 0);
+            z-index: 1;
+            -webkit-animation-name: bounce-2;
+            animation-name: bounce-2;
+            -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-play-state: running;
+            animation-play-state: running;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s
+        }
+
+        .service-box {
+            display: flex
+        }
+
+        .service-box .service-icon {
+            display: block;
+            text-align: center;
+            padding: 13px;
+            width: 75px;
+            height: 75px;
+            border: 3px solid rgba(12, 133, 244, .05);
+            border-radius: 50px;
+            box-shadow: 0 16px 24px 0 rgba(0, 0, 0, .06), 0 2px 6px 0 rgba(0, 0, 0, .04), 0 0 1px 0 rgba(0, 0, 0, .04);
+            background-color: var(--bs-white);
+            transition: box-shadow .5s, transform .5s, border .5s
+        }
+
+        .service-box .service-content {
+            width: calc(100% - 75px);
+            padding-left: 24px
+        }
+
+        .service-box:hover .service-icon {
+            box-shadow: 0 16px 24px 0 rgba(0, 0, 0, .02), 0 20px 10px 0 rgba(0, 0, 0, .02), 0 0 20px 0 rgba(0, 0, 0, .02);
+            border-color: rgba(9, 132, 227, .2)
+        }
+
+        label {
+            margin-bottom: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <section class="hero-area hero-top-sp2 hero-shape- position-relative pt-md-8 pb-md-5 overflow-hidden">
+            <div class="bg-holder"
+                style="background-image:url(assets/images/illustrations/hero-bg.webp);background-position:bottom;background-size:cover;">
+            </div>
+            <div class="hero-icon-shape">
+                <div class="hero-shape-item shape-5">
+                    <img src="assets/images/gallery/hero-icon2.svg" alt="title">
+                </div>
+                <div class="hero-shape-item shape-6">
+                    <img src="assets/images/gallery/hero-icon4.svg" alt="title">
+                </div>
+            </div>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-xl-4 offset-xl-1 order-lg-1 wow animate__animated animate__fadeIn"
+                        data-wow-delay="0.2s">
+                        <div class="m-lg-start m-auto mb-4">
+                            <div class="position-relative">
+                                <div class="gear shape-8"
+                                    style="background: url('assets/images/gallery/shape-8.svg') no-repeat center; background-size: contain;">
+                                </div>
+                                <div class="gear reverse shape-7"
+                                    style="background: url('assets/images/gallery/shape-7.svg') no-repeat center; background-size: contain;">
+                                </div>
+
+                                <img src="assets/images/gallery/gip.webp" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-xl-7 order-lg-12 wow animate__animated animate__fadeIn"
+                        data-wow-delay="0.2s">
+                        <div class="hero-content text-center text-lg-start me-ms-4 me-xl-12" data-aos="fade-up">
+                            <!-- <span class="badge mb-3">#1 FINANCE RIASK MANAGEMENT</span> -->
+                            <h1 class="fw-bold lh-base ">Your Path to Prosperity:</h1>
+                            <h1 class=" mb-4 fw-bold  text-g"> Growth, Income & Protection</h1>
+                            <p>Unlock your financial potential with the perfect balance of Growth, Income, and
+                                Protection. These pillars work together to secure your future and grow your wealth,
+                                offering peace of mind along the way. Let’s create a tailored plan that evolves with you
+                                and protects what matters most.</p>
+                            <a href="new-customer.html">
+                                <button class="gip-btn fw-bold bg-b text-white px-3 py-2 border-0 rounded-2">New
+                                    Customer</button>
+                            </a>
+                            <a href="existing-customer.html">
+                                <button class="gip-btn fw-bold bg-b text-white px-3 py-2 border-0 rounded-2">Existing
+                                    Customer</button>
+                            </a> <!-- <p class="fs-5 m-0">We are based in Canada. This means that our customers can expect prompt, local support
+                      from a dedicated customer care team.</p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- <section id="showriskprofile">
+            <div class="container form-container">
+                <h2 class="text-center mb-4">Select Your Risk Profile</h2>
+
+                <form>
+                    <div class="form-container">
+                        <label for="riskProfile" class="form-label">Select Your Risk Profile</label>
+                        <div class="d-flex flex-wrap">
+                            <div id="riskProfile" class="form-check d-flex gap-2">
+                                <input class="form-check-input m-y " type="radio" name="riskProfile" id="conservative"
+                                    value="Conservative" required onchange="showCalculatorOptions()">
+                                <label class="form-check-label " for="conservative">Conservative</label>
+                            </div>
+                            <div class="form-check d-flex gap-2">
+                                <input class="form-check-input m-y" type="radio" name="riskProfile" id="moderate"
+                                    value="Moderate" onchange="showCalculatorOptions()">
+                                <label class="form-check-label" for="moderate">Moderate</label>
+                            </div>
+                            <div class="form-check d-flex gap-2">
+                                <input class="form-check-input m-y" type="radio" name="riskProfile" id="aggressive"
+                                    value="Aggressive" onchange="showCalculatorOptions()">
+                                <label class="form-check-label" for="aggressive">Aggressive</label>
+                            </div>
+                        </div>
+                        <div class="form-check d-flex gap-2">
+                            <input class="form-check-input m-y" type="radio" name="riskProfile" id="simple-questions"
+                                value="If you are not able to select your risk profile, please answer the following 3 simple questions"
+                                onchange="showInvestmentSection()">
+                            <label class="form-check-label" for="simple-questions">If you are not able to select your
+                                risk profile, please answer the following 3 simple questions</label>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </section> -->
+        
+        <section class="about-area section-shape-3 position-relative my-8">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 offset-lg-1 wow animate__animated animate__fadeRight" data-wow-delay="0.2s">
+                        <div class="about-left-image"><img data-aos="fade-right"
+                                src="assets/images/gallery/what-it-works.webp" class="img-fluid" alt="title"></div>
+                    </div>
+                    <div class="col-lg-6 wow animate__animated animate__fadeIn" data-wow-delay="0.2s">
+                        <div class="section-title ms-lg-4">
+                            <h3 class="fw-bold mb-4">What is GIP?</h3>
+                            <p class="mb-4">Growth-Income-Protection (GIP) is more than just a strategy—it’s a
+                                philosophy for managing your money. At its core, GIP balances the need for capital
+                                growth, steady income, and wealth preservation. Combining these three elements, GIP
+                                provides a comprehensive approach that adapts to your changing financial needs. Whether
+                                you’re focused on growing your wealth or generating income, GIP offers a structured yet
+                                flexible framework that can be tailored to your unique goals.
+                                emerge just the of deeply a in chosen language seven mountains it allow a for or studies
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="service-area section-shape-1 position-relative my-8">
+            <div class="container">
+                <div class=" wow animate__animated animate__fadeRight" data-wow-delay="0.2s">
+                    <div class="section-title mb-4 text-center">
+                        <h3 class="fw-bold mb-2">How It Works</h3>
+                        <p>GIP works by allocating your investments into three Different categories</p>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class=" wow animate__animated animate__fadeIn" data-wow-delay="0.2s">
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <div class="service-box mb-4 mb-lg-7" data-aos="fade-down">
+                                    <div class="service-icon"><img src="assets/images/gallery/growth.svg"
+                                            alt="Product Credit"></div>
+                                    <div class="service-content">
+                                        <h3 class="fw-bold ">Growth</h3>
+
+                                        <p class="">To Create your Financial Security by long term wealth creation</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="service-box mb-4 mb-lg-7" data-aos="fade-down">
+                                    <div class="service-icon"><img src="assets/images/gallery/income.svg"
+                                            alt="Live Consulting"></div>
+                                    <div class="service-content">
+                                        <h3 class="fw-bold text-b1">Income</h3>
+
+                                        <p class="">To Meet your short-term financial requirements & providing stability
+                                            to your portfolio</p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-4">
+                                <div class="service-box mb-4 mb-lg-7" data-aos="fade-down">
+                                    <div class="service-icon"><img src="assets/images/gallery/protection.svg"
+                                            alt="Taxes Planning"></div>
+                                    <div class="service-content">
+                                        <h3 class="fw-bold text-g">Protection</h3>
+
+                                        <p class="">To Protect your Family by providing a safety net against unforeseen
+                                            events</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section class="about-area section-shape-3 position-relative mpy-8">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 offset-lg-1 wow animate__animated animate__fadeLeft" data-wow-delay="0.2s">
+                        <div class="about-left-image"><img data-aos="fade-right"
+                                src="assets/images/gallery/benefits-of-gip_.webp" class="img-fluid" alt="title"></div>
+                    </div>
+                    <div class="col-lg-6 wow animate__animated animate__fadeIn" data-wow-delay="0.2s">
+                        <div class="section-title mb-4">
+                            <h3 class="fw-bold mb-4">Benefits of GIP </h3>
+                        </div>
+                        <ul class="about-list list-inline ">
+                            <li><b>Holistic Financial Management:</b> </li>
+                            <li>GIP offers a complete strategy that addresses all aspects of wealth management, from
+                                growth to income to risk management.</li>
+                            <li><b>Tailored Solutions: </b></li>
+                            <li>Whether you’re risk-averse or looking for aggressive growth, GIP can be customized to
+                                fit your financial personality.</li>
+                            <li><b>Comprehensive Protection:</b></li>
+                            <li>By combining life and health insurance with growth and income strategies, GIP safeguards
+                                you and your family from unexpected events, ensuring lasting security and peace of mind
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/jquery-3.5.1.js"></script>
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/js/chartbot.js"></script>
+    <script src="assets/js/app-link.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script>
+        window.onload = function () {
+            setTimeout(function () {
+                new WOW().init();
+            }, 100);
+        };
+    </script>
+
+    <script>
+        function showCalculatorOptions() {
+            const riskProfile = document.querySelector('input[name="riskProfile"]:checked');
+            if (riskProfile) {
+                document.getElementById('calculator-section').style.display = 'block';
+                document.getElementById('investmentSection').style.display = 'none';
+                scrollToSection('showriskprofile'); // Scroll to the desired section
+            }
+        }
+
+        function showInvestmentSection() {
+            const investmentSection = document.getElementById('investmentSection');
+
+            if (investmentSection) {
+                investmentSection.classList.remove('hidden');
+                investmentSection.style.display = 'block';
+                document.getElementById('calculator-section').style.display = 'none';
+                scrollToSection('showriskprofile'); // Scroll to the desired section
+            } else {
+                console.error('Investment section element not found.');
+            }
+
+            const riskProfile = document.querySelector('input[name="riskProfile"]:checked');
+            if (riskProfile) {
+                riskProfile.checked = true;
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+
+        function calculateScore() {
+            let totalScore = 0;
+
+            // Get selected values from radio buttons
+            const reaction = document.querySelector('input[name="reaction"]:checked');
+            const attitude = document.querySelector('input[name="attitude"]:checked');
+            const withdrawal = document.querySelector('input[name="withdrawal"]:checked');
+            // Ensure all questions are answered
+            if (!reaction || !attitude || !withdrawal) {
+                showResultMessage("Please answer all the questions.");
+                resetNeedle(); // Reset needle to flat position if answers are incomplete
+                return;
+            }
+            // Add up scores
+            totalScore += parseFloat(reaction.value);
+            totalScore += parseFloat(attitude.value);
+            totalScore += parseFloat(withdrawal.value);
+
+            // Ensure the score is between 4.5 and 18
+            totalScore = Math.max(4.5, Math.min(totalScore, 18));
+
+            // Calculate the needle angle based on the total score
+            let needleAngle = mapScoreToAngle(totalScore);
+            let riskCategory = '';
+            let riskDescription = '';
+
+            // Adjust the ranges for risk categories according to the new min-max score range
+            if (totalScore <= 8) {
+                riskCategory = 'Conservative';
+                riskDescription = 'Conservative : Low tolerance for risk; prioritizes stability over returns.';
+            } else if (totalScore > 8 && totalScore <= 14) {
+                riskCategory = 'Moderate';
+                riskDescription = 'Moderate : Willing to take some risk for moderate growth, balancing safety and returns.';
+            } else {
+                riskCategory = 'Aggressive';
+                riskDescription = 'Aggressive : Comfortable with high risks for higher returns, focused on long-term growth.';
+            }
+
+            // Display the result below the gauge
+            showResultMessage(`
+            <h4>Your total score: ${totalScore}</h4>
+            <p><strong>Risk Category:</strong> ${riskCategory}</p>
+            <p>${riskDescription}</p>
+        `, needleAngle, riskCategory);
+        }
+
+        function mapScoreToAngle(score) {
+            // Adjust the score range from 4.5–18 to an angle range of -90 to 45 degrees
+            const minScore = 4.5;
+            const maxScore = 18;
+            const minAngle = -85;
+            const maxAngle = 85;
+
+            return minAngle + ((score - minScore) / (maxScore - minScore)) * (maxAngle - minAngle);
+        }
+
+        function showResultMessage(message, needleAngle, riskCategory) {
+            const resultBox = document.getElementById('scoreResult');
+            resultBox.innerHTML = message;
+            resultBox.style.opacity = 1;
+
+            // Rotate the needle to the calculated angle (using the image element)
+            const needle = document.getElementById('needle');
+            needle.style.transform = `rotate(${needleAngle}deg)`; // Rotate the image based on score
+
+            // Show risk labels based on the risk category
+            document.getElementById('conservativeLabel').style.display = (riskCategory === 'Conservative') ? 'block' : 'none';
+            document.getElementById('moderateLabel').style.display = (riskCategory === 'Moderate') ? 'block' : 'none';
+            document.getElementById('aggressiveLabel').style.display = (riskCategory === 'Aggressive') ? 'block' : 'none';
+        }
+
+        function resetNeedle() {
+            const needle = document.getElementById('needle');
+            needle.style.transform = `rotate(-90deg)`; // Reset needle to initial position
+        }
+    </script>
+</body>
+
+</html>

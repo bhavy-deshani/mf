@@ -1,0 +1,9 @@
+User-agent:*
+Allow: /
+
+Disallow: /open-free-online-trading-demat-account/
+Disallow: /open-free-online-trading-demat-account/index.aspx?status=R
+Disallow: /open-free-online-trading-demat-account/index.aspx?status=W
+Disallow: /open-free-online-trading-demat-account/index.aspx?status=w
+
+  sitemap: https://www.integratedindia.in/sitemap.xml
